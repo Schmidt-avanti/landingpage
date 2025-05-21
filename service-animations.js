@@ -1,129 +1,147 @@
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Service Animations initialisiert');
   
-  // Alle Service-Karten direkt auswählen
-  const serviceSection = document.getElementById('serviceSection');
-  if (!serviceSection) {
-    console.error('Service-Section nicht gefunden');
-    return;
-  }
-  
-  // Alle Karten im Service-Bereich finden
-  const allCards = Array.from(serviceSection.querySelectorAll('.showCardContainer'));
-  console.log(`${allCards.length} Service-Karten gefunden`);
-  
-  // Sicherstellen, dass wir wirklich alle Karten haben
-  if (allCards.length === 0) {
-    // Alternatives Auswahlverfahren, falls die normale Selektion fehlschlägt
-    const cols = serviceSection.querySelectorAll('.col-xxl-3');
-    cols.forEach(col => {
-      const card = col.querySelector('.showCardContainer');
-      if (card) allCards.push(card);
-    });
-    console.log(`Alternative Selektion: ${allCards.length} Karten gefunden`);
-  }
-  
-  // Animationstypen definieren
-  const animationTypes = [
-    'zoom-in',
-    'slide-in-left',
-    'slide-in-right',
-    'zoom-in',
-    'slide-in-left',
-    'slide-in-right',
-    'zoom-in',
-    'slide-in-left'
-  ];
-  
-  // Verzögerungen für jede Karte festlegen
-  const delays = [
-    '200', '300', '400', '500',
-    '300', '400', '500', '600'
-  ];
-
-  // Animationen für jede Karte einzeln hinzufügen
-  allCards.forEach((card, index) => {
-    const animType = animationTypes[index] || 'zoom-in';
-    const delay = delays[index] || '400';
+  // Animation sofort starten - nicht auf Intersection warten
+  const initServiceAnimations = function() {
+    // Alle Service-Karten direkt auswählen
+    const serviceSection = document.getElementById('serviceSection');
+    if (!serviceSection) {
+      console.error('Service-Section nicht gefunden');
+      return;
+    }
     
-    // Alte Animationsklassen entfernen (falls vorhanden)
-    card.classList.remove('animate', 'zoom-in', 'slide-in-left', 'slide-in-right');
-    card.classList.remove('delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600');
+    // Alle Karten im Service-Bereich finden
+    let allCards = Array.from(serviceSection.querySelectorAll('.showCardContainer'));
+    console.log(`${allCards.length} Service-Karten gefunden`);
     
-    // Neue Klassen hinzufügen
-    card.classList.add('animate');
-    card.classList.add(animType);
-    card.classList.add(`delay-${delay}`);
+    // Sicherstellen, dass wir wirklich alle Karten haben
+    if (allCards.length === 0) {
+      // Alternatives Auswahlverfahren, falls die normale Selektion fehlschlägt
+      const cols = serviceSection.querySelectorAll('.col-xxl-3');
+      allCards = Array.from(cols).map(col => col.querySelector('.showCardContainer')).filter(Boolean);
+      console.log(`Alternative Selektion: ${allCards.length} Karten gefunden`);
+    }
     
-    console.log(`Karte ${index+1} mit Animation ${animType} und Verzögerung ${delay}ms konfiguriert`);
-  });
-  
-  // IntersectionObserver für die Karten erstellen
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in');
-        console.log('Animation einer Karte ausgelöst');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '50px' });  // rootMargin erhöht, um Animation früher auszulösen
-  
-  // Alle Karten beobachten
-  allCards.forEach(card => {
-    observer.observe(card);
-  });
-
-  // Den blauen Bereich (Weitere Serviceleistungen) animieren
-  const blueSection = document.querySelector('.bg-main');
-  if (blueSection) {
-    // Alle Icon-Container im blauen Bereich auswählen
-    const blueIcons = blueSection.querySelectorAll('.iconContainer');
-    console.log(`${blueIcons.length} Icons im blauen Bereich gefunden`);
+    // Wenn immer noch keine Karten gefunden wurden, frühzeitig beenden
+    if (allCards.length === 0) {
+      console.error('Keine Service-Karten gefunden');
+      return;
+    }
     
-    // Animationstypen für die Icons
-    const iconAnimations = [
-      'zoom-in',      // 24h-Notfall-Hotline
-      'slide-in-left', // Helpdesk
-      'slide-in-right', // Beschwerde-Line
-      'zoom-in',      // Vordienstleister koordinieren
-      'slide-in-left', // Welcome Calls
-      'slide-in-right', // Softe Mahnung
-      'zoom-in'       // Rückrufe
+    // Animationstypen definieren
+    const animationTypes = [
+      'zoom-in',
+      'slide-in-left',
+      'slide-in-right',
+      'zoom-in',
+      'slide-in-left',
+      'slide-in-right',
+      'zoom-in',
+      'slide-in-left'
     ];
     
-    // Verzögerungen für die Icons
-    const iconDelays = [
-      '200', '300', '400', '500', '400', '500', '600'
+    // Verzögerungen für jede Karte festlegen
+    const delays = [
+      '200', '300', '400', '500',
+      '300', '400', '500', '600'
     ];
-    
-    // Jedem Icon eine Animation zuweisen
-    blueIcons.forEach((icon, index) => {
-      // Alte Klassen entfernen
-      icon.classList.remove('animate', 'zoom-in', 'slide-in-left', 'slide-in-right');
-      icon.classList.remove('delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500', 'delay-600');
+
+    // Animationen direkt anwenden und Elemente sofort sichtbar machen
+    allCards.forEach((card, index) => {
+      if (!card) return; // Sicherheitscheck
       
-      // Animation und Verzögerung bestimmen
-      const animType = iconAnimations[index] || 'zoom-in';
-      const delay = iconDelays[index] || '400';
+      const animType = animationTypes[index % animationTypes.length] || 'zoom-in';
+      const delay = delays[index % delays.length] || '400';
       
-      // Animationsklassen hinzufügen
-      icon.classList.add('animate');
-      icon.classList.add(animType);
-      icon.classList.add(`delay-${delay}`);
+      // Statt Klassen hinzuzufügen, direkt die Stile setzen
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.visibility = 'visible';
+        
+        // Animation basierend auf dem Typ anwenden
+        if (animType === 'zoom-in') {
+          card.style.transform = 'scale(1)';
+        } else if (animType === 'slide-in-left') {
+          card.style.transform = 'translateX(0)';
+        } else if (animType === 'slide-in-right') {
+          card.style.transform = 'translateX(0)';
+        }
+        
+        card.classList.add('fade-in'); // Markierung, dass Animation angewendet wurde
+      }, parseInt(delay));
       
-      console.log(`Blaues Icon ${index+1} mit Animation ${animType} und Verzögerung ${delay}ms konfiguriert`);
-      
-      // Beobachten, damit Animation beim Scrollen ausgelöst wird
-      observer.observe(icon);
-      
-      // Auch den Text unter dem Icon animieren
-      const iconText = icon.querySelector('p');
-      if (iconText) {
-        iconText.classList.add('animate');
-        iconText.classList.add('delay-' + (parseInt(delay) + 100));
-        observer.observe(iconText);
-      }
+      console.log(`Karte ${index+1} mit Animation ${animType} und Verzögerung ${delay}ms konfiguriert`);
     });
-  }
+  };
+  
+  // Animation sofort starten
+  initServiceAnimations();
+  
+  // Zusätzlich: Wiederholter Versuch nach 1 Sekunde, falls Karten erst später geladen werden
+  setTimeout(initServiceAnimations, 1000);
+
+  // Den blauen Bereich (Weitere Serviceleistungen) animieren - mit direkter Animation
+  const animateBlueSection = function() {
+    const blueSection = document.querySelector('.bg-main');
+    if (blueSection) {
+      // Alle Icon-Container im blauen Bereich auswählen
+      const blueIcons = blueSection.querySelectorAll('.iconContainer');
+      console.log(`${blueIcons.length} Icons im blauen Bereich gefunden`);
+      
+      // Wenn keine Icons gefunden wurden, frühzeitig beenden
+      if (blueIcons.length === 0) {
+        console.error('Keine Icons im blauen Bereich gefunden');
+        return;
+      }
+      
+      // Animationstypen für die Icons
+      const iconAnimations = [
+        'zoom-in',      // 24h-Notfall-Hotline
+        'slide-in-left', // Helpdesk
+        'slide-in-right', // Beschwerde-Line
+        'zoom-in',      // Vordienstleister koordinieren
+        'slide-in-left', // Welcome Calls
+        'slide-in-right', // Softe Mahnung
+        'zoom-in'       // Rückrufe
+      ];
+      
+      // Verzögerungen für die Icons
+      const iconDelays = [
+        '200', '300', '400', '500', '400', '500', '600'
+      ];
+      
+      // Animationen direkt anwenden und Elemente sofort sichtbar machen
+      blueIcons.forEach((icon, index) => {
+        if (!icon) return; // Sicherheitscheck
+        
+        const animType = iconAnimations[index % iconAnimations.length] || 'zoom-in';
+        const delay = iconDelays[index % iconDelays.length] || '400';
+        
+        // Statt Klassen hinzuzufügen, direkt die Stile setzen
+        setTimeout(() => {
+          icon.style.opacity = '1';
+          icon.style.visibility = 'visible';
+          
+          // Animation basierend auf dem Typ anwenden
+          if (animType === 'zoom-in') {
+            icon.style.transform = 'scale(1)';
+          } else if (animType === 'slide-in-left') {
+            icon.style.transform = 'translateX(0)';
+          } else if (animType === 'slide-in-right') {
+            icon.style.transform = 'translateX(0)';
+          }
+          
+          icon.classList.add('fade-in'); // Markierung, dass Animation angewendet wurde
+        }, parseInt(delay));
+        
+        console.log(`Blaues Icon ${index+1} mit Animation ${animType} und Verzögerung ${delay}ms konfiguriert`);
+      });
+    }
+  };
+  
+  // Animation des blauen Bereichs sofort starten
+  animateBlueSection();
+  
+  // Zusätzlich: Wiederholter Versuch nach 1,5 Sekunden
+  setTimeout(animateBlueSection, 1500);
 });
