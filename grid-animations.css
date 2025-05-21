@@ -1,0 +1,53 @@
+/* Animationen für das Kundengrid "Wir sind für dich da" */
+
+/* Basis-Animation für Karten */
+.card-animate {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Karten-Animationen werden aktiviert, wenn sie sichtbar werden */
+.card-animate.animate {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Gestaffelte Verzögerung für Karten basierend auf ihrer Reihenfolge */
+.card-animate.delay-0 { animation-delay: 0.1s; }
+.card-animate.delay-1 { animation-delay: 0.15s; }
+.card-animate.delay-2 { animation-delay: 0.2s; }
+.card-animate.delay-3 { animation-delay: 0.25s; }
+.card-animate.delay-4 { animation-delay: 0.3s; }
+.card-animate.delay-5 { animation-delay: 0.35s; }
+.card-animate.delay-6 { animation-delay: 0.4s; }
+.card-animate.delay-7 { animation-delay: 0.45s; }
+.card-animate.delay-8 { animation-delay: 0.5s; }
+.card-animate.delay-9 { animation-delay: 0.55s; }
+.card-animate.delay-10 { animation-delay: 0.6s; }
+.card-animate.delay-11 { animation-delay: 0.65s; }
+.card-animate.delay-12 { animation-delay: 0.7s; }
+.card-animate.delay-13 { animation-delay: 0.75s; }
+.card-animate.delay-14 { animation-delay: 0.8s; }
+.card-animate.delay-15 { animation-delay: 0.85s; }
+.card-animate.delay-16 { animation-delay: 0.9s; }
+.card-animate.delay-17 { animation-delay: 0.95s; }
+.card-animate.delay-18 { animation-delay: 1s; }
+.card-animate.delay-19 { animation-delay: 1.05s; }
+
+/* Hover-Effekt für Karten */
+.shadow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+/* Animation-Definition */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
