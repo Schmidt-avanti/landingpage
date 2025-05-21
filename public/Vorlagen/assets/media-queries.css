@@ -1,0 +1,161 @@
+@media (max-width: 1500px) {
+  .showCardContainer h2 {
+    font-size: 26px !important;
+  }
+}
+
+@media (max-width: 1400px) {
+  .title {
+    padding-top: 25%;
+  }
+  .showCardContainer {
+    height: 100%;
+  }
+	 #anna
+  {
+    position: relative !important;
+  }
+	#annaQuote .quoteBox{
+	width:440px !important;
+}
+}
+
+@media (max-width: 1200px) {
+	.section7cards {
+		max-width:500px;
+		max-height:500px !important;
+		min-height:300px !important
+	}
+.wirIHK {
+	width:150px;
+}
+  #anna,
+  #sven {
+    position: relative !important;
+  }
+  #annaQuot,
+  #svenQuote {
+    width: 100%;
+  }
+	
+}
+
+@media (max-width: 992px) {
+  .col-lg-3:nth-child(even) .cardContainer {
+    border-right: none !important;
+  }
+  .f-p {
+    width: 75%;
+  }
+  .staffQuote {
+    width: 90% !important;
+    margin: 0 auto;
+  }
+	.section7cards {
+		max-width:500px;
+		height:500px;
+		margin: 0 auto;
+	}
+	
+  .quoteBox {
+    width: 50svw;
+    height: 200px;
+  }
+  .quoteImg {
+    width: 40px;
+    height: 40px;
+  }
+  #marika {
+    width: 400px !important;
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 992px) {
+  .staffImage {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .navLogo {
+    max-width: 300px;
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+  }
+  .mobileNav .navLogo {
+    max-width: 100px;
+  }
+  .line {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--blue-color);
+  }
+  .cardContainer,
+  .col-lg-3:nth-child(even) .cardContainer {
+    border-right: none !important;
+    border-top: 3px solid var(--orange-color) !important;
+    padding: 2rem 0 !important;
+  }
+	  #sven {
+    width: 400px;
+  }
+  #anna {
+    min-width: 200px;
+  }
+.wirIHK {
+	width:180px;
+}
+}
+
+@media (max-width: 576px) {
+
+  .quote {
+    padding: 0.5rem 0 !important;
+  }
+  .f-p {
+    width: 100%;
+  }
+
+	.section7cards {
+		max-width:320px;
+		height:400px;
+		margin: 0 auto;
+	}
+	  #viola {
+    min-width: 200px;
+  }
+
+  #marika {
+    width: 280px !important;
+	  position:relative;
+  }
+	 #sven {
+    width: 200px;
+  }
+	.quoteBox {
+		width:200px;
+	}
+	.staffQuote {
+		margin:0;
+	}
+	 #violaStaff .quoteBox,
+	#marikaStaff .quoteBox,
+	#svenStaff .quoteBox
+	{
+    margin-right: -1rem;
+  }
+	#annaQuote .quoteBox{
+	width:200px !important;
+}
+}
+
+@media (max-width: 350px) {
+}

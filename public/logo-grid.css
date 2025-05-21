@@ -1,0 +1,78 @@
+/* Logo-Ticker mit kontinuierlicher Bewegung */
+.bg-main {
+    background-color: #16294A; /* Avanti-Blau */
+}
+
+/* Ticker-Container mit Überlauf-Verbergung */
+.logo-ticker-wrap {
+    overflow: hidden;
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+}
+
+/* Logo-Ticker-Animation */
+.logo-ticker {
+    display: flex;
+    align-items: center;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+    width: fit-content; /* Verbesserte Breitenanpassung */
+    padding: 10px 0;
+}
+
+/* Animation stoppt bei Hover über den gesamten Ticker */
+.logo-ticker:hover {
+    animation-play-state: paused;
+}
+
+/* Logo-Item-Styling */
+.logo-ticker-item {
+    flex: 0 0 auto;
+    padding: 0 25px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+/* Logo-Styling */
+.logo-img {
+    height: 50px;
+    width: auto;
+    max-width: 120px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Weiße Logos */
+    transition: transform 0.3s ease;
+    vertical-align: middle; /* Hilft bei der Ausrichtung */
+}
+
+/* Hover-Effekt für Logos */
+.logo-img:hover {
+    transform: scale(1.1);
+}
+
+/* Verbesserter Ticker mit "steps" für nahtlosen Übergang */
+@keyframes ticker {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(calc(-50% - 0px)); /* Exakte Hälfte für nahtlosen Übergang */
+    }
+}
+
+/* Anpassungen für mobile Geräte */
+@media (max-width: 767px) {
+    .logo-img {
+        height: 40px;
+        max-width: 100px;
+    }
+    
+    .logo-ticker-item {
+        padding: 0 15px;
+    }
+    
+    .logo-ticker-wrap {
+        padding: 15px 0;
+    }
+}
