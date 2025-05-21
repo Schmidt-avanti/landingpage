@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# OS generated files
+*.swp
+*.swo
+
+# Netlify
+.netlify/
+
+# Env files
+.env
+.env.*

@@ -308,6 +308,26 @@
   </style>
 <!-- Mobile Menü Styling -->
 <link rel="stylesheet" href="mobile-menu.css">
+<style>
+  .demo-btn {
+    background-color: #FF8E3C;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+  }
+  .demo-btn:hover {
+    background-color: #43bede !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+  .border-26 {
+    border-radius: 26px !important;
+    border: 5px solid #43bede !important;
+  }
+</style>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body class="bg-main">
   <header class="sticky-header" id="stickyHeader">
@@ -322,7 +342,7 @@
         </div>
         <div class="col-md-4 col-8">
           <div class="d-flex align-items-center justify-content-md-start justify-content-end">
-            <a href="https://avanti.cx">
+            <a href="index.html">
               <img class="navLogo" src="Logo.svg" alt="Avanti">
             </a>
           </div>
@@ -389,7 +409,7 @@
                 </span>
               </div>
               <div class="price-prefix">Ab</div>
-              <span class="price-large">750€</span>
+              <span class="price-large">850€</span>
               <div class="price-suffix">/Monat</div>
               
               <div class="pricing-time">
@@ -411,7 +431,7 @@
             <div>
               <h3>Basic</h3>
               <div class="price-prefix">Ab</div>
-              <span class="price-large">950€</span>
+              <span class="price-large">1.050€</span>
               <div class="price-suffix">/Monat</div>
               
               <div class="pricing-time">
@@ -433,7 +453,7 @@
             <div>
               <h3>Extended</h3>
               <div class="price-prefix">Ab</div>
-              <span class="price-large">1.250€</span>
+              <span class="price-large">1.350€</span>
               <div class="price-suffix">/Monat</div>
               
               <div class="pricing-time">
@@ -457,7 +477,7 @@
             <div>
               <h3>Super 365</h3>
               <div class="price-prefix">Ab</div>
-              <span class="price-large">1.950€</span>
+              <span class="price-large">2.050€</span>
               <div class="price-suffix">/Monat</div>
               
               <div class="pricing-time">
@@ -476,6 +496,12 @@
       <!-- Informationsleiste mit Onboarding-Preis -->
       <div class="bottom-info-bar zoom-in delay-500">
         <p class="mb-0">Einmalige Onboarding-Gebühr 2.450€</p>
+      </div>
+      <div class="col-md-8 col-12 pt-5 mx-auto">
+
+      </div>
+      <div class="d-flex justify-content-center mt-1 mb-2">
+        <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/m-gawlich-ja-dialog/30min'});return false;" class="border-26 w-fit text-white fw-bold demo-btn">Demo buchen →</a>
       </div>
     </div>
   </section>
@@ -704,6 +730,7 @@
   <script src="cookie-banner.js"></script>
 <!-- Mobile Menü Script -->
 <script src="mobile-menu.js"></script>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 
 </html>
