@@ -1,0 +1,18 @@
+/* Verbesserte Abstände in der Hero-Section */
+.hero-section {
+    padding-top: 120px; /* Mehr Abstand zwischen Header und Content */
+}
+
+.hero-section .heroContent {
+    margin-top: 60px; /* Zusätzlicher Abstand für den Hero-Content */
+}
+
+@media (max-width: 767px) {
+    .hero-section {
+        padding-top: 100px; /* Etwas weniger Abstand auf mobilen Geräten */
+    }
+    
+    .hero-section .heroContent {
+        margin-top: 40px;
+    }
+}

@@ -1,0 +1,45 @@
+/* Heroicons Styling */
+.hero-icon {
+  width: 60px;
+  height: 60px;
+  stroke: #43bede;
+  stroke-width: 1.5;
+  fill: none;
+  transition: stroke 0.3s ease;
+}
+
+.hero-icon.solid {
+  fill: #43bede;
+  stroke: none;
+  transition: fill 0.3s ease;
+}
+
+.cardIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+/* Inline-Stylesheet für Karten-Hover */
+.showCardContainer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Direkter Zugriff auf SVG und Path-Elemente mit !important */
+.showCardContainer:hover .hero-icon {
+  stroke: #FF8E3C !important;
+}
+
+.showCardContainer:hover .hero-icon path {
+  stroke: #FF8E3C !important;
+}
+
+.showCardContainer:hover .hero-icon.solid {
+  fill: #FF8E3C !important;
+}
+
+.showCardContainer:hover .hero-icon.solid path {
+  fill: #FF8E3C !important;
+}

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
+
+  <title>Preise - Avanti</title>
+  <link rel='stylesheet' id='bootstrap-style-css' href='/Vorlagen/assets/bootstrap.min.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='main-style-css' href='/Vorlagen/style.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='media-q-css' href='/Vorlagen/assets/media-queries.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='sticky-header-css' href='/sticky-header.css' type='text/css' media='all' />
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <link rel="stylesheet" href="animations.css" type="text/css" />
+  <link rel="stylesheet" href="cookie-banner.css" type="text/css" />
+  <link rel="icon" href="favicon.png" sizes="32x32" />
+  <style>
+    .mt-10 {
+      margin-top: 10rem !important;
+    }
+    .bg-main {
+      background-color: #082041;
+    }
+    .text-orange {
+      color: #FF8E3C;
+    }
+    .orangeU {
+      display: block;
+      width: 80px;
+      height: 4px;
+      background-color: #FF8E3C;
+      margin: 15px 0;
+    }
+    .mx-auto .orangeU {
+      margin: 15px auto;
+    }
+    .price-table {
+      border-collapse: separate;
+      border-spacing: 0;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #0d305e;
+      color: white;
+      margin-bottom: 40px;
+    }
+    .price-table th, .price-table td {
+      padding: 15px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .price-table th {
+      background-color: #0a2042;
+    }
+    .price-table tr:last-child td {
+      border-bottom: none;
+    }
+    .price-table tr td:first-child {
+      text-align: left;
+    }
+    .price-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .price-card .button {
+      margin-top: auto;
+    }
+    
+    .price-card-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .pricing-container {
+      padding: 40px 20px;
+    }
+    
+    .pricing-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 30px;
+      height: 100%;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .holiday-info {
+      margin-top: auto;
+    }
+    
+    .price-prefix {
+      font-size: 14px;
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 15px;
+      margin-right: 5px;
+    }
+    
+    .price-large {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #082041;
+      line-height: 1;
+    }
+    
+    .price-suffix {
+      font-size: 14px;
+      color: #666;
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 30px;
+    }
+    
+    .pricing-time {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .time-highlight {
+      color: #43BEDE;
+      font-weight: bold;
+    }
+    
+    .bottom-info-bar {
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .package-includes {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      margin: 40px auto;
+      max-width: 900px;
+    }
+    
+    .package-includes h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      color: white;
+    }
+    
+    .feature-item .check-icon {
+      color: white;
+      font-size: 20px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .feature-separator {
+      color: white;
+      text-align: left;
+      font-size: 20px;
+      margin: 20px 0 20px 35px;
+    }
+    
+    .options-table-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .options-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: white;
+      margin-bottom: 20px;
+    }
+    
+    .options-table th {
+      background-color: white;
+      color: #082041;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .options-table th:first-child {
+      text-align: left;
+    }
+    
+    .options-table td {
+      padding: 15px 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      color: #082041;
+      text-align: center;
+    }
+    
+    .options-table td:first-child {
+      text-align: left;
+    }
+    
+    .footer-notes {
+      color: white !important;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+    
+    .footer-note {
+      margin: 5px 0;
+      color: white !important;
+    }
+    
+    /* Tooltip Styles */
+    .info-tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    
+    .info-tooltip .tooltip-text {
+      visibility: hidden;
+      width: 300px;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #082041;
+      text-align: left;
+      border-radius: 8px;
+      padding: 12px;
+      position: absolute;
+      z-index: 1;
+      top: 100%;
+      right: 0;
+      margin-top: 10px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    
+    .info-tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .info-tooltip .tooltip-text::after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      right: 10px;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent transparent rgba(255, 255, 255, 0.95) transparent;
+    }
+    .price-card h2 {
+      color: #082041;
+      font-weight: bold;
+    }
+    .price-card .price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #082041;
+      margin-bottom: 10px;
+    }
+    .price-card .button {
+      background-color: #0a75ff;
+      color: white;
+      border-radius: 30px;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: auto;
+    }
+    .info-icon {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      color: #082041;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 25px;
+      margin-left: 10px;
+    }
+    .features-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .features-list li {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
+<!-- Mobile Menü Styling -->
+<link rel="stylesheet" href="mobile-menu.css">
+</head>
+<body class="bg-main">
+  <header class="sticky-header" id="stickyHeader">
+    <div class="custom-container navContainer py-3">
+      <div class="row position-relative z-3 d-flex align-items-center justify-content-start">
+        <div class="col-4 d-md-none d-block">
+          <div type="button" class="hamburger">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </div>
+        </div>
+        <div class="col-md-4 col-8">
+          <div class="d-flex align-items-center justify-content-md-start justify-content-end">
+            <a href="https://avanti.cx">
+              <img class="navLogo" src="Logo.svg" alt="Avanti">
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 d-md-block d-none">
+          <div class="d-flex align-items-center justify-content-center">
+            <a class="text-white text-nowrap pe-3" href="index.html#aboutSection">Über uns</a>
+            <a class="text-white text-nowrap pe-3" href="index.html#serviceSection">Leistungen</a>
+            <a class="text-white text-nowrap pe-3" href="preise.html">Preise</a>
+            <a class="text-white text-nowrap pe-3" href="index.html#contactSection">Kontakt</a>
+          </div>
+        </div>
+        <div class="col-md-4 d-md-block d-none">
+          <div class="d-flex align-items-center justify-content-end">
+            <a href="tel:+49(0)30/814892-121" class="border-26 w-fit text-white p-2">+49 (0)30 / 814 892-121</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <div class="mobileNav">
+  <button id="closeNav" class="closeNav-btn">✕</button>
+  
+  <div class="navContent">
+    <!-- Navigation Links direkt am Anfang -->
+    <div class="navLinks">
+      <a href="index.html#aboutSection">Über uns</a>
+      <a href="index.html#serviceSection">Leistungen</a>
+      <a href="preise.html">Preise</a>
+      <a href="index.html#contactSection">Kontakt</a>
+    </div>
+    
+    <!-- Telefonnummer direkt darunter -->
+    <div class="navButton">
+      <a href="tel:+49(0)30/814892-121" class="border-26 text-white p-2">+49 (0)30 / 814 892-121</a>
+    </div>
+    
+    <!-- Logo ganz unten -->
+    <div class="navLogo-container">
+      <img class="navLogo" src="Logo.svg" width="100" height="40" alt="Avanti">
+    </div>
+  </div>
+</div>
+
+  <!-- Service-Pakete Abschnitt -->
+  <section class="py-5 mt-10 pt-5 bg-main">
+    <div class="custom-container text-center">
+      <h1 class="fw-bold text-orange animate">Service-Pakete</h1>
+      <p class="text-orange mb-4 animate delay-200">Die Service-Pakete unterscheiden sich durch unterschiedliche Öffnungszeiten</p>
+      
+      <!-- Service-Pakete mit Öffnungszeiten -->
+      <div class="row g-4 mb-5">
+        <!-- Prepaid Paket -->
+        <div class="col-md-3">
+          <div class="pricing-card slide-in-left delay-100">
+            <div>
+              <div class="d-flex justify-content-between align-items-start">
+                <h3>Prepaid</h3>
+                <span class="small info-tooltip">ⓘ
+                  <span class="tooltip-text">
+                    *Die monatliche Grundgebühr wird im Voraus per Kreditkarte oder PayPal eingezogen und umfasst ein festgelegtes Inklusivvolumen. Wird dieses Volumen überschritten, erfolgt automatisch eine Nachladung in Höhe von jeweils 100 €, ebenfalls per Kreditkarte oder PayPal. Nicht vollständig genutzte Guthaben aus diesen Nachladungen werden bei der nächsten monatlichen Abrechnung verrechnet.
+                  </span>
+                </span>
+              </div>
+              <div class="price-prefix">Ab</div>
+              <span class="price-large">750€</span>
+              <div class="price-suffix">/Monat</div>
+              
+              <div class="pricing-time">
+                <p class="mb-1">Montag bis Freitag</p>
+                <p class="mb-3 time-highlight">09:00 bis 17:30 Uhr</p>
+              </div>
+            </div>
+            
+            <div class="holiday-info">
+              <p class="mb-1">An bundeseinheitlichen</p>
+              <p>Feiertagen geschlossen</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Basic Paket -->
+        <div class="col-md-3">
+          <div class="pricing-card slide-in-left delay-200">
+            <div>
+              <h3>Basic</h3>
+              <div class="price-prefix">Ab</div>
+              <span class="price-large">950€</span>
+              <div class="price-suffix">/Monat</div>
+              
+              <div class="pricing-time">
+                <p class="mb-1">Montag bis Freitag</p>
+                <p class="mb-3 time-highlight">09:00 bis 17:30 Uhr</p>
+              </div>
+            </div>
+            
+            <div class="holiday-info">
+              <p class="mb-1">An bundeseinheitlichen</p>
+              <p>Feiertagen geschlossen</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Extended Paket -->
+        <div class="col-md-3">
+          <div class="pricing-card slide-in-right delay-200">
+            <div>
+              <h3>Extended</h3>
+              <div class="price-prefix">Ab</div>
+              <span class="price-large">1.250€</span>
+              <div class="price-suffix">/Monat</div>
+              
+              <div class="pricing-time">
+                <p class="mb-1">Montag bis Freitag</p>
+                <p class="mb-3 time-highlight">08:00 bis 20:00 Uhr</p>
+                <p class="mb-1">Samstag</p>
+                <p class="mb-3 time-highlight">10:00 bis 18:00 Uhr</p>
+              </div>
+            </div>
+            
+            <div class="holiday-info">
+              <p class="mb-1">An bundeseinheitlichen</p>
+              <p>Feiertagen geschlossen</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Super 365 Paket -->
+        <div class="col-md-3">
+          <div class="pricing-card slide-in-right delay-100">
+            <div>
+              <h3>Super 365</h3>
+              <div class="price-prefix">Ab</div>
+              <span class="price-large">1.950€</span>
+              <div class="price-suffix">/Monat</div>
+              
+              <div class="pricing-time">
+                <p class="mb-1">Montag bis Sonntag</p>
+                <p class="mb-3 time-highlight">08:00 bis 20:00 Uhr</p>
+              </div>
+            </div>
+            
+            <div class="holiday-info">
+              <p>An Feiertagen geöffnet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Informationsleiste mit Onboarding-Preis -->
+      <div class="bottom-info-bar zoom-in delay-500">
+        <p class="mb-0">Einmalige Onboarding-Gebühr 2.450€</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Alle Pakete enthalten Sektion -->
+  <section class="py-5 bg-main">
+    <div class="package-includes animate">
+      <h2 class="animate delay-100">Alle Pakete enthalten:</h2>
+      
+      <div class="feature-item animate delay-200">
+        <span class="check-icon">✓</span>
+        <div>Vollen Zugang zur avanti-Plattform mit allen Funktionalitäten</div>
+      </div>
+      
+      <div class="feature-separator animate delay-300">und</div>
+      
+      <div class="feature-item animate delay-400">
+        <span class="check-icon">✓</span>
+        <div>1.000 Minuten für Inbound-Anrufe und Rückrufe, Schrift- und Backoffice-Bearbeitung auf Deutsch und Englisch. Zusätzliche Minuten werden mit 0,75€ abgerechnet.</div>
+      </div>
+      
+      <div class="feature-separator animate delay-500">oder</div>
+      
+      <div class="feature-item animate delay-600">
+        <span class="check-icon">✓</span>
+        <div>20 Stunden für Outbound-Kampagnen auf Deutsch und Englisch. Zusätzliche Stunden werden mit 25€ abgerechnet.</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Zusatzoptionen Abschnitt -->
+  <section class="py-5 bg-main" id="add-ons">
+    <div class="custom-container">
+      <h2 class="fw-bold text-orange text-center mb-4 animate">Zusatz - Optionen</h2>
+      <p class="text-orange text-center mb-5 animate delay-200">Diese Zusatzoptionen können mit den Service-Paketen kombiniert werden</p>
+      
+      <div class="options-table-container animate delay-300">
+        <table class="options-table">
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Einmalig</th>
+              <th>Monatlich</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>24/7-Service*</td>
+              <td>/</td>
+              <td>2.950€</td>
+            </tr>
+            <tr>
+              <td>WhatsApp, Chat, Forms</td>
+              <td>250€</td>
+              <td>/</td>
+            </tr>
+            <tr>
+              <td>Chat-/Voice-BOT</td>
+              <td>1.850€</td>
+              <td>250€</td>
+            </tr>
+            <tr>
+              <td>Postadresse in Berlin Mitte</td>
+              <td>250€</td>
+              <td>250€</td>
+            </tr>
+            <tr>
+              <td>CH-Paket** (CH-DE, FR, IT)</td>
+              <td>/</td>
+              <td>500€</td>
+            </tr>
+            <tr>
+              <td>Einbindung Fremd-Tools</td>
+              <td>Nach Aufwand</td>
+              <td>150€</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <div class="footer-notes">
+          <p class="footer-note">Alle Preise zzgl. gesetzlicher Mehrwertsteuer</p>
+          <p class="footer-note">*in Verbindung mit "Super 365"</p>
+          <p class="footer-note">**Schweizerdeutsch, Deutsch, Französisch, Italienisch</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+<footer class="site-footer">
+    <div class="custom-container d-flex justify-content-between test-footer">
+        <div>
+            <img class="footerLogo" src="Group-172.svg" alt="">
+            <div class="d-flex mt-4 gap-4 socail-media-logos">
+                <a href="https://www.facebook.com/share/1EaS9DqqDt/?mibextid=wwXIfr" target="_blank">
+                    <img src="Path-117.svg" alt="">
+                </a>
+
+                <a href="https://www.instagram.com/avanti.cx?igsh=OTR2aWo5ZGVvMm1i" target="_blank">
+                    <img src="Group-23.svg" alt="">
+                </a>
+
+                <a href="https://de.linkedin.com/company/avanti-cx" target="_blank">
+                    <img src="Group-22.svg" alt="">
+                </a>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row gap-4 flex-wrap test-footer-col">
+            <div>
+                <img src="DeuZert_Siegel_2015_4c-1-scaled.jpg" alt="Step Icon" class="footer-image">
+                               <img src="white01.svg" alt="Step Icon" class="footer-image"> 
+            </div>
+            <div class="footer-col-1">
+                <h3 class="footer-title mb-0">Kontakt</h3>
+				<span class="orangeU"></span>
+                <p class="py-3">ja-dialog Holding GmbH Singerstraße 109<BR>10179 Berlin</p>
+                <a class="text-white d-block py-3" href="tel:+49 (0)30 / 814 892-121">+49 (0)30 / 814 892-121</a>
+                <a class="text-white d-block" href="mailto:info@avanti.cx">info@avanti.cx</a>
+            </div>
+            <div class="footer-col-2 d-flex flex-column gap-1">
+                <h3 class="footer-title mb-0 ">Rechtliches</h3>
+				<span class="orangeU"></span>
+                <a class="py-3" href="impressum.html">Impressum</a>
+				<a class="" href="https://avanti.cx/home/datenschutz/">Datenschutz</a>
+            </div>
+        </div>
+    </div>
+
+<div class="footer-bottom">
+    <div class="blue-line">
+        <p class="footer-text py-3">&copy; 2025 avanti &#8211; Ihr Service-Partner für zufriedene Kunden. All Rights Reserved.</p>
+    </div>
+</div>
+
+
+</footer>
+
+  <script type="text/javascript" src="sticky-header.js"></script>
+  <script>
+    // Mobile Navigation Toggle
+    document.querySelector('.hamburger').addEventListener('click', function() {
+      document.querySelector('.mobileNav').classList.add('active');
+    });
+    
+    document.getElementById('closeNav').addEventListener('click', function() {
+      document.querySelector('.mobileNav').classList.remove('active');
+    });
+  </script>
+  
+  <!-- Animations Script -->
+  <script src="animations.js"></script>
+
+  <!-- Cookie Banner -->
+  <div id="cookie-banner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <p style="color: white !important;">Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die Nutzung unserer Website stimmen Sie unserer <a href="datenschutz.html" style="color: #FF8E3C;">Datenschutzerklärung</a> zu.</p>
+      </div>
+      <div class="cookie-buttons">
+        <button id="accept-all-cookies" class="cookie-btn cookie-btn-accept-all">Alle akzeptieren</button>
+        <button id="essential-only-cookies" class="cookie-btn cookie-btn-essential">Nur essenzielle</button>
+        <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Einstellungen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Settings Modal -->
+  <div id="cookie-settings-modal">
+    <div class="cookie-settings-content">
+      <div class="cookie-settings-header">
+        <div class="cookie-settings-title">Cookie-Einstellungen</div>
+        <button id="close-settings-modal" class="cookie-settings-close">&times;</button>
+      </div>
+      
+      <div class="cookie-settings-options">
+        <!-- Essenzielle Cookies -->
+        <div class="cookie-settings-option">
+          <div class="cookie-option-header">
+            <div class="cookie-option-title">Essenzielle Cookies</div>
+            <label class="toggle-switch essential-switch">
+              <input type="checkbox" checked disabled>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="cookie-option-description">
+            Diese Cookies sind für die Funktionalität unserer Website erforderlich und können nicht deaktiviert werden.
+          </div>
+        </div>
+        
+        <!-- Analyse-Cookies -->
+        <div class="cookie-settings-option">
+          <div class="cookie-option-header">
+            <div class="cookie-option-title">Analyse-Cookies</div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="analytics-cookies">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="cookie-option-description">
+            Diese Cookies ermöglichen es uns, die Nutzung unserer Website zu analysieren, um die Leistung und Benutzerfreundlichkeit zu verbessern.
+          </div>
+        </div>
+        
+        <!-- Marketing-Cookies -->
+        <div class="cookie-settings-option">
+          <div class="cookie-option-header">
+            <div class="cookie-option-title">Marketing-Cookies</div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="marketing-cookies">
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="cookie-option-description">
+            Diese Cookies werden verwendet, um Werbung für Sie relevanter zu gestalten und die Effektivität unserer Marketingkampagnen zu messen.
+          </div>
+        </div>
+      </div>
+      
+      <div class="cookie-settings-buttons">
+        <button id="save-cookie-settings" class="cookie-settings-save">Einstellungen speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="cookie-banner.js"></script>
+<!-- Mobile Menü Script -->
+<script src="mobile-menu.js"></script>
+</body>
+
+</html>
