@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "headers": [
     {
@@ -16,5 +16,10 @@
     { "source": "/datenschutz", "destination": "/datenschutz.html" },
     { "source": "/preise", "destination": "/preise.html" },
     { "source": "/impressum", "destination": "/impressum.html" }
+  ],
+  "routes": [
+    { "src": "/datenschutz", "dest": "/datenschutz.html" },
+    { "src": "/preise", "dest": "/preise.html" },
+    { "src": "/impressum", "dest": "/impressum.html" }
   ]
 }
