@@ -6,8 +6,8 @@ const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 window.supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey)
 
 // Funktion zum Speichern von Kontaktanfragen
-export async function saveContactRequest(formData) {
-  const { data, error } = await supabase
+async function saveContactRequest(formData) {
+  const { data, error } = await window.supabaseClient
     .from('contact_requests')
     .insert([
       { 
@@ -19,16 +19,20 @@ export async function saveContactRequest(formData) {
         privacy_policy: formData.privacy_policy === 'accepted',
         marketing_agreement: formData.marketing_agreement === 'accepted' || null
       }
+
     ])
-    .select()
+    .select();
   
   if (error) {
     console.error('Fehler beim Speichern der Kontaktanfrage:', error)
     return { success: false, error }
+
   }
+
   
   // Hier können Sie die Edge Function für den E-Mail-Versand mit Resend aufrufen
   // Beispiel: await sendContactEmail(formData)
   
   return { success: true, data }
 }
+window.saveContactRequest = saveContactRequest;

@@ -1,4 +1,4 @@
-import { saveContactRequest } from './supabase-config.js'
+
 
 // Supabase Edge Function für E-Mail-Versand
 const EDGE_FUNCTION_URL = 'https://jdiffzezrmujwcqvligu.supabase.co/functions/v1/Resend';
