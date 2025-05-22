@@ -1,11 +1,9 @@
-import { createClient } from '@supabase/supabase-js'
-
 // Supabase-Konfiguration
 const supabaseUrl = 'https://jdiffzezrmujwcqvligu.supabase.co'
 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpkaWZmemV6cm11andjcXZsaWd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc3NjY4MjYsImV4cCI6MjA2MzM0MjgyNn0.kV7iTrlUJWkgvCuTeZixxRDMbovtz8LIwtFyF_bf7TM'
 
 // Client erstellen
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+window.supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey)
 
 // Funktion zum Speichern von Kontaktanfragen
 export async function saveContactRequest(formData) {

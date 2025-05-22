@@ -1325,7 +1325,10 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/avanti\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
 
-<script type="module" src="/contact-form.js"></script>
+<!-- Supabase CDN und Kontaktformular -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="contact-form.js"></script>
 
 <!-- Video Player Script -->
 <script>
