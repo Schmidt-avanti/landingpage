@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
@@ -1431,13 +1432,59 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="vercel-fix.js"></script>
 <!-- Mobile Menü Script -->
 <script src="mobile-menu.js"></script>
+<script>
+// Funktion zum dynamischen Laden von Google Analytics, wenn Analyse-Cookies erlaubt sind
+function loadGoogleAnalytics() {
+  if (window.gtagScriptLoaded) return;
+  window.gtagScriptLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MF60X7GK81';
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-MF60X7GK81');
+}
+
+function areAnalyticsCookiesAllowed() {
+  return localStorage.getItem('analytics-cookies') === 'true';
+}
+
+// Beim Seitenaufruf prüfen
+if (areAnalyticsCookiesAllowed()) {
+  loadGoogleAnalytics();
+}
+
+// Event-Listener für Cookie-Banner-Buttons
+window.addEventListener('DOMContentLoaded', function() {
+  var acceptAllBtn = document.getElementById('accept-all-cookies');
+  var saveSettingsBtn = document.getElementById('save-cookie-settings');
+  var analyticsCheckbox = document.getElementById('analytics-cookies');
+  var essentialOnlyBtn = document.getElementById('essential-only-cookies');
+
+  if (acceptAllBtn) {
+    acceptAllBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'true');
+      loadGoogleAnalytics();
+    });
+  }
+  if (saveSettingsBtn && analyticsCheckbox) {
+    saveSettingsBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', analyticsCheckbox.checked ? 'true' : 'false');
+      if (analyticsCheckbox.checked) {
+        loadGoogleAnalytics();
+      }
+    });
+  }
+  if (essentialOnlyBtn) {
+    essentialOnlyBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'false');
+    });
+  }
+});
+</script>
 </body>
 
 </html>
-	 
-	 
-	 
-
-
-<!-- IONOS Performance | https://www.ionos.com
-Generated @ 20.05.2025 04:50:22 -->
