@@ -167,39 +167,7 @@
 
 <!-- Back to Top Button -->
 <div type="button" class="toTop d-none">^</div>
-<!-- First section -->
-<!-- Video Overlay für das Hintergrundbild -->
-<div class="video-overlay"></div>
-
-<!-- Hintergrundvideo mit Optimierungen für mobile Geräte -->
-<video 
-    class="hero-Video" 
-    autoplay 
-    muted 
-    loop 
-    playsinline 
-    preload="metadata" 
-    poster="Video-poster.jpg">
-    <source src="Video-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
-    <source src="Video.mp4" type="video/mp4">
-</video>
-
-<!-- Optimierte Performance für alle Geräte -->
-<style>
-/* Fallback für den Fall, dass das Video nicht geladen werden kann */
-
-
-/* Video-Styling für alle Geräte */
-.hero-Video {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-</style>
+<!-- First section: static hero background (no video) -->
 <section class="hero-section">
     <div class="custom-container">
         <div class="heroSection o-Container">
@@ -1205,10 +1173,10 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
         </div>
     </div>
 
-    <!-- Abstandshalter -->
-    <div class="container-fluid my-5 my-lg-10 mb-md-5 mb-10 pb-5 pb-md-10"></div>
-    <div class="d-block d-md-none" style="height: 120px;"></div>
-    <div class="container-fluid my-5 py-5"></div>
+    <!-- Abstandshalter (fully reduced) -->
+    <div class="container-fluid my-1 py-1"></div>
+    <div class="d-block d-md-none" style="height: 12px;"></div>
+    <div class="container-fluid my-1 py-1"></div>
     
     <!-- Staff Section - Dr. Christoph -->
     <div class="container-fluid">
