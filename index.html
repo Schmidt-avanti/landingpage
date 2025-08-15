@@ -7,6 +7,12 @@
   <link rel='stylesheet' id='bootstrap-style-css' href='/Vorlagen/assets/bootstrap.min.css' type='text/css' media='all' />
   <link rel='stylesheet' id='main-style-css' href='/Vorlagen/style.css' type='text/css' media='all' />
   <style>
+    /* Enable smooth scrolling for in-page anchors */
+    html { scroll-behavior: smooth; }
+
+    /* Offset target position to account for fixed navbar height */
+    #contactSection { scroll-margin-top: 90px; }
+
     /* Avanti-inspired clean design */
     body {
       font-family: 'Mont', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -35,7 +41,11 @@
     
     .hero-content {
       max-width: 600px;
+      position: relative; /* ensure it creates a stacking context */
+      z-index: 2; /* above ::before overlay */
     }
+    /* Ensure overlay does not intercept clicks */
+    .hero-section::before { pointer-events: none !important; }
     
     .hero-image {
       max-width: 100%;
@@ -253,11 +263,11 @@
       </button>
       
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link text-white" href="#about">Über uns</a></li>
           <li class="nav-item"><a class="nav-link text-white" href="#services">Leistungen</a></li>
           <li class="nav-item"><a class="nav-link text-white" href="preise.html">Preise</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#contact">Kontakt</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#contactSection">Kontakt</a></li>
           <li class="nav-item">
             <a class="btn text-white ms-2" href="tel:+49(0)30/814892-121" style="background-color: #e67e22; border-radius: 25px; padding: 8px 20px; font-weight: 600;">
               +49 (0)30 / 814 892-121
@@ -280,7 +290,7 @@
               Schmidt Avanti übernimmt alle Routineaufgaben bei Ihrer telefonischen und schriftlichen Kundenbetreuung. 
               Menschlich, effizient, professionell. So können Sie sich auf das Wesentliche konzentrieren: die Entwicklung Ihres Geschäfts.
             </p>
-            <a href="#contact" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch buchen</a>
+            <a id="hero-cta" href="#contactSection" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch buchen</a>
           </div>
         </div>
         <div class="col-lg-6">
@@ -320,7 +330,7 @@
             Mit der Kombination aus persönlicher Betreuung und KI-gestützter Technologie bietet Schmidt Avanti 
             besten Service für Ihre Kunden. Zu besten Konditionen für Sie.
           </p>
-          <a href="#contact" class="btn btn-primary-custom text-white">Demo buchen →</a>
+          <a href="#contactSection" class="btn btn-primary-custom text-white">Demo buchen →</a>
         </div>
         <div class="col-lg-6">
           <img src="Dr.-Christoph-Baumgartner-Seminarraum.png" alt="Unser Team" class="hero-image">
@@ -787,8 +797,8 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
             </div>
 
             <div class="col-lg-6 col-12 text-center">
-                                    <img src="App_img.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200 mb-3">
-                                    <img src="app-photo2.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200">
+                                    <img src="app_img.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200 mb-3">
+                                    <img src="app_img1.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200">
 
                             </div>
         </div>
@@ -1382,10 +1392,55 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Animation Fallback Script -->
 <script src="animation-fallback.js"></script>
 <!-- Vercel Fix Script -->
-<script src="vercel-fix.js"></script>
-<!-- Mobile Menü Script -->
-<script src="mobile-menu.js"></script>
-<script>
+  <script src="vercel-fix.js"></script>
+  <!-- Mobile Menü Script -->
+  <script src="mobile-menu.js"></script>
+  <!-- Smooth scroll for in-page anchors (handles fixed header) -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90; // match scroll-margin-top
+      function scrollToId(id){
+        var el = document.getElementById(id);
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      document.addEventListener('click', function(e){
+        var link = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        var id = href.slice(1);
+        if (!id) return;
+        if (document.getElementById(id)) {
+          e.preventDefault();
+          scrollToId(id);
+        }
+      });
+    })();
+  </script>
+  <!-- Explicit handler for hero CTA to avoid any interference -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90;
+      function go(){
+        var el = document.getElementById('contactSection');
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      var btn = document.getElementById('hero-cta');
+      if (btn) {
+        btn.addEventListener('click', function(e){ e.preventDefault(); go(); });
+      } else {
+        document.addEventListener('DOMContentLoaded', function(){
+          var b = document.getElementById('hero-cta');
+          if (b) b.addEventListener('click', function(e){ e.preventDefault(); go(); });
+        });
+      }
+    })();
+  </script>
+  <script>
 // Funktion zum dynamischen Laden von Google Analytics, wenn Analyse-Cookies erlaubt sind
 function loadGoogleAnalytics() {
   if (window.gtagScriptLoaded) return;
