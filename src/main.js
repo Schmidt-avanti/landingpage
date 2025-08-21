@@ -2,7 +2,7 @@ import './style.css';
 
 // Add any JavaScript functionality here
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Avanti landing page loaded');
+  console.log('avanti landing page loaded');
   
   // Example: Smooth scrolling for anchor links (redundant with scroll-smooth in CSS, but added as a fallback)
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

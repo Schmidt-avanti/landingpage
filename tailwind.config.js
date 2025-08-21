@@ -6,6 +6,25 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // Use locally installed Poppins; no external (Google) font loading
+        sans: [
+          'Poppins',
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji',
+        ],
+      },
       colors: {
         'avanti-blue': '#172951', // Haupthintergrundfarbe (dunkelblau)
         'avanti-blue-light': '#224072', // Akzentfarbe (mittleres blau)

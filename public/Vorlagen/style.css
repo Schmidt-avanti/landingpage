@@ -1,31 +1,10 @@
 /* 
-Theme Name: Avanti
+Theme Name: avanti
 Author: Brilant Krasniqi
-Description: Avanti Theme.
+Description: avanti theme.
 Version: 1.0
 */
-@font-face {
-  font-family: "Mont";
-  src: url("assets/fonts/MONT-THIN.OTF") format("opentype");
-  font-weight: 200;
-}
-
-@font-face {
-  font-family: "Mont";
-  src: url("assets/fonts/MONT-LIGHT.OTF") format("opentype");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: "Mont";
-  src: url("assets/fonts/MONT-REGULAR.OTF") format("opentype");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Mont";
-  src: url("assets/fonts/MONT-HEAVY.OTF") format("opentype");
-  font-weight: bold;
-}
+/* Removed Mont @font-face declarations. Add local Poppins @font-face here once font files are provided. */
 
 :root {
   --primary-color: #162a51;
@@ -40,7 +19,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  font-family: "Mont", serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -64,7 +43,7 @@ li {
   padding: 0;
 }
 * {
-  font-family: "Mont", serif;
+  font-family: "Poppins", sans-serif;
 }
 /* Utils */
 
@@ -460,19 +439,18 @@ p {
 
 /* J */
 body {
-    font-family: 'Mont', sans-serif !important;
+    font-family: 'Poppins', sans-serif !important;
 }
 
 .main-title {
-    font-family: 'Mont', serif;
+    font-family: 'Poppins', sans-serif;
     color: #082041;
-	
     text-align: center;
     margin-bottom: 40px;
 }
 
 .small-title {
-    font-family: 'Mont', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #082041;
     text-align: center;
 }
@@ -506,12 +484,12 @@ body {
     text-align: left;
     max-width: 50%;
     box-sizing: border-box;
-    font-family: 'mont', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #082041;
 }
 
 .section2-text h2 {
-    font-family: 'Mont', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #082041;
 }
 .section2-underline{
@@ -523,7 +501,7 @@ body {
 }
 
 .section2-text p {
-    font-family: 'Mont', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #082041;
     margin-bottom: 20px;
 }

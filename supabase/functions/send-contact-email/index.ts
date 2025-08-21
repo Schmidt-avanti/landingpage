@@ -35,7 +35,7 @@ Deno.serve(async (req) => {
     const { data, error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: EMAIL_TO,
-      subject: 'Neue Kontaktanfrage von der Avanti Website',
+      subject: 'Neue Kontaktanfrage von der avanti Website',
       html: `
         <h1>Neue Kontaktanfrage</h1>
         <p><strong>Name:</strong> ${record.name}</p>
