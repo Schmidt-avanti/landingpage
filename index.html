@@ -284,17 +284,17 @@
       <div class="row align-items-center">
         <div class="col-lg-6">
           <div class="hero-content">
-            <h1 class="section-title">Für kleinere und mittlere Unternehmen</h1>
-            <h2 class="section-subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
+            <h1 id="hero-title" class="section-title">Für kleinere und mittlere Unternehmen</h1>
+            <h2 id="hero-subtitle" class="section-subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
             <p class="lead mb-4">
                <b>avanti</b> übernimmt alle Routineaufgaben bei Ihrer telefonischen und schriftlichen Kundenbetreuung. 
               Menschlich, effizient, professionell. So können Sie sich auf das Wesentliche konzentrieren: die Entwicklung Ihres Geschäfts.
             </p>
-            <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch buchen</a>
+            <a id="hero-cta" href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch buchen</a>
           </div>
         </div>
         <div class="col-lg-6">
-          <img src="/Video-poster.jpg" alt="Kundenservice Team" class="hero-image">
+          <img id="hero-image" src="/Video-poster.jpg" alt="Kundenservice Team" class="hero-image">
         </div>
       </div>
     </div>
@@ -1494,8 +1494,48 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
- 
+ <!-- Strapi hero loader -->
+ <script>
+ (async () => {
+   const endpoints = ['/api/hero', '/api/homepage', '/api/about'];
+   const getFirst = async () => {
+     for (const p of endpoints) {
+       try {
+         const r = await fetch(p);
+         if (r.ok) return r.json();
+         console.warn(`[Strapi] ${p} HTTP`, r.status);
+       } catch (e) {
+         console.warn(`[Strapi] ${p} error`, e);
+       }
+     }
+     return null;
+   };
 
+   try {
+     const data = await getFirst();
+     const entry = data?.data?.attributes;
+     if (!entry) return;
+
+     const titleEl = document.getElementById('hero-title');
+     const subtitleEl = document.getElementById('hero-subtitle');
+     const ctaEl = document.getElementById('hero-cta');
+     const imgEl = document.getElementById('hero-image');
+
+     const title = entry.title || entry.heading || entry.headline;
+     const subtitle = entry.subtitle || entry.subheading || entry.tagline;
+     const cta = entry.ctaText || entry.cta || entry.buttonText;
+     const imgUrl = entry?.image?.data?.attributes?.url || entry?.heroImage?.data?.attributes?.url;
+
+     if (titleEl && title) titleEl.textContent = title;
+     if (subtitleEl && subtitle) subtitleEl.textContent = subtitle;
+     if (ctaEl && cta) ctaEl.textContent = cta;
+     if (imgEl && imgUrl) imgEl.src = imgUrl;
+   } catch (e) {
+     console.error('[Strapi] Failed to load hero:', e);
+   }
+ })();
+ </script>
+ 
  
 </body>
 
