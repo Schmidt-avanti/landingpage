@@ -126,8 +126,8 @@
     }
     
     .section-subtitle {
-      font-size: 1.2rem;
-      color: #6b7280;
+      /* font-size: 1.2rem; */
+      color: #ffffff;
       margin-bottom: 40px;
     }
     
@@ -204,6 +204,85 @@
       display: block;
       margin: 0 auto;
     }
+    
+    /* Moving client logo marquee */
+    .logo-marquee {
+      background-color: rgb(23, 43, 82);
+      padding: 70px 0;
+      overflow: hidden;
+    }
+    .logo-marquee .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content; /* allow content to be wider than container */
+      animation: marquee-scroll 30s linear infinite;
+    }
+    .logo-marquee img {
+      height: 40px;
+      width: auto;
+      opacity: 0.9;
+      filter: brightness(0) invert(1);
+    }
+    @media (min-width: 992px) {
+      .logo-marquee img { height: 56px; }
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    /* Testimonials grid with overlay text */
+    .testimonial-grid .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0f2350; /* fallback while image loads */
+    }
+    .testimonial-grid .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .testimonial-grid .card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.65) 100%);
+      pointer-events: none;
+    }
+    .testimonial-grid .card .overlay-content {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      color: #fff;
+    }
+    .testimonial-quote {
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 10px 0;
+      font-size: 1.125rem;
+      color: white;
+    }
+    .testimonial-author { margin: 0; opacity: 0.95;
+    color: white; }
+    .testimonial-company { margin: 0; opacity: 0.85;
+    color: white; }
+    /* Slightly taller testimonial cards */
+    .testimonial-card-aspect { height: 200px; }
+    /* Testimonials section theming */
+    #testimonials { background-color: rgb(23, 43, 82); }
+    #testimonials .section-title,
+    #testimonials .section-subtitle { color: #fff; }
+    @media (min-width: 992px) {
+      .testimonial-quote { font-size: 1.25rem; }
+      .testimonial-card-aspect { height: 340px; }
+    }
+    @media (min-width: 1200px) {
+      .testimonial-card-aspect { height: 400px; }
+    }
+    /* Slightly larger vertical spacing for the testimonials section */
+    #testimonials.section-padding { padding-top: 56px; padding-bottom: 64px; }
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -214,41 +293,39 @@
   <link rel='shortlink' href='https://avanti.cx/' />
   <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F" />
   <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F&#038;format=xml" />
-  <meta name="generator" content="Site Kit by Google 1.152.1" />
-  <style>
-    .cmplz-hidden {
-      display: none !important;
-    }
-  </style>
-  <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
-  <meta name="bmi-version" content="1.4.8" />
-  <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
-  <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-192x192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-180x180.png" />
-  <meta name="msapplication-TileImage" content="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-270x270.png" />
-  <link rel="stylesheet" href="mobile-menu.css">
-  
-  .showCardContainer:hover .hero-icon path {
-    stroke: #FF8E3C !important;
-  }
-</style>
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<link rel='stylesheet' id='cookie-banner-css' href='cookie-banner.css' type='text/css' media='all' />
-<!-- SVG-Support-Skripts entfernt -->
-<script type="text/javascript" src="https://avanti.cx/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
-<!-- jQuery-Migrate entfernt -->
-<!-- SVG-Support Inline-Skripte entfernt -->
-<link rel="https://api.w.org/" href="https://avanti.cx/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://avanti.cx/wp-json/wp/v2/pages/14" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://avanti.cx/xmlrpc.php?rsd" />
-<meta name="generator" content="WordPress 6.8.1" />
-<link rel="canonical" href="https://avanti.cx/" />
-<link rel='shortlink' href='https://avanti.cx/' />
-<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F" />
-<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F&#038;format=xml" />
-<meta name="generator" content="Site Kit by Google 1.152.1" />			<style>.cmplz-hidden {
+  <meta name="generator" content="Site Kit by Google 1.152.1" />			<style>.cmplz-hidden {
 					display: none !important;
-				}</style><meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc"><meta name="bmi-version" content="1.4.8" /><link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
+				}</style><meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" /><meta name="bmi-version" content="1.4.8" /><link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
 <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-192x192.png" sizes="192x192" />
+  <!-- Force orange icons in the services section(s) -->
+  <style>
+    /* Applies to both the grid (#services) and the cards block (#serviceSection) */
+    #serviceSection .hero-icon,
+    #serviceSection .hero-icon *,
+    #services .hero-icon,
+    #services .hero-icon * {
+      color: #FF8E3C !important; /* for stroke=currentColor */
+      stroke: #FF8E3C !important; /* ensure stroke is orange even if set inline */
+      fill: none !important;      /* keep heroicons outlined */
+    }
+  
+    /* Big testimonial card */
+    .big-quote-card {
+      background: #34D1FF; /* bright blue */
+      color: #172B52;      /* navy text */
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+    .big-quote-icon {
+      color: rgba(255,255,255,0.8);
+      font-size: 28px;
+      line-height: 1;
+    }
+    .big-quote-text {
+      font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+    }
+    .big-quote-author { margin-top: 1.5rem; }
+  </style>
 </head>
 <body>
   <!-- Navigation Header -->
@@ -300,6 +377,30 @@
     </div>
   </section>
 
+  <!-- Moving Client Logos Banner -->
+  <section class="logo-marquee" aria-label="Kundenlogos">
+    <div class="container-fluid px-4">
+      <!-- Duplicate logo sets back-to-back for seamless loop -->
+      <div class="marquee-track">
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus">
+        <img src="Logo_enviaM.png" alt="enviaM">
+        <img src="Group-116.svg" alt="roadsurfer">
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET">
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods">
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring">
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE">
+        <!-- duplicate set -->
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus">
+        <img src="Logo_enviaM.png" alt="enviaM">
+        <img src="Group-116.svg" alt="roadsurfer">
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET">
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods">
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring">
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE">
+      </div>
+    </div>
+  </section>
+
   <!-- Testimonial Quote Section -->
   <section class="py-5 bg-light">
     <div class="container">
@@ -317,10 +418,10 @@
   <!-- About Section -->
   <section id="about" class="section-padding">
     <div class="container">
-      <div class="row align-items-center">
+      <div class="row align-items-center justify-content-center">
         <div class="col-lg-6">
           <h2 class="section-title">Unsere Leistungen</h2>
-          <h3 class="section-subtitle">Mehr Service für Ihre Kunden, mehr Zeit für Sie</h3>
+          <h3 class="section-subtitle" style="color:#082041;">Mehr Service für Ihre Kunden, mehr Zeit für Sie</h3>
           <p class="mb-4">
             Wir nehmen Anrufe und E-Mails Ihrer Kunden entgegen und kümmern uns um Ihr Backoffice. 
             Wichtige Anfragen leiten wir sofort weiter, alles andere bearbeiten wir nach Ihren Vorgaben. 
@@ -332,8 +433,8 @@
           </p>
           <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-primary-custom text-white">Demo buchen →</a>
         </div>
-        <div class="col-lg-6">
-          <img src="Dr.-Christoph-Baumgartner-Seminarraum.png" alt="Unser Team" class="hero-image">
+        <div class="col-lg-3">
+          <img src="Maribel.png" alt="Unser Team" class="hero-image">
         </div>
       </div>
     </div>
@@ -380,53 +481,44 @@
   <section id="testimonials" class="section-padding testimonials-alt">
     <div class="container-fluid px-3 px-lg-5">
       <div class="row">
-        <div class="col-12 text-center mb-5">
-          <h2 class="section-title">Aktuelle Referenzen</h2>
-          <p class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</p>
+        <div class="col-12 text-center mb-2">
+          <h2 class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</h2>
         </div>
       </div>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 align-items-stretch">
-        <div class="col d-flex">
-          <div class="card quote-card shadow-sm h-100 w-100 text-center">
-            <div class="card-body d-flex flex-column align-items-center justify-content-between p-4">
-              <div class="quote-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
-                <img src="quoteSVG.svg" alt="Zitat" class="style-svg" style="width:18px;height:18px;">
-              </div>
-              <p class="quote-text mb-4">"Bei uns beantwortet <b>avanti</b> nicht nur Anfragen, sondern vereinbart auch die Handwerker-Termine."</p>
-              <div class="mt-auto">
-                <div class="divider mx-auto mb-3"></div>
-                <strong class="d-block">Heiko Nürnberg</strong>
-                <small class="text-muted d-block">Nürnberg Immobilien GmbH</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col d-flex">
-          <div class="card quote-card shadow-sm h-100 w-100 text-center">
-            <div class="card-body d-flex flex-column align-items-center justify-content-between p-4">
-              <div class="quote-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
-                <img src="quoteSVG.svg" alt="Zitat" class="style-svg" style="width:18px;height:18px;">
-              </div>
-              <p class="quote-text mb-4">"Durch  <b>avanti</b> haben wir in kürzester Zeit deutlich mehr qualifizierte Leads erhalten."</p>
-              <div class="mt-auto">
-                <div class="divider mx-auto mb-3"></div>
-                <strong class="d-block">Jan Pucko</strong>
-                <small class="text-muted d-block">JANtronics</small>
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="row g-4 testimonial-grid">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_JANtronic_EditV1-59.jpg" alt="Jan Pucko, JANtronic GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Mit avanti gewinnen wir zuverlässig qualifizierte Leads.“</p>
+                  <p class="testimonial-author">Jan Pucko,</p>
+                  <p class="testimonial-company">JANtronic GmbH</p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col d-flex">
-          <div class="card quote-card shadow-sm h-100 w-100 text-center">
-            <div class="card-body d-flex flex-column align-items-center justify-content-between p-4">
-              <div class="quote-icon rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
-                <img src="quoteSVG.svg" alt="Zitat" class="style-svg" style="width:18px;height:18px;">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_NürnbergImmobilien_EditV2-18.jpg" alt="Heiko Nürnberg, Nürnberg Immobilien GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen.“</p>
+                  <p class="testimonial-author">Heiko Nürnberg,</p>
+                  <p class="testimonial-company">Nürnberg Immobilien GmbH</p>
+                </div>
               </div>
-              <p class="quote-text mb-4">"<b>avanti</b> hat es uns ermöglicht, eine effiziente Telefonhotline für die Erstkontakte einzurichten – einfach top!"</p>
-              <div class="mt-auto">
-                <div class="divider mx-auto mb-3"></div>
-                <strong class="d-block">Günther Braun</strong>
-                <small class="text-muted d-block">GB-Foods</small>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_GlasereiZeidler_EditV1-29.jpg" alt="Eberhard Zeidler, ZEIDLER GLAS + FENSTER GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Dank avanti haben wir mehr Zeit für unsere Kunden und bieten dabei konstant erstklassigen Service.“</p>
+                  <p class="testimonial-author">Eberhard Zeidler,</p>
+                  <p class="testimonial-company">ZEIDLER GLAS + FENSTER GmbH</p>
+                </div>
               </div>
             </div>
           </div>
@@ -438,7 +530,7 @@
   <!-- Team Section -->
   <section class="section-padding bg-light">
     <div class="container">
-      <div class="row align-items-center">
+      <div class="row align-items-center justify-content-center">
         <div class="col-lg-6">
           <img src="Aaron-freistehend.png" alt="Aaron Schmidt" class="hero-image">
         </div>
@@ -798,7 +890,7 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
 
             <div class="col-lg-6 col-12 text-center">
                                     <img src="/App_img.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200 mb-3">
-                                    <img src="/app_img1.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200">
+                                    <img src="/app_img2.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200">
 
                             </div>
         </div>
@@ -913,7 +1005,7 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
                                                 <div class="col-6 col-xl-3 col-md-6">
                     <div class="card h-120 p-3 shadow-card border-0 rounded-3">
                         <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Start-ups</p>
+                            <p class="" style="color: #082041;">Pflegedienste</p>
                         </div>
                     </div>
                 </div>
@@ -1203,7 +1295,7 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
                 <div class="testimonial-card">
                     <p class="mb-4 staffQuote">Kein anderes Angebot auf dem Markt erreicht unsere avanti-Qualität, Zuverlässigkeit und Effizienz.</p>
                     <h4 class="mb-1">Dr. Christoph Baumgärtner</h4>
-                    <p class="text-muted">Geschäftsführer Business Development</p>
+                    <p class="text-muted">Geschäftsführer <b>avanti</b></p>
                 </div>
             </div>
         </div>
