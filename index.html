@@ -10,7 +10,7 @@
   <style>
     /* Enable smooth scrolling for in-page anchors */
     html { scroll-behavior: smooth; }
-    //
+    /* */
     /* Offset target position to account for fixed navbar height */
     #contactSection { scroll-margin-top: 90px; }
 
@@ -258,6 +258,9 @@
       bottom: 20px;
       color: #fff;
     }
+    /* Default focal point for first testimonial image across all sizes */
+    .testimonial-grid .card img.face-down { object-position: center 30%; }
+    /* Per-image focal point helper (set only within media queries to avoid desktop impact) */
     .testimonial-quote {
       font-weight: 700;
       line-height: 1.35;
@@ -284,9 +287,32 @@
     }
     /* Slightly larger vertical spacing for the testimonials section */
     #testimonials.section-padding { padding-top: 56px; padding-bottom: 64px; }
+    /* Mobile tweaks to better center faces in testimonial images */
+    @media (max-width: 991.98px) {
+      .testimonial-grid .card img {
+        /* Default mobile focal point */
+        object-position: center 35%;
+      }
+      /* Use class-based targeting only (no structural selectors) */
+      .testimonial-grid .card img.face-down { object-position: center 25%; }
+    }
+    @media (max-width: 575.98px) {
+      /* Slightly taller cards on very small screens to avoid cutting heads */
+      .testimonial-card-aspect { height: 320px; }
+      /* Class-based targeting only on xs */
+      .testimonial-grid .card img.face-down { object-position: center 22%; }
+    }
+    /* Tablet breakpoint: make testimonial cards taller as well */
+    @media (min-width: 576px) and (max-width: 991.98px) {
+      .testimonial-card-aspect { height: 360px; }
+    }
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <!-- Material Symbols (Google Icons) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap">
+  <!-- Poppins for section titles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel='stylesheet' id='cookie-banner-css' href='cookie-banner.css' type='text/css' media='all' />
   <script type="text/javascript" src="https://avanti.cx/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
   <link rel="https://api.w.org/" href="https://avanti.cx/wp-json/" />
@@ -402,14 +428,50 @@
     </div>
   </section>
 
-  <!-- Testimonial Quote Section -->
-  <section class="py-5 bg-light">
-    <div class="container">
+  <!-- Testimonials Section (moved here) -->
+  <section id="testimonials" class="section-padding testimonials-alt">
+    <div class="container-fluid px-3 px-lg-5">
+      <div class="row">
+        <div class="col-12 text-center mb-2">
+          <h2 class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</h2>
+        </div>
+      </div>
       <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-          <div class="testimonial-card">
-            <h3 class="mb-3">"avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen."</h3>
-            <p class="mb-0"><strong>Heiko Nürnberg</strong>, Nürnberg Immobilien GmbH</p>
+        <div class="col-12">
+          <div class="row g-4 testimonial-grid">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_JANtronic_EditV1-59.jpg" alt="Jan Pucko, JANtronic GmbH" class="face-down">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Mit avanti gewinnen wir zuverlässig qualifizierte Leads.“</p>
+                  <p class="testimonial-author">Jan Pucko,</p>
+                  <p class="testimonial-company">JANtronic GmbH</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_NuernbergImmobilien_EditV2-18.jpg" alt="Heiko Nürnberg, Nürnberg Immobilien GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen.“</p>
+                  <p class="testimonial-author">Heiko Nürnberg,</p>
+                  <p class="testimonial-company">Nürnberg Immobilien GmbH</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_GlasereiZeidler_EditV1-29.jpg" alt="Eberhard Zeidler, ZEIDLER GLAS + FENSTER GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Dank avanti haben wir mehr Zeit für unsere Kunden und bieten dabei konstant erstklassigen Service.“</p>
+                  <p class="testimonial-author">Eberhard Zeidler,</p>
+                  <p class="testimonial-company">ZEIDLER GLAS + FENSTER GmbH</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -436,6 +498,11 @@
         </div>
         <div class="col-lg-3">
           <img src="Maribel.png" alt="Unser Team" class="hero-image">
+          <div class="testimonial-card" style="max-width: 100%; margin-top: 16px;">
+            <p class="mb-4">"Wir kümmern uns mit Herz und Verstand um Ihre Kunden: Sie sollen sich genauso gut wie von Ihnen betreut fühlen."</p>
+            <h4 class="mb-1">Maribel Pietzner</h4>
+            <p class="text-muted">Geschäftsführerin <b>avanti</b></p>
+          </div>
         </div>
       </div>
     </div>
@@ -478,55 +545,7 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="section-padding testimonials-alt">
-    <div class="container-fluid px-3 px-lg-5">
-      <div class="row">
-        <div class="col-12 text-center mb-2">
-          <h2 class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</h2>
-        </div>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <div class="row g-4 testimonial-grid">
-            <div class="col-12 col-lg-6 col-xl-4">
-              <div class="card testimonial-card-aspect shadow">
-                <img src="/CNMTX_avanti_JANtronic_EditV1-59.jpg" alt="Jan Pucko, JANtronic GmbH">
-                <div class="overlay"></div>
-                <div class="overlay-content">
-                  <p class="testimonial-quote">„Mit avanti gewinnen wir zuverlässig qualifizierte Leads.“</p>
-                  <p class="testimonial-author">Jan Pucko,</p>
-                  <p class="testimonial-company">JANtronic GmbH</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-lg-6 col-xl-4">
-              <div class="card testimonial-card-aspect shadow">
-                <img src="/CNMTX_avanti_NuernbergImmobilien_EditV2-18.jpg" alt="Heiko Nürnberg, Nürnberg Immobilien GmbH">
-                <div class="overlay"></div>
-                <div class="overlay-content">
-                  <p class="testimonial-quote">„avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen.“</p>
-                  <p class="testimonial-author">Heiko Nürnberg,</p>
-                  <p class="testimonial-company">Nürnberg Immobilien GmbH</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-lg-6 col-xl-4">
-              <div class="card testimonial-card-aspect shadow">
-                <img src="/CNMTX_avanti_GlasereiZeidler_EditV1-29.jpg" alt="Eberhard Zeidler, ZEIDLER GLAS + FENSTER GmbH">
-                <div class="overlay"></div>
-                <div class="overlay-content">
-                  <p class="testimonial-quote">„Dank avanti haben wir mehr Zeit für unsere Kunden und bieten dabei konstant erstklassigen Service.“</p>
-                  <p class="testimonial-author">Eberhard Zeidler,</p>
-                  <p class="testimonial-company">ZEIDLER GLAS + FENSTER GmbH</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Testimonials Section moved above -->
 
   <!-- Team Section -->
   <section class="section-padding bg-light">
@@ -563,54 +582,73 @@
     </div>
   </section>
 
-  <!-- Branches Section -->
-  <section class="section-padding bg-light">
+  <!-- Industries Section (mockup style) -->
+  <section class="section-padding industries-section">
     <div class="container">
-      <div class="row">
-        <div class="col-12 text-center mb-5">
-          <h2 class="section-title">Unsere Branchen</h2>
-          <p class="section-subtitle" style="color: #082041;"><b>avanti</b> unterstützt kleinere und mittlere Unternehmen</p>
+      <div class="row mb-4">
+        <div class="col-12 mb-4 text-center">
+          <div class="industries-header">
+            <div class="eyebrow text-white fw-semibold">Unsere Branchen</div>
+            <h2 class="industries-title industries-title--only text-white">avanti unterstützt kleinere und mittlere <span class="line-break">Unternehmen</span></h2>
+          </div>
         </div>
       </div>
-      <div class="row g-3">
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Haus & Immobilien-Verwaltungen</h6>
+      <div class="row industries-grid">
+        <!-- Column 1 -->
+        <div class="col-12 col-lg-4">
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">home_work</span>
+            <span class="ind-label">Haus & Immobilien‑Verwaltungen</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">storefront</span>
+            <span class="ind-label">Handel & Großhandel</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">balance</span>
+            <span class="ind-label">Kanzleien</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">apartment</span>
+            <span class="ind-label">Gemeinden & Öffentlicher Dienst</span>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Handel & Großhandel</h6>
+        <!-- Column 2 -->
+        <div class="col-12 col-lg-4">
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">shopping_bag</span>
+            <span class="ind-label">E‑Commerce</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">rocket_launch</span>
+            <span class="ind-label">Start‑Ups</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">restaurant</span>
+            <span class="ind-label">Hotellerie & Gastronomie</span>
+          </div>
+          <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">weekend</span>
+            <span class="ind-label">Einrichtungshäuser</span>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Kanzleien</h6>
+        <!-- Column 3 -->
+        <div class="col-12 col-lg-4">
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">directions_car</span>
+            <span class="ind-label">Autohäuser</span>
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>E-Commerce</h6>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">medical_services</span>
+            <span class="ind-label">Praxen</span>
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Start-Ups</h6>
+          <div class="d-flex align-items-start gap-3 mb-4">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">gavel</span>
+            <span class="ind-label">Handwerksbetriebe</span>
           </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Hotellerie & Gastronomie</h6>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Handwerksbetriebe</h6>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="service-card text-center">
-            <h6>Praxen</h6>
+          <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+            <span class="material-symbols-outlined ind-icon" aria-hidden="true">tablet_mac</span>
+            <span class="ind-label">Versicherungsvertreter</span>
           </div>
         </div>
       </div>
@@ -1128,32 +1166,6 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
 
 
 
-      <!-- Mobile/Tablet Version für Sven -->
-      <div class="container-fluid pt-5 d-block d-xxl-none" id="sven-mobile-section">
-        <div class="row p-0">
-          <div class="col-xl-9 col-6 d-flex justify-content-end align-items-end position-relative z-2" id="svenStaff">
-            <div class="rounded-3 p-lg-5 p-0 quoteBox bg-main d-flex align-items-center justify-content-center position-relative">
-              <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-              <p class="staffQuote fw-bold text-start text-white">Die Einsteuerung Ihres Services bei uns? Wir machen das - und zwar so gut und bequem für Sie, dass Sie uns lieben werden.</p>
-            </div>
-          </div>
-          <div class="col-xl-3 col-6 d-flex align-items-end justify-content-start">
-            <img id="sven-mobile" src="sven.png" alt="Sven - Projekt- und Prozessmanagement" class="staffImage" style="width: 250px; max-width: none;">
-          </div>
-        </div>
-        
-        <!-- Blauer Balken mit Namen und Position (wie in der Vorlage) -->
-        <div class="row bg-neon py-3 p-0">
-            <div class="col-xl-6 d-xl-flex justify-content-end d-none"><p class="staffQuote text-white"></p></div>
-            <div class="col-xl-6 col-12 py-3">
-            <h2 class="staffName text-xl-start text-center w-100 fw-bold text-orange">Sven</h2>
-            <div>
-              <p class="staffTitle text-white text-xl-start w-100 text-center">Projekt- und Prozessmanagement</p>
-              <span class="orangeU mx-xl-0 mx-auto"></span>
-            </div>
-            </div>
-        </div>
-        </div>
       </div>
 
 </section>
@@ -1164,133 +1176,114 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
  <!-- Section 10  -->
 <section class="pt-5 bg-white position-relative" id="contactSection">
     <div class="custom-container">
-        <div class="pb-4">
-            <h2 class="mb-0 fw-bold">Der Weg zu Ihrer Lösung</h2>
-            <span class="orangeU"></span>
-        </div>
+     
 
         <div class="row">
-            <!-- Steps Section -->
+            <!-- Left content (mockup copy) -->
             <div class="col-lg-6 col-12 bg-white lastSection">
-                <div class="d-flex flex-column">
-                                                                        <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-164.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Anfrage abschicken</p>
-                            </div>
-                                                            <div class="border-start border-2 border-warning" 
-                                     style="height: 10svh; margin-left: 35px; max-height:90px;">
-                                </div>
-                                                                                                                            <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-165.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Angebot erhalten</p>
-                            </div>
-                                                            <div class="border-start border-2 border-warning" 
-                                     style="height: 10svh; margin-left: 35px; max-height:90px;">
-                                </div>
-                                                                                                                            <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-167.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Den besten Kundenservice beauftragen und darüber staunen, wie viel Entlastung die Zusammenarbeit mit avanti bringt</p>
-                            </div>
-                                                                                        </div>
+              <div class="consult-left p-4 p-md-5">
+                <div class="eyebrow  fw-semibold mb-2">avanti kennenlernen</div>
+                <h2 class="fw-bold mb-3">Jetzt zum Erstgespräch anmelden</h2>
+                <p class="mb-4">Der Service von avanti ist vielfältig. Lassen Sie uns in einem Gespräch klären, was wir für Sie tun können. Sie werden staunen, wie viel Ihnen die Zusammenarbeit bringt (und wie wenig es kostet).</p>
+                <a class="consult-phone" href="tel:+49(0)30/814892-121">+49 (0)30 / 814 892-121</a>
+              </div>
             </div>
 
             <!-- Contact Form -->
             <div class="col-lg-6 col-12 lastSection">
-                <div class="p-5 mt-5 rounded-3 shadow bg-white position-relative z-2">
-              <div class="px-5 d-flex flex-column justify-content-around h-100">
-    			
-<div id="contact-form-container">
-  <!-- Supabase-Integration -->
-  <form id="contact-form" class="contact-form">
-    <!-- Name (Pflichtfeld) -->
-    <p>
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Name *" type="text" name="name" required />
-      </span><br />
-      
-      <!-- Firma (optional) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Firma" type="text" name="company" />
-      </span><br />
-      
-      <!-- E-Mail (Pflichtfeld) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="E-Mail-Adresse *" type="email" name="email" required />
-      </span><br />
-      
-      <!-- Telefon (optional) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Telefon-Nummer" type="tel" name="phone" />
-      </span><br />
-    
-    <!-- Datenschutz (Pflichtfeld) -->
-    <p>
-      <span class="form-control-wrap">
-        <span class="form-checkbox marketing-box mt-4">
-          <span class="checkbox-item">
-            <label>
-              <input type="checkbox" name="privacy_policy" value="accepted" required /> <span style="color:#d00">*</span>
-              <span class="checkbox-label">Ich habe die Datenschutzerklärung zur Kenntnis genommen und stimme zu, dass meine Angaben und Daten zur Beantwortung meiner Anfrage elektronisch erhoben und gespeichert werden.</span>
-            </label>
-          </span>
-        </span>
-      </span>
-    </p>
-    
-    <!-- Marketing-Zustimmung (optional) -->
-    <p>
-      <span class="form-control-wrap">
-        <span class="form-checkbox marketing-box mt-5">
-          <span class="checkbox-item">
-            <label>
-              <input type="checkbox" name="marketing_agreement" value="accepted" />
-              <span class="checkbox-label">Ich stimme zu, dass ja-dialog Holding GmbH meine angegebenen Kontaktdaten nutzt, um mich über Neuigkeiten, Angebote und Veranstaltungen (z. B. per Newsletter oder E-Mail) zu informieren. Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</span>
-            </label>
-          </span>
-        </span>
-      </span><br />
-      
-      <!-- Submit-Button -->
-      <input class="mt-5 contact-form-button text-blue" type="submit" value="Abschicken" />
-    </p>
-    
-    <!-- Rückmeldungsbereich -->
-    <div id="form-result" class="response-output" aria-hidden="true"></div>
-  </form>
-</div>
-					</div>
+                <div class="p-0 mt-5 rounded-4 shadow position-relative z-2 consult-card">
+                  <div class="p-4 p-md-5 d-flex flex-column h-100">
+                    <h5 class="text-white fw-semibold mb-3">Ja, ich interessiere mich für ein Erstgespräch.</h5>
+                    <div id="contact-form-container">
+                      <!-- Supabase-Integration -->
+                      <form id="contact-form" class="contact-form-modern" novalidate>
+                        <!-- Name -->
+                        <div class="input-with-icon mb-3 icon-name">
+                          <span class="icon" aria-hidden="true">
+                            <!-- user icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Z" stroke="currentColor" stroke-width="1.5"/><path d="M21 22a9 9 0 1 0-18 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="text" name="name" class="form-control modern" placeholder="Vor und Nachname" required />
+                        </div>
+                        <!-- Company -->
+                        <div class="input-with-icon mb-3 icon-company">
+                          <span class="icon" aria-hidden="true">
+                            <!-- building icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M6 21V3h8v18M14 7h4v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="text" name="company" class="form-control modern" placeholder="Unternehmen (optional)" />
+                        </div>
+                        <!-- Position select (optional) -->
+                        <div class="input-with-icon mb-3 icon-position">
+                          <span class="icon" aria-hidden="true">
+                            <!-- briefcase icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18" stroke="currentColor" stroke-width="1.5"/></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <select name="position" class="form-select modern">
+                            <option value="" selected>Position (optional)</option>
+                            <option>Inhaber:in</option>
+                            <option>Geschäftsführung</option>
+                            <option>Leitung Vertrieb</option>
+                            <option>Leitung Kundenservice</option>
+                            <option>Andere</option>
+                          </select>
+                        </div>
+                        <!-- Phone (optional) -->
+                        <div class="input-with-icon mb-3 icon-phone">
+                          <span class="icon" aria-hidden="true">
+                            <!-- phone icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 16.92v2a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 1.08 5.2 2 2 0 0 1 3.06 3h2a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L6.1 10.9a16 16 0 0 0 6 6l1.46-1.06a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 21 16.92Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <input type="tel" name="phone" class="form-control modern" placeholder="Telefon (optional)" />
+                        </div>
+                        <!-- Email -->
+                        <div class="input-with-icon mb-3 icon-email">
+                          <span class="icon" aria-hidden="true">
+                            <!-- mail icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="email" name="email" class="form-control modern" placeholder="E‑Mail" required />
+                        </div>
+
+                        <!-- Datenschutz -->
+                        <div class="form-check text-white small mb-3">
+                          <input class="form-check-input" type="checkbox" id="privacyPolicy" name="privacy_policy" value="accepted" required>
+                          <label class="form-check-label" for="privacyPolicy">
+                            Ich akzeptiere die <a href="datenschutz.html" class="link-light text-decoration-underline">Datenschutzerklärung</a>
+                          </label>
+                        </div>
+
+                        <!-- Optional marketing consent (hidden, keeps JS compatible) -->
+                        <input type="checkbox" name="marketing_agreement" value="accepted" style="display:none" aria-hidden="true" />
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-cta w-100">Erstgespräch buchen</button>
+
+                        <div class="privacy-note mt-3">Wir behandeln Ihre Daten vertraulich.</div>
+
+                        <!-- Rückmeldungsbereich -->
+                        <div id="form-result" class="response-output mt-3" aria-hidden="true"></div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-            </div>
 
             <div class="col-12 py-md-5 d-md-inline-block d-none"></div>
         </div>
     </div>
 
     <!-- Abstandshalter (fully reduced) -->
-    <div class="container-fluid my-1 py-1"></div>
-    <div class="d-block d-md-none" style="height: 12px;"></div>
-    <div class="container-fluid my-1 py-1"></div>
+   
     
     <!-- Staff Section - Dr. Christoph (testimonial layout) -->
-    <div class="container-fluid">
-        <div class="row site-clamp align-items-center p-0 my-4">
+    <div class="container-fluid mt-4 pt-5">
+        <div class="row site-clamp align-items-center p-0 my-4 christoph-section">
             <div class="col-lg-6 col-12 d-flex justify-content-center">
-                <img id="aaron" src="Christoph-freistehend.png" alt="Dr. Christoph Baumgärtner" class="staffImage z-2 img-fluid">
+                <div class="christoph-image-wrap">
+                  <img id="aaron" src="Christoph-freistehend.png" alt="Dr. Christoph Baumgärtner" class="staffImage img-fluid">
+                </div>
             </div>
             <div class="col-lg-6 col-12">
                 <div class="testimonial-card">

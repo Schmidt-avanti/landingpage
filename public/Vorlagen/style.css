@@ -758,3 +758,194 @@ margin: 0;
 .cmplz-message p {
 	font-size: 12px !important;
 }
+
+/* Modern contact form (mockup style) */
+.consult-card {
+  background-color: #0f2350; /* deep navy */
+  border-radius: 24px;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+.contact-form-modern { --form-icon-color: #8F5FD3; }
+.contact-form-modern .input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center; /* helps with any browser quirks */
+}
+.contact-form-modern .input-with-icon .icon {
+  position: absolute;
+  inset-inline-start: 12px; /* padding-left for LTR */
+  top: 50%;
+  transform: translateY(-50%);
+  height: 18px; /* ensure consistent icon box */
+  color: var(--form-icon-color);
+  pointer-events: none;
+}
+.contact-form-modern .input-with-icon .optional {
+  position: absolute;
+  inset-inline-end: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.875rem;
+}
+.contact-form-modern .form-control.modern,
+.contact-form-modern .form-select.modern {
+  background-color: #ffffff;
+  color: #082041;
+  border: 1px solid #e6e6e6;
+  border-radius: 14px;
+  padding-inline-start: 40px; /* make space for icon */
+  padding-block: 12px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+.contact-form-modern .form-control.modern::placeholder { color: #999; }
+.contact-form-modern .form-control.modern:focus,
+.contact-form-modern .form-select.modern:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,142,60,0.18);
+  border-color: #FF8E3C;
+}
+.contact-form-modern .form-select.modern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: #082041;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+.btn-cta {
+  background-color: #FF8E3C;
+  color: #172B52;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: none;
+}
+.btn-cta:hover { filter: brightness(0.95); }
+
+/* Left content styles in contact section */
+.consult-left .eyebrow {
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  color: #082041;
+}
+.consult-left h2 {
+  font-size: clamp(2rem, 3vw + 1rem, 3.25rem);
+  color: #082041;
+}
+.consult-left p { color: #082041; }
+.consult-left .consult-phone {
+  color: #082041;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+/* Center icons vertically within inputs/selects */
+.contact-form-modern .input-with-icon { min-height: 52px; }
+.contact-form-modern .input-with-icon .icon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.contact-form-modern .form-control.modern,
+.contact-form-modern .form-select.modern {
+  height: 52px;             /* normalize height */
+  padding-block: 12px;      /* consistent vertical padding */
+  line-height: 1.2;        /* avoid odd vertical alignment */
+  display: block;
+  width: 100%;
+}
+.contact-form-modern .form-select.modern { padding-block: 10px; padding-right: 42px; }
+
+/* Checkbox styling on dark card */
+.contact-form-modern .form-check-input {
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.6);
+  background-color: #fff;
+  accent-color: #FF8E3C;
+}
+.contact-form-modern .form-check { display: flex; align-items: center; gap: 10px; }
+.contact-form-modern .form-check-label { color: #ffffff; }
+
+/* Tiny privacy note below button */
+.contact-form-modern .privacy-note { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+
+/* Spacing for Christoph section */
+.christoph-section { margin-bottom: 48px; }
+@media (min-width: 992px) {
+  .christoph-section { margin-bottom: 72px; }
+}
+
+/* Prevent overlap of Christoph image with next section */
+.christoph-image-wrap { position: relative; z-index: 1; max-width: 520px; }
+.christoph-image-wrap img { width: 100%; height: auto; display: block; }
+@media (max-width: 991.98px) {
+  .christoph-image-wrap { margin-bottom: 24px; }
+}
+
+/* Make sure the consult card stacks above if needed */
+.consult-card { position: relative; z-index: 3; }
+
+/* Industries section (Unsere Branchen) */
+.industries-section {
+  background-color: #0f2350; /* deep navy like the card */
+  border-radius: 0; /* straight edges */
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+.industries-section .eyebrow {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+.industries-title {
+  font-weight: 800;
+  font-size: clamp(2rem, 2.2vw + 1.2rem, 3rem);
+  line-height: 1.15;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: 0.1px;
+}
+.industries-title--only {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+.industries-header {
+  display: inline-block;      /* centers the block within text-center column */
+  text-align: left;           /* lines align left under 'avanti' */
+  max-width: 920px;           /* prevent too-long lines on wide screens */
+}
+.industries-grid .ind-icon {
+  color: #FF8E3C; /* orange icons */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+}
+.material-symbols-outlined.ind-icon {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 32;
+  font-size: 32px;
+  line-height: 1;
+}
+.industries-grid .ind-label {
+  color: #ffffff;
+  font-weight: 600;
+}
+@media (min-width: 992px) {
+  .industries-section { padding-top: 64px; padding-bottom: 64px; }
+}
+
+/* Per-field icon colors (match mockup hues) */
+.contact-form-modern .icon-name .icon { color: #8F5FD3; }      /* purple */
+.contact-form-modern .icon-company .icon { color: #6FAEDC; }   /* light blue */
+.contact-form-modern .icon-position .icon { color: #D76666; }  /* soft red */
+.contact-form-modern .icon-phone .icon { color: #D05C8D; }     /* pink */
+.contact-form-modern .icon-email .icon { color: #B9B9C9; }     /* muted gray/purple for email */
+
