@@ -272,18 +272,17 @@
     color: white; }
     .testimonial-company { margin: 0; opacity: 0.85;
     color: white; }
-    /* Slightly taller testimonial cards */
-    .testimonial-card-aspect { height: 200px; }
+    /* Responsive testimonial card height: slightly taller across sizes */
+    .testimonial-card-aspect { height: clamp(320px, 26vw, 600px); }
     /* Testimonials section theming */
     #testimonials { background-color: rgb(23, 43, 82); }
     #testimonials .section-title,
     #testimonials .section-subtitle { color: #fff; }
     @media (min-width: 992px) {
       .testimonial-quote { font-size: 1.25rem; }
-      .testimonial-card-aspect { height: 340px; }
     }
     @media (min-width: 1200px) {
-      .testimonial-card-aspect { height: 400px; }
+      /* Keep clamp behavior; no fixed height here */
     }
     /* Slightly larger vertical spacing for the testimonials section */
     #testimonials.section-padding { padding-top: 56px; padding-bottom: 64px; }
