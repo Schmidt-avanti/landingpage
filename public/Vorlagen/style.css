@@ -391,7 +391,7 @@ p {
     -5px -3px 5px -3px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   min-width: 300px;
-  height: 600px;
+  height: auto; /* let card height match content */
 }
 .showCardContainer:hover {
   background-color: var(--blue-color) !important;
@@ -417,7 +417,7 @@ p {
   fill: #FF8E3C !important;
 }
 .showCardContainer h3 {
- height: 80px;
+  height: auto; /* allow heading to take natural height */
 }
 .cardIcon .style-svg {
   width: 70px;
