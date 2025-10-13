@@ -711,8 +711,8 @@ select[name="your-service"] option:first-child {
     text-decoration: none;
 }
 .footer-image{
-	height:150px;
-	width:100px;
+	height:240px;
+	width:150px;
 	object-fit:contain;
 
 }
