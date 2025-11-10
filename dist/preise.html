@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
 
-  <title>Preise - Avanti</title>
+  <title>Preise - avanti</title>
   <link rel='stylesheet' id='bootstrap-style-css' href='/Vorlagen/assets/bootstrap.min.css' type='text/css' media='all' />
   <link rel='stylesheet' id='main-style-css' href='/Vorlagen/style.css' type='text/css' media='all' />
   <link rel='stylesheet' id='media-q-css' href='/Vorlagen/assets/media-queries.css' type='text/css' media='all' />
@@ -307,7 +307,27 @@
     }
   </style>
 <!-- Mobile Menü Styling -->
-  <link rel="stylesheet" crossorigin href="/assets/mobile-menu-C7SN0GuP.css">
+<style>
+  .demo-btn {
+    background-color: #FF8E3C;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+  }
+  .demo-btn:hover {
+    background-color: #43bede !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+  }
+  .border-26 {
+    border-radius: 26px !important;
+    border: 5px solid #43bede !important;
+  }
+</style>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <link rel="stylesheet" crossorigin href="/assets/mobile-menu-Dp3QWPau.css">
 </head>
 <body class="bg-main">
   <header class="sticky-header" id="stickyHeader">
@@ -322,8 +342,8 @@
         </div>
         <div class="col-md-4 col-8">
           <div class="d-flex align-items-center justify-content-md-start justify-content-end">
-            <a href="https://avanti.cx">
-              <img class="navLogo" src="Logo.svg" alt="Avanti">
+            <a href="index.html">
+              <img class="navLogo" src="Logo.svg" alt="avanti">
             </a>
           </div>
         </div>
@@ -363,7 +383,7 @@
     
     <!-- Logo ganz unten -->
     <div class="navLogo-container">
-      <img class="navLogo" src="Logo.svg" width="100" height="40" alt="Avanti">
+      <img class="navLogo" src="Logo.svg" width="100" height="40" alt="avanti">
     </div>
   </div>
 </div>
@@ -384,13 +404,15 @@
                 <h3>Prepaid</h3>
                 <span class="small info-tooltip">ⓘ
                   <span class="tooltip-text">
-                    *Die monatliche Grundgebühr wird im Voraus per Kreditkarte oder PayPal eingezogen und umfasst ein festgelegtes Inklusivvolumen. Wird dieses Volumen überschritten, erfolgt automatisch eine Nachladung in Höhe von jeweils 100 €, ebenfalls per Kreditkarte oder PayPal. Nicht vollständig genutzte Guthaben aus diesen Nachladungen werden bei der nächsten monatlichen Abrechnung verrechnet.
+                    *Sie zahlen 2.550 € (entspricht 3 × 850 €) im Voraus für drei Monate per Kreditkarte. Wenn Sie mehr als 1.000 Minuten im Monat brauchen, wird automatisch ein zusätzliches Guthaben (in 100 €-Schritten) nachgeladen. Nachgeladenes aber unverbrauchtes Guthaben wird auf die Folgeperiode angerechnet.
                   </span>
                 </span>
               </div>
-              <div class="price-prefix">Ab</div>
-              <span class="price-large">750€</span>
-              <div class="price-suffix">/Monat</div>
+              <div class="pricing-amount">
+  <div class="price-prefix">Ab</div><br>
+  <span class="price-large">850€</span>
+  <div class="price-suffix">/Monat</div>
+</div>
               
               <div class="pricing-time">
                 <p class="mb-1">Montag bis Freitag</p>
@@ -409,10 +431,12 @@
         <div class="col-md-3">
           <div class="pricing-card slide-in-left delay-200">
             <div>
-              <h3>Basic</h3>
-              <div class="price-prefix">Ab</div>
-              <span class="price-large">950€</span>
-              <div class="price-suffix">/Monat</div>
+              <h3>Value</h3>
+              <div class="pricing-amount">
+  <div class="price-prefix">Ab</div><br>
+  <span class="price-large">950€</span>
+  <div class="price-suffix">/Monat</div>
+</div>
               
               <div class="pricing-time">
                 <p class="mb-1">Montag bis Freitag</p>
@@ -432,9 +456,11 @@
           <div class="pricing-card slide-in-right delay-200">
             <div>
               <h3>Extended</h3>
-              <div class="price-prefix">Ab</div>
-              <span class="price-large">1.250€</span>
-              <div class="price-suffix">/Monat</div>
+              <div class="pricing-amount">
+  <div class="price-prefix">Ab</div>
+  <span class="price-large">1.250€</span>
+  <div class="price-suffix">/Monat</div>
+</div>
               
               <div class="pricing-time">
                 <p class="mb-1">Montag bis Freitag</p>
@@ -456,9 +482,11 @@
           <div class="pricing-card slide-in-right delay-100">
             <div>
               <h3>Super 365</h3>
-              <div class="price-prefix">Ab</div>
-              <span class="price-large">1.950€</span>
-              <div class="price-suffix">/Monat</div>
+              <div class="pricing-amount">
+  <div class="price-prefix">Ab</div>
+  <span class="price-large">1.950€</span>
+  <div class="price-suffix">/Monat</div>
+</div>
               
               <div class="pricing-time">
                 <p class="mb-1">Montag bis Sonntag</p>
@@ -476,6 +504,12 @@
       <!-- Informationsleiste mit Onboarding-Preis -->
       <div class="bottom-info-bar zoom-in delay-500">
         <p class="mb-0">Einmalige Onboarding-Gebühr 2.450€</p>
+      </div>
+      <div class="col-md-8 col-12 pt-5 mx-auto">
+
+      </div>
+      <div class="d-flex justify-content-center mt-1 mb-2">
+        <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="border-26 w-fit text-white fw-bold demo-btn">Demo buchen →</a>
       </div>
     </div>
   </section>
@@ -525,7 +559,7 @@
             <tr>
               <td>24/7-Service*</td>
               <td>/</td>
-              <td>2.950€</td>
+              <td>2.850€</td>
             </tr>
             <tr>
               <td>WhatsApp, Chat, Forms</td>
@@ -548,7 +582,7 @@
               <td>500€</td>
             </tr>
             <tr>
-              <td>Einbindung Fremd-Tools</td>
+              <td>Einbindung von Fremd-Tools</td>
               <td>Nach Aufwand</td>
               <td>150€</td>
             </tr>
@@ -704,6 +738,7 @@
   <script src="cookie-banner.js"></script>
 <!-- Mobile Menü Script -->
 <script src="mobile-menu.js"></script>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 
 </html>

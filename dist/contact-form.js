@@ -1,4 +1,4 @@
-import { saveContactRequest } from './supabase-config.js'
+
 
 // Supabase Edge Function für E-Mail-Versand
 const EDGE_FUNCTION_URL = 'https://jdiffzezrmujwcqvligu.supabase.co/functions/v1/Resend';
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         company: form.querySelector('[name="company"]').value || null,
         email: form.querySelector('[name="email"]').value,
         phone: form.querySelector('[name="phone"]').value,
-        service: form.querySelector('[name="service"]').value,
+        
         privacy_policy: form.querySelector('[name="privacy_policy"]').checked ? 'accepted' : null,
         marketing_agreement: form.querySelector('[name="marketing_agreement"]').checked ? 'accepted' : null
       };

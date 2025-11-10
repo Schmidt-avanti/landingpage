@@ -3,60 +3,322 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
-  <link rel='stylesheet' id='splide-style-css' href='/Vorlagen/assets/splide-core.min.css' type='text/css' media='all' />
+  <title>avanti - Professioneller Kundenservice</title>
+  <link rel="icon" type="image/png" href="/Picture-1.png">
   <link rel='stylesheet' id='bootstrap-style-css' href='/Vorlagen/assets/bootstrap.min.css' type='text/css' media='all' />
   <link rel='stylesheet' id='main-style-css' href='/Vorlagen/style.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='media-q-css' href='/Vorlagen/assets/media-queries.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='sticky-header-css' href='/sticky-header.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='logo-grid-css' href='/logo-grid.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='hero-spacing-css' href='/hero-spacing.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='animations-css' href='animations.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='heroicons-css' href='heroicons.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='blue-section-animations-css' href='blue-section-animations.css' type='text/css' media='all' />
-  <link rel='stylesheet' id='grid-animations-css' href='grid-animations.css' type='text/css' media='all' />
   <style>
-    /* Direkter Orange-Hover-Effekt für Icons */
-    .showCardContainer:hover .hero-icon {
-      stroke: #FF8E3C !important;
-    }
-    .showCardContainer:hover .hero-icon path {
-      stroke: #FF8E3C !important;
+    /* Enable smooth scrolling for in-page anchors */
+    html { scroll-behavior: smooth; }
+    /* */
+    /* Offset target position to account for fixed navbar height */
+    #contactSection { scroll-margin-top: 90px; }
+
+    /* avanti-inspired clean design */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
     }
     
-    /* Demo-Button-Styling mit Hover-Effekt */
-    .demo-btn {
-      background-color: #FF8E3C; 
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-      font-size: 1.1rem; 
+    .hero-section {
+      padding: 100px 0 80px;
+      background-color: rgb(23, 43, 82) !important;
+      background-image: none !important;
+      color: rgb(255, 255, 255) !important;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    .hero-section h1,
+    .hero-section h2,
+    .hero-section p,
+    .hero-section .section-title,
+    .hero-section .section-subtitle {
+      color: rgb(255, 255, 255) !important;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      position: relative; /* ensure it creates a stacking context */
+      z-index: 2; /* above ::before overlay */
+    }
+    /* Ensure overlay does not intercept clicks */
+    .hero-section::before { pointer-events: none !important; }
+    
+    .hero-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .maribel-image {
+      max-width: 50%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    /* Make testimonial card in CEO section match image size */
+    .section-padding .testimonial-card {
+      background: #f8f9fa;
+      border-left: 4px solid #e67e22;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      height: auto;
+      max-width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    /* Reverted: no custom equal-height or image overrides for suite section */
+    
+    .section-padding {
+      padding: 80px 0;
+    }
+    
+    .btn-primary-custom {
+      background-color: rgb(23, 43, 82);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
       transition: all 0.3s ease;
-      padding: 0.75rem 1.5rem;
     }
     
-    .demo-btn:hover {
-      background-color: #43bede !important;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    .btn-primary-custom:hover {
+      background-color: rgba(23, 43, 82, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(23, 43, 82, 0.3);
     }
     
-    /* Responsive Kachel-Styling */
-    @media (max-width: 767px) {
-      .card-body p {
-        font-size: 0.8rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding: 0.5rem 0.25rem;
-        margin-bottom: 0;
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .testimonial-card {
+      background: #f8f9fa;
+      border-left: 4px solid #e67e22;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgb(23, 43, 82);
+      margin-bottom: 20px;
+    }
+    
+    .section-subtitle {
+      /* font-size: 1.2rem; */
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+    
+    .contact-section {
+      background-color: rgb(23, 43, 82);
+      color: white;
+    }
+    
+    .form-control-custom {
+      border: none;
+      border-bottom: 2px solid #e67e22;
+      border-radius: 0;
+      background: transparent;
+      color: white;
+      padding: 10px 0;
+    }
+    
+    .form-control-custom::-moz-placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .form-control-custom::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .form-control-custom:focus {
+      background: transparent;
+      border-color: #e67e22;
+      box-shadow: none;
+      color: white;
+    }
+    
+    /* Icon sizing fixes */
+    .hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      max-width: 36px;
+      max-height: 36px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .cardIcon {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    
+    .cardIcon .hero-icon {
+      width: 48px !important;
+      height: 48px !important;
+      max-width: 48px;
+      max-height: 48px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .iconContainer {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .iconContainer .hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      max-width: 36px;
+      max-height: 36px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    svg.hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    /* Moving client logo marquee */
+    .logo-marquee {
+      background-color: rgb(23, 43, 82);
+      padding: 70px 0;
+      overflow: hidden;
+    }
+    .logo-marquee .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: -moz-max-content;
+      width: max-content; /* allow content to be wider than container */
+      animation: marquee-scroll 30s linear infinite;
+    }
+    .logo-marquee img {
+      height: 40px;
+      width: auto;
+      opacity: 0.9;
+      filter: brightness(0) invert(1);
+    }
+    @media (min-width: 992px) {
+      .logo-marquee img { height: 56px; }
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    /* Testimonials grid with overlay text */
+    .testimonial-grid .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0f2350; /* fallback while image loads */
+    }
+    .testimonial-grid .card img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover;
+      display: block;
+    }
+    .testimonial-grid .card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.65) 100%);
+      pointer-events: none;
+    }
+    .testimonial-grid .card .overlay-content {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      color: #fff;
+    }
+    /* Default focal point for first testimonial image across all sizes */
+    .testimonial-grid .card img.face-down { -o-object-position: center 30%; object-position: center 30%; }
+    /* Per-image focal point helper (set only within media queries to avoid desktop impact) */
+    .testimonial-quote {
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 10px 0;
+      font-size: 1.125rem;
+      color: white;
+    }
+    .testimonial-author { margin: 0; opacity: 0.95;
+    color: white; }
+    .testimonial-company { margin: 0; opacity: 0.85;
+    color: white; }
+    /* Responsive testimonial card height: slightly taller across sizes */
+    .testimonial-card-aspect { height: clamp(320px, 26vw, 600px); }
+    /* Testimonials section theming */
+    #testimonials { background-color: rgb(23, 43, 82); }
+    #testimonials .section-title,
+    #testimonials .section-subtitle { color: #fff; }
+    @media (min-width: 992px) {
+      .testimonial-quote { font-size: 1.25rem; }
+    }
+    @media (min-width: 1200px) {
+      /* Keep clamp behavior; no fixed height here */
+    }
+    /* Slightly larger vertical spacing for the testimonials section */
+    #testimonials.section-padding { padding-top: 56px; padding-bottom: 64px; }
+    /* Mobile tweaks to better center faces in testimonial images */
+    @media (max-width: 991.98px) {
+      .testimonial-grid .card img {
+        /* Default mobile focal point */
+        -o-object-position: center 35%;
+           object-position: center 35%;
       }
-      
-      .card {
-        padding: 0.5rem !important;
-      }
+      /* Use class-based targeting only (no structural selectors) */
+      .testimonial-grid .card img.face-down { -o-object-position: center 25%; object-position: center 25%; }
+    }
+    @media (max-width: 575.98px) {
+      /* Slightly taller cards on very small screens to avoid cutting heads */
+      .testimonial-card-aspect { height: 320px; }
+      /* Class-based targeting only on xs */
+      .testimonial-grid .card img.face-down { -o-object-position: center 22%; object-position: center 22%; }
+    }
+    /* Tablet breakpoint: make testimonial cards taller as well */
+    @media (min-width: 576px) and (max-width: 991.98px) {
+      .testimonial-card-aspect { height: 360px; }
     }
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <!-- Material Symbols (Google Icons) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap">
+  <!-- Poppins for section titles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel='stylesheet' id='cookie-banner-css' href='cookie-banner.css' type='text/css' media='all' />
   <script type="text/javascript" src="https://avanti.cx/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
   <link rel="https://api.w.org/" href="https://avanti.cx/wp-json/" />
@@ -64,463 +326,270 @@
   <link rel='shortlink' href='https://avanti.cx/' />
   <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F" />
   <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F&#038;format=xml" />
-  <meta name="generator" content="Site Kit by Google 1.152.1" />
-  <style>
-    .cmplz-hidden {
-      display: none !important;
-    }
-  </style>
-  <meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" />
-  <meta name="bmi-version" content="1.4.8" />
-  <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
-  <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-192x192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-180x180.png" />
-  <meta name="msapplication-TileImage" content="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-270x270.png" />
-  
-  .showCardContainer:hover .hero-icon path {
-    stroke: #FF8E3C !important;
-  }
-</style>
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<link rel='stylesheet' id='cookie-banner-css' href='cookie-banner.css' type='text/css' media='all' />
-<!-- SVG-Support-Skripts entfernt -->
-<script type="text/javascript" src="https://avanti.cx/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
-<!-- jQuery-Migrate entfernt -->
-<!-- SVG-Support Inline-Skripte entfernt -->
-<link rel="https://api.w.org/" href="https://avanti.cx/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://avanti.cx/wp-json/wp/v2/pages/14" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://avanti.cx/xmlrpc.php?rsd" />
-<meta name="generator" content="WordPress 6.8.1" />
-<link rel="canonical" href="https://avanti.cx/" />
-<link rel='shortlink' href='https://avanti.cx/' />
-<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F" />
-<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F&#038;format=xml" />
-<meta name="generator" content="Site Kit by Google 1.152.1" />			<style>.cmplz-hidden {
+  <meta name="generator" content="Site Kit by Google 1.152.1" />			<style>.cmplz-hidden {
 					display: none !important;
-				}</style><meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc"><meta name="bmi-version" content="1.4.8" /><link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
+				}</style><meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" /><meta name="bmi-version" content="1.4.8" /><link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
 <link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-192x192.png" sizes="192x192" />
-<link rel="apple-touch-icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-180x180.png" />
-<meta name="msapplication-TileImage" content="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-270x270.png" />
-	
-<!-- Mobile Menü Styling -->
-  <script type="module" crossorigin src="/assets/main-CWVFMm-7.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/mobile-menu-C7SN0GuP.css">
-</head>
-<body class="home">
-    <header class="sticky-header" id="stickyHeader">
-    <div class="custom-container navContainer py-3">
-  <div class="row position-relative z-3 d-flex align-items-center justify-content-start">
-        <div class="col-4 d-md-none d-block">
-      <div type="button" class="hamburger">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-      </div>
-    </div>
-    <div class="col-md-4 col-8">
-      <div class="d-flex align-items-center justify-content-md-start justify-content-end">
-		  <a href="https://avanti.cx">
-			  <img class="navLogo" src="Logo.svg" alt="Avanti">
-
-		  </a>
-              </div>
-    </div>
-    <div class="col-md-4 d-md-block d-none">
-      <div class="d-flex align-items-center justify-content-center">
-		 		  <a class="text-white text-nowrap pe-3" href="#aboutSection">Über uns</a>		  <a class="text-white text-nowrap pe-3" href="#serviceSection">Leistungen</a>		  <a class="text-white text-nowrap pe-3" href="preise.html">Preise</a>		  <a class="text-white text-nowrap pe-3" href="#contactSection">Kontakt</a>      </div>
-    </div>
-    <div class="col-md-4 d-md-block d-none">
-      <div class="d-flex align-items-center justify-content-end">
-        <a href="tel:+49(0)30/814892-121" class="border-26 w-fit text-white p-2">+49 (0)30 / 814 892-121</a>
-      </div>
-    </div>
-  </div>
-</div>
-</header>
-<!-- Mobile Navigation - Vereinfachte Struktur -->
-<div class="mobileNav">
-  <button id="closeNav" class="closeNav-btn">✕</button>
+  <!-- Force orange icons in the services section(s) -->
+  <style>
+    /* Applies to both the grid (#services) and the cards block (#serviceSection) */
+    #serviceSection .hero-icon,
+    #serviceSection .hero-icon *,
+    #services .hero-icon,
+    #services .hero-icon * {
+      color: #FF8E3C !important; /* for stroke=currentColor */
+      stroke: #FF8E3C !important; /* ensure stroke is orange even if set inline */
+      fill: none !important;      /* keep heroicons outlined */
+    }
   
-  <div class="navContent">
-    <!-- Navigation Links direkt am Anfang -->
-    <div class="navLinks">
-      <a href="#aboutSection">Über uns</a>
-      <a href="#serviceSection">Leistungen</a>
-      <a href="preise.html">Preise</a>
-      <a href="#contactSection">Kontakt</a>
-    </div>
-    
-    <!-- Telefonnummer direkt darunter -->
-    <div class="navButton">
-      <a href="tel:+49(0)30/814892-121" class="border-26 text-white p-2">+49 (0)30 / 814 892-121</a>
-    </div>
-    
-    <!-- Logo ganz unten -->
-    <div class="navLogo-container">
-      <img class="navLogo" src="Logo.svg" width="100" height="40" alt="Avanti">
-    </div>
-  </div>
-</div>
-
-<!-- Overlay für das mobile Menü -->
-<div class="overlay"></div>
-
-<!-- Back to Top Button -->
-<div type="button" class="toTop d-none">^</div>
-<!-- First section -->
-<!-- Video Overlay für das Hintergrundbild -->
-<div class="video-overlay"></div>
-
-<!-- Hintergrundvideo mit Optimierungen für mobile Geräte -->
-<video 
-    class="hero-Video" 
-    autoplay 
-    muted 
-    loop 
-    playsinline 
-    preload="metadata" 
-    poster="Video-poster.jpg">
-    <source src="Video-mobile.mp4" type="video/mp4" media="(max-width: 767px)">
-    <source src="Video.mp4" type="video/mp4">
-</video>
-
-<!-- Optimierte Performance für alle Geräte -->
-<style>
-/* Fallback für den Fall, dass das Video nicht geladen werden kann */
-
-
-/* Video-Styling für alle Geräte */
-.hero-Video {
-    -o-object-fit: cover;
-       object-fit: cover;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-</style>
-<section class="hero-section">
-    <div class="custom-container">
-        <div class="heroSection o-Container">
-            <!-- Hero Content -->
-            <div class="row position-relative z-2 heroContent">
-                <div class="col-xl-5 col-lg-6 col-12 h-100">
-                    <h1 class="text-white fw-bold mb-0 animate">
-                        Deine Lösung für mehr Zeit und Effizienz
-                    </h1>
-                    <span class="orangeU animate delay-100"></span>
-                    <p class="text-white w-75 pt-2 animate delay-200">
-                        Wir von avanti übernehmen deine Routineaufgaben, damit du dich auf das Wesentliche konzentrieren kannst.                    </p>
-                </div>
-            </div>
-
-            <div class="row position-relative pt-5 z-2">
-               <h1 class="text-white text-start pb-5">
-            		Hey, we're 
-					<span class="slide-up-container">
-					  <span class="animated-span fw-bold">simply nice people</span>
-					  <span class="animated-span fw-bold">responsive</span>
-					  <span class="animated-span fw-bold">effective</span>
-						<span class="animated-span fw-bold">your 42</span>
-					</span>
-         	 </h1>
-            </div>
-        </div>
-    </div>
-</section>
+    /* Big testimonial card */
+    .big-quote-card {
+      background: #34D1FF; /* bright blue */
+      color: #172B52;      /* navy text */
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+    .big-quote-icon {
+      color: rgba(255,255,255,0.8);
+      font-size: 28px;
+      line-height: 1;
+    }
+    .big-quote-text {
+      font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+    }
+    .big-quote-author { margin-top: 1.5rem; }
+  
+    /* DRID-style compact list look for the eight service lines */
+    #serviceSection .showCardContainer {
+      box-shadow: none !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      padding: 16px 8px !important; /* more compact */
+      display: grid !important;
+      grid-template-columns: 56px 1fr;
+      grid-template-areas:
+        "icon title"
+        "icon desc";
+      -moz-column-gap: 16px;
+           column-gap: 16px;
+      align-items: start;
+      height: auto !important; /* shrink to content */
+      min-width: 0 !important;
+    }
+    #serviceSection .showCardContainer:hover { background: transparent !important; box-shadow: none !important; }
+    #serviceSection .showCardContainer .cardIcon { margin: 0; display: flex; align-items: flex-start; justify-content: center; grid-area: icon; }
+    #serviceSection .showCardContainer .hero-icon { width: 36px !important; height: 36px !important; }
+    #serviceSection .showCardContainer h3 { margin: 0 0 6px 0; font-size: 1.08rem; font-weight: 700; line-height: 1.25; height: auto !important; grid-area: title; min-width: 0; white-space: normal; word-break: keep-all; overflow-wrap: normal; }
+    #serviceSection .showCardContainer .pt-2 { padding-top: 0.2rem !important; grid-area: desc; min-width: 0; }
+    #serviceSection .showCardContainer .pt-2 br { display: none; }
+    #serviceSection .showCardContainer .pt-2 p { display: inline; margin: 0; color: #082041; font-size: 0.98rem; line-height: 1.45; white-space: normal; word-break: keep-all; overflow-wrap: normal; }
+    #serviceSection .showCardContainer .pt-2 p + p::before { content: " "; }
+    #serviceSection .col-xxl-6 > .showCardContainer { width: 100% !important; }
+    /* light container look like mockup */
+    #serviceSection .row.py-5 { 
+      background: transparent; 
+      border: none; 
+      border-radius: 0; 
+      padding: 24px !important;
+      margin-bottom: 16px; /* create separation from next section */
+    }
+    /* keep grid at two columns on wide screens as already set in markup */
+    /* Leistungen section theme */
+    #serviceSection { background-color: #172b52 !important; color: #ffffff; }
+    #serviceSection h2,
+    #serviceSection h3,
+    #serviceSection p,
+    #serviceSection li,
+    #serviceSection .section-subtitle,
+    #serviceSection .text-muted { color: #ffffff !important; }
+    /* Override earlier card text color for compact list items */
+    #serviceSection .showCardContainer .pt-2 p { color: #ffffff !important; }
+    #serviceSection .showCardContainer h3 { color: #ffffff !important; }
+    /* Tooltip for navbar brand icon */
+    .navbar-brand.tooltip-info { position: relative; display: inline-flex; align-items: center; }
+    .navbar-brand.tooltip-info::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      background: #43bede; /* turquoise */
+      color: #172B52;      /* navy text for contrast */
+      padding: 12px 14px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      width: min(480px, 92vw);
+      white-space: pre-line; /* allow newlines */
+      line-height: 1.35;
+      font-size: 0.95rem;
+      font-weight: 600;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+    .navbar-brand.tooltip-info:hover::after,
+    .navbar-brand.tooltip-info:focus::after { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgb(23, 43, 82);">
+    <div class="container">
+      <a class="navbar-brand tooltip-info d-flex align-items-center" href="#" data-tooltip="𝐚𝐯𝐚𝐧𝐭𝐢 𝐞𝐫𝐡ä𝐥𝐭 𝐝𝐞𝐧 𝐏𝐫𝐞𝐢𝐬 „𝐵𝑢𝑠𝑖𝑛𝑒𝑠𝑠 𝐼𝑛𝑛𝑜𝑣𝑎𝑡𝑜𝑟 2025“ 🏆​&#10;&#10;Das diind – Deutsches Innovationsinstitut hat uns als Business Innovator 2025 geehrt. ​&#10;&#10;Mit unserer hybriden avanti-Lösung revolutionieren wir den Kundenservice für kleine und mittlere Unternehmen.&#10;&#10;Warum? Weil wir Kundendienst neu denken!&#10;&#10;Denn avanti verbindet:&#10;👉kluge Prozesse&#10;👉persönlichen Service – digital und durch KI unterstützt&#10;👉jeden Tag besser durch das avanti-Schwungrad&#10;👉effizient und nah am Menschen.">
+        <img src="Group-172.svg" alt="avanti logo" style="max-height: 30px; width: auto; margin-right: 15px;"><img src="/assets/DIIND_BusinessInnovator_Siegel_avanti.cx GmbH-gq3naED5.png" alt="Business Innovator Siegel" height="100" style="max-height: 40px; width: auto;">
+      </a>
       
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link text-white" href="#about">Über uns</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#services">Leistungen</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="preise.html">Preise</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#contactSection">Kontakt</a></li>
+          <li class="nav-item">
+            <a class="btn text-white ms-2" href="tel:+49(0)30/814892-121" style="background-color: #e67e22; border-radius: 25px; padding: 8px 20px; font-weight: 600;">
+              +49 (0)30 / 814 892-121
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <h1 id="hero-title" class="section-title">Für kleinere und mittlere Unternehmen</h1>
+            <h2 id="hero-subtitle" class="section-subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
+            <p class="lead mb-4">
+               <b>avanti</b> übernimmt alle Routineaufgaben bei Ihrer telefonischen und schriftlichen Kundenbetreuung. 
+              Menschlich, effizient, professionell. So können Sie sich auf das Wesentliche konzentrieren: die Entwicklung Ihres Geschäfts.
+            </p>
+            <a id="hero-cta" href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch anfragen</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img id="hero-image" src="/CNMTX_avanti_JANtronic_EditV1-27_compressed.jpg" alt="Kundenservice Team" class="hero-image">
+        </div>
+      </div>
+    </div>
+  
+</section>
 
 
-<!-- Second Section -->
-<section id="aboutSection">
-  <div class="bg-main pt-5 position-relative">
-    <div class="custom-container">
-      <div class="row z-2 position-relative">
-        
+  <!-- Moving Client Logos Banner -->
+  <section class="logo-marquee" aria-label="Kundenlogos">
+    <div class="container-fluid px-4">
+      <!-- Duplicate logo sets back-to-back for seamless loop -->
+      <div class="marquee-track">
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus">
+        <img src="Logo_enviaM.png" alt="enviaM">
+        <img src="Group-116.svg" alt="roadsurfer">
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET">
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods">
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring">
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE">
+        <!-- duplicate set -->
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus">
+        <img src="Logo_enviaM.png" alt="enviaM">
+        <img src="Group-116.svg" alt="roadsurfer">
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET">
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods">
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring">
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE">
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section (moved here) -->
+  <section id="testimonials" class="section-padding testimonials-alt">
+    <div class="container-fluid px-3 px-lg-5">
+      <div class="row">
+        <div class="col-12 text-center mb-2">
+          <h2 class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
         <div class="col-12">
-          <img loading="lazy" class="w-100 animate" src="Dr.-Christoph-Baumgartner-Seminarraum.png">
-          <!--
-          <div class="w-100 position-relative videoContainer">
-            <video class="otherVideo w-100" src="Vorlagen/uploads/2025/04/WhatsApp-Video-2025-03-24-at-18.30.26.mp4" type="video/mp4" poster="https://avanti.cx/wp-content/uploads/2025/04/Dr.-Christoph-Baumgartner-Seminarraum.png" preload="none"></video>
-            <img type="button" src="Vorlagen/uploads/2025/04/cover-button.svg" alt="" class="playBtn position-absolute top-50 start-50 translate-middle">
-          </div>
-          -->
-        </div>
-
-        <div class="col-md-4 col-12 pt-5">
-          <p class="text-white animate delay-100">Wir sprechen und schreiben mit deinen Kunden – und kümmern uns um deine Backoffice-Themen.
-</p>
-          <p class="text-white pt-3 animate delay-200">So bleibt dir mehr Zeit: für alles, was du nicht delegieren kannst. Für die Entwicklung deines Geschäfts. Für dich selbst.</p>
-        </div>
-
-        <div class="col-md-8 col-12 pt-5">
-          <div class="d-flex justify-content-md-end justify-content-start animate delay-300">
-            <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/m-gawlich-ja-dialog/30min'});return false;" class="border-26 w-fit text-white fw-bold demo-btn">Demo buchen →</a>
-          </div>
-        </div>
-
-        <div class="col-md-12 py-5"></div>
-        <div class="col-md-12 py--md-5 py-0"></div>
-      </div>
-    </div>
-
-    
-    <div class="container-fluid">
-      <div class="row p-0">
-        <!-- Staff Image -->
-        <div class="col-6 d-flex justify-content-end align-items-end">
-          <img id="aaron" 
-               src="Aaron-freistehend.png" 
-               alt="" 
-               class="staffImage z-2">
-        </div>
-
-        <!-- Quote Section -->
-        <div class="col-6 d-flex flex-column align-items-start justify-content-end position-relative">
-          <div class="rounded-3 p-lg-5 p-0 quoteBox bg-white d-flex align-items-center justify-content-center position-relative animate zoom-in">
-            <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-            <p class="staffQuote fw-bold text-start">avanti bringt kleinen und mittelständischen Unternehmen einen Kundenservice auf Top-Niveau.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Staff Info -->
-      <div class="row bg-neon py-3 p-0">
-        <div class="col-lg-6 d-md-flex justify-content-end d-none">
-          <p class="staffQuote text-white"></p>
-        </div>
-        <div class="col-lg-6 col-12 py-3 ps-lg-5">
-          <h2 class="staffName text-lg-start text-center w-100 fw-bold mb-0 text-orange">
-            Aaron          </h2>
-          <div>
-            <p class="staffTitle text-white text-lg-start w-100 text-center">
-              Head of Business Development            </p>
-            <span class="orangeU mx-lg-0 mx-auto"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-</section>
-
-<!-- Logo-Laufband mit reinem CSS -->
-<div class="bg-main py-5">
-  <div class="logo-ticker-wrap">
-    <div class="logo-ticker">
-      <!-- Erste Gruppe Logos (wiederholt für nahtloses Scrollen) -->
-      <div class="logo-ticker-item">
-        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="VME Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="1740143146789.png" alt="Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="1ince-logo-web_edicion_arte.png" alt="Ince Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Lagerhaus Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="md.png" alt="MD Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_enviaM.png" alt="EnviaM Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Group-276.png" alt="Group Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS Logo" class="logo-img">
-      </div>
-
-      <!-- Zweite Gruppe Logos (Duplikate für nahtloses Endlos-Scrollen) -->
-      <div class="logo-ticker-item">
-        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="VME Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="1740143146789.png" alt="Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="1ince-logo-web_edicion_arte.png" alt="Ince Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Lagerhaus Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="md.png" alt="MD Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_enviaM.png" alt="EnviaM Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Group-276.png" alt="Group Logo" class="logo-img">
-      </div>
-      <div class="logo-ticker-item">
-        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS Logo" class="logo-img">
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Third Section -->
-<section class="position-relative">
-  <div class="custom-container bg-white">
-        <div class="row py-5">
-      <div class="col-xxl-6 col-12 px-4 position-relative z-2">
-		  <div>
-			  <h1 class="fw-bold mb-0">Wir entlasten dich</h1>
-	<span class="orangeU"></span>
-		  </div>
-        
-
-			  				
-        <p class="pt-3  "><p>Wir übernehmen telefonische und schriftliche Anfragen. So gewinnst du Zeit für deine eigentlichen Aufgaben. Du bist jederzeit für deine Kunden erreichbar &#8211; ohne dass dein Tagesablauf gestört wird.</p>
-<p>&nbsp;</p>
-<p>Wichtige Themen bearbeitest du, wann es dir passt. Bei Dringendem wirst du sofort informiert.<br />
-<span data-olk-copy-source="MessageBody">Mit der Kombination aus Technologie und Mensch und unserer KI-gestützten Kundenservice-Plattform bieten wir deinen Kunden besten Service. Und das für dich zu attraktiven Kosten.</span></p>
-<p>&nbsp;</p>
-<p>Wir sind weit mehr als ein Sekretariatsservice.<br />
-Wir können mehr, wir machen mehr.</p>
-</p>
-      </div>
-      <div class="col-xxl-6 d-xxl-block d-none"></div>
-	<div class="col-xxl-12 d-xxl-block d-none py-xxl-5 py-0" > </div>
-			<div class="col-xxl-12 d-xxl-block d-none py-xxl-5 py-0" > </div>
-    </div>
-  </div>
-      <div class="container-fluid" id="violaStaff">
-        <div class="row site-clamp p-0">
-          <div class="col-xl-9 col-6 d-flex justify-content-end align-items-end position-relative z-2 bg-white">
-          <div class="rounded-3 p-lg-5 p-0  quoteBox bg-main  d-flex align-items-center justify-content-center position-relative">
-              <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-              <p class="staffQuote fw-bold text-start text-white">Wir kümmern uns mit Herz und Verstand um deine Kunden: Sie sollen sich genauso gut wie von dir betreut fühlen.</p>
-            </div>
-          </div>
-          <div class="col-xl-3 col-6 d-flex align-items-end justify-content-start bg-white">
-          <img id="viola" src="Viola-2.png" alt="" class="staffImage z-1">
-          </div>
-        </div>
-        <div class="row  bg-neon py-3 p-0">
-            <div class="col-xl-6 col-lg-2  d-lg-flex justify-content-end d-none"><p class="staffQuote text-white"></p></div>
-            <div class="col-xl-6 col-lg-10 py-3 ps-xl-5">
-            <div class="ps-xl-4">
-              <h2 class="staffName text-lg-start text-center w-100 fw-bold mb-0 text-orange">Viola</h2>
-              <div>
-                <p class="staffTitle text-white text-lg-start w-100 text-center">Customer-Success-Managerin</p>
-                <span class="orangeU mx-lg-0 mx-auto"></span>
-            </div>
-            </div>
-            </div>
-        </div>
-      </div>
-
-</section>
-<!-- Fourth Section -->
-<section class="bg-main position-relative">
-    <div class="custom-container py-5">
-	  <div>
-		   <h1 class="text-white fw-bold text-center pt-5 mb-0 animate">Wer steckt hinter avanti?</h1>
-			<span class="orangeU mx-auto animate delay-100"></span>
-	  </div>
-   
-
-
-    <p class="mx-auto text-center text-white pt-4 f-p"> avanti ist eine Marke der ja-dialog Gruppe. ja-dialog ist das Powerhouse für Premium-Kundenservice in Deutschland.</p>
-    <p class="mx-auto text-center text-white pt-3 f-p">Zertifiziert nach ISO 9001 und ISO 27001 - höchste Qualität, solide Prozesse und Datenschutz. Sicher und zuverlässig - auch Banken vertrauen uns.</p>
-  </div>
-  <div class="custom-container pt-5">
-    <div class="row p-0 py-5">
-      
-      <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 pe-0   col-12">
-        <div class="cardContainer d-flex flex-column align-items-center justify-content-between p-1">
-         <div class="cardImage d-flex flex-column align-items-center">
-          <img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='147.5'%20height='93.96'%20viewBox='0%200%20147.5%2093.96'%3e%3cg%20id='Group_107'%20data-name='Group%20107'%20transform='translate(-2216.1%20-1135.56)'%3e%3cpath%20id='Path_215'%20data-name='Path%20215'%20d='M2404.882,1176.112a19.9,19.9,0,1,0-19.9-19.9A19.924,19.924,0,0,0,2404.882,1176.112Zm0-37.917a18.016,18.016,0,1,1-18.016,18.016A18.037,18.037,0,0,1,2404.882,1138.195Z'%20transform='translate(-115.315)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='1.5'%3e%3c/path%3e%3cpath%20id='Path_216'%20data-name='Path%20216'%20d='M2550.5,1219.026a17.126,17.126,0,1,0-17.126-17.126A17.146,17.146,0,0,0,2550.5,1219.026Zm0-32.368a15.241,15.241,0,1,1-15.241,15.241A15.258,15.258,0,0,1,2550.5,1186.659Z'%20transform='translate(-217.091%20-33.24)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='1.5'%3e%3c/path%3e%3cpath%20id='Path_217'%20data-name='Path%20217'%20d='M2271.385,1219.026a17.126,17.126,0,1,0-17.126-17.126A17.146,17.146,0,0,0,2271.385,1219.026Zm0-32.368a15.241,15.241,0,1,1-15.241,15.241A15.259,15.259,0,0,1,2271.385,1186.659Z'%20transform='translate(-25.658%20-33.24)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='1.5'%3e%3c/path%3e%3cpath%20id='Path_218'%20data-name='Path%20218'%20d='M2338.084,1277.882h-8.221a24.48,24.48,0,0,0-10.768,2.463,30.763,30.763,0,0,0-24.41-12.141h-10.238a30.715,30.715,0,0,0-24.257,11.944,24.473,24.473,0,0,0-10.354-2.265h-8.221a24.794,24.794,0,0,0-24.766,24.766v15.641a.942.942,0,0,0,.942.942h106.56a.858.858,0,0,1,.569,0h36.986a.942.942,0,0,0,.942-.942v-15.641A24.794,24.794,0,0,0,2338.084,1277.882Zm-4.112,4.534,4.457,16.56-4.457,4.4-4.454-4.4Zm-88.244,0,4.454,16.56-4.454,4.4-4.457-4.4Zm-26.993,20.232a22.907,22.907,0,0,1,22.881-22.881h2.873l-5.181,19.25a.942.942,0,0,0,.248.916l5.51,5.438a.943.943,0,0,0,1.324,0l5.506-5.438a.942.942,0,0,0,.248-.915l-5.178-19.25h2.87a22.612,22.612,0,0,1,9.227,1.94,30.325,30.325,0,0,0-5.228,17.105v18.534h-35.1Zm104.675,14.7h-67.689v-18.534a28.461,28.461,0,0,1,5.521-16.926,28.819,28.819,0,0,1,23.207-11.8h3.979l-7.034,27.21a.944.944,0,0,0,.25.907l7.26,7.165a.942.942,0,0,0,1.324,0l7.26-7.165a.943.943,0,0,0,.25-.907l-7.033-27.21h3.982a28.871,28.871,0,0,1,23.08,11.619,28.5,28.5,0,0,1,5.645,17.105Zm-33.845-44.132,6.211,24.029-6.211,6.131-6.211-6.131Zm71.4,44.132h-35.67v-18.534a30.351,30.351,0,0,0-5.094-16.909,22.609,22.609,0,0,1,9.662-2.137h2.87l-5.178,19.25a.941.941,0,0,0,.248.915l5.507,5.438a.942.942,0,0,0,1.324,0l5.51-5.438a.943.943,0,0,0,.248-.916l-5.181-19.25h2.873a22.907,22.907,0,0,1,22.881,22.881Z'%20transform='translate(0%20-90.461)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='1.5'%3e%3c/path%3e%3c/g%3e%3c/svg%3e" alt="">
-          <p class="pt-3 text-white text-center ">Mitarbeiter</p>
-         </div>
-         <div class="cardNumber">
-           <h1 class="text-blue fs-100 fw-bold countup-number" data-target="512">0</h1>
-         </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 pe-0   col-12">
-        <div class="cardContainer d-flex flex-column align-items-center justify-content-between p-1">
-         <div class="cardImage d-flex flex-column align-items-center">
-          <img src="/assets/Group-116-D_0ZdxzO.svg" alt="">
-          <p class="pt-3 text-white text-center ">Nationalitäten</p>
-         </div>
-         <div class="cardNumber">
-           <h1 class="text-blue fs-100 fw-bold countup-number" data-target="20">0</h1>
-         </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 pe-0   col-12">
-        <div class="cardContainer d-flex flex-column align-items-center justify-content-between p-1">
-         <div class="cardImage d-flex flex-column align-items-center">
-          <img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='114.411'%20height='94.46'%20viewBox='0%200%20114.411%2094.46'%3e%3cg%20id='Group_117'%20data-name='Group%20117'%20transform='translate(-3156.325%20-1136.492)'%3e%3cpath%20id='Path_227'%20data-name='Path%20227'%20d='M3265.389,1137.492h-55.8a4.352,4.352,0,0,0-4.347,4.347v28.135h-43.569a4.352,4.352,0,0,0-4.347,4.348v40.2a4.352,4.352,0,0,0,4.347,4.347h2.473v10.3a.788.788,0,0,0,1.345.557l10.853-10.853h41.13a4.352,4.352,0,0,0,4.348-4.347v-28.137h28.9l10.852,10.855a.788.788,0,0,0,1.345-.557v-10.3h2.474a4.352,4.352,0,0,0,4.347-4.347v-40.2A4.352,4.352,0,0,0,3265.389,1137.492Zm-45.144,77.029a2.774,2.774,0,0,1-2.772,2.771h-41.457a.788.788,0,0,0-.557.231l-9.738,9.738v-9.181a.788.788,0,0,0-.788-.788h-3.261a2.774,2.774,0,0,1-2.771-2.771v-40.2a2.774,2.774,0,0,1,2.771-2.772h55.8a2.775,2.775,0,0,1,2.772,2.772Zm47.915-32.483a2.774,2.774,0,0,1-2.771,2.771h-3.262a.788.788,0,0,0-.788.788v9.183l-9.737-9.74a.788.788,0,0,0-.557-.231h-29.223v-10.486a4.352,4.352,0,0,0-4.348-4.348h-10.656v-28.135a2.774,2.774,0,0,1,2.771-2.771h55.8a2.774,2.774,0,0,1,2.771,2.771Z'%20transform='translate(0)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='2'%3e%3c/path%3e%3cpath%20id='Path_228'%20data-name='Path%20228'%20d='M3395.665,1173.722h-11.148v-5.692a.788.788,0,0,0-1.576,0v5.692h-11.148a.788.788,0,1,0,0,1.576H3390.5a24.4,24.4,0,0,1-6.819,11.629,32.921,32.921,0,0,1-6.056-7.61.788.788,0,0,0-1.365.787,34.517,34.517,0,0,0,6.28,7.913,38,38,0,0,1-8.764,5.918.788.788,0,1,0,.7,1.411,39.382,39.382,0,0,0,9.24-6.276,34.56,34.56,0,0,0,9.861,5.933.788.788,0,0,0,.575-1.468,32.971,32.971,0,0,1-9.295-5.565,25.749,25.749,0,0,0,7.252-12.672h3.557a.788.788,0,1,0,0-1.576Z'%20transform='translate(-146.326%20-20.373)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='2'%3e%3c/path%3e%3cpath%20id='Path_229'%20data-name='Path%20229'%20d='M3236.172,1276.765a.788.788,0,0,0-1.481,0l-9.336,25.7a.788.788,0,1,0,1.481.538l3.341-9.2h10.508l3.341,9.2a.788.788,0,1,0,1.481-.538Zm-5.422,15.467,4.682-12.89,4.681,12.89Z'%20transform='translate(-46.553%20-95.018)'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='2'%3e%3c/path%3e%3c/g%3e%3c/svg%3e" alt="">
-          <p class="pt-3 text-white text-center ">Sprachen</p>
-         </div>
-         <div class="cardNumber">
-           <h1 class="text-blue fs-100 fw-bold countup-number" data-target="11">0</h1>
-         </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-6 pt-lg-0 pt-3 pe-0   col-12">
-        <div class="cardContainer d-flex flex-column align-items-center justify-content-between p-1">
-         <div class="cardImage d-flex flex-column align-items-center">
-          <img src="/assets/Group-119-CmPOLhTu.svg" alt="">
-          <p class="pt-3 text-white text-center ">Servicestunden pro Jahr</p>
-         </div>
-         <div class="cardNumber">
-           <h1 class="text-blue fs-100 fw-bold countup-number" data-target="756000">0</h1>
-         </div>
-        </div>
-      </div>    </div>
-  </div>
-  <div class="col-12 py-md-5 py-0 d-md-inline-block d-none"></div>
-  <div class="container-fluid">
-    <div class="row site-clamp p-0">
-        <!-- Quote Section -->
-        <div class="col-xl-9 col-6 d-flex justify-content-end align-items-end position-relative z-2" id="marikaStaff">
-            <div class="rounded-3 p-lg-5 p-0 quoteBox bg-white d-flex align-items-center justify-content-center position-relative">
-                <img class="quoteImg style-svg" src="quoteSVG.svg" alt="Quote Icon">
-                <p class="staffQuote fw-bold text-start">Wir garantieren Qualität durch Prozesse, KI, Erfahrung – aber am meisten durch unser 100%iges Commitment zum besten Service.</p>
-            </div>
-        </div>
-
-        <!-- Staff Image -->
-        <div class="col-xl-3 col-6 d-flex  align-items-end justify-content-start">
-            <img id="marika" 
-                 src="Mask-Group-1.svg" 
-                 alt="Marika Staff Image" 
-                 class="staffImage z-1">
-        </div>
-    </div>
-
-    <!-- Staff Info Section -->
-    <div class="row bg-neon py-3 p-0">
-        <div class="col-xl-6 col-lg-2 d-lg-flex justify-content-end d-none"></div>
-        <div class="col-xl-6 col-lg-10 py-3 ps-xl-5">
-            <div class="ps-xl-4">
-                <h2 class="staffName text-lg-start text-center w-100 mb-0 fw-bold text-orange">
-                    Marika                </h2>
-                <div>
-                    <p class="staffTitle text-white text-lg-start w-100 text-center">
-                        Leiterin Qualitatsmanagement                    </p>
-                    <span class="orangeU mx-lg-0 mx-auto"></span>
+          <div class="row g-4 testimonial-grid">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_JANtronic_EditV1-28.jpg" alt="Jan Pucko, JANtronic GmbH" class="face-down">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Mit avanti gewinnen wir zuverlässig qualifizierte Leads.“</p>
+                  <p class="testimonial-author">Jan Pucko,</p>
+                  <p class="testimonial-company">JANtronic GmbH</p>
                 </div>
+              </div>
             </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_NuernbergImmobilien_EditV2-18.jpg" alt="Heiko Nürnberg, Nürnberg Immobilien GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen.“</p>
+                  <p class="testimonial-author">Heiko Nürnberg,</p>
+                  <p class="testimonial-company">Nürnberg Immobilien GmbH</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="/CNMTX_avanti_GlasereiZeidler_EditV1-29.jpg" alt="Eberhard Zeidler, ZEIDLER GLAS + FENSTER GmbH">
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Dank avanti haben wir mehr Zeit für unsere Kunden und bieten dabei konstant erstklassigen Service.“</p>
+                  <p class="testimonial-author">Eberhard Zeidler,</p>
+                  <p class="testimonial-company">ZEIDLER GLAS + FENSTER GmbH</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </section>
 
+  <!-- About Section -->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-lg-6">
+          <h2 class="section-title">Unsere Leistungen</h2>
+          <h3 class="section-subtitle" style="color:#082041;">Mehr Service für Ihre Kunden, mehr Zeit für Sie</h3>
+          <p class="mb-4">
+            Wir nehmen Anrufe und E-Mails Ihrer Kunden entgegen und kümmern uns um Ihr Backoffice. 
+            Wichtige Anfragen leiten wir sofort weiter, alles andere bearbeiten wir nach Ihren Vorgaben. 
+            Dadurch sind Sie optimal erreichbar und haben mehr Zeit für alles, was Sie nicht delegieren wollen.
+          </p>
+          <p class="mb-4">
+            Mit der Kombination aus persönlicher Betreuung und KI-gestützter Technologie bietet  <b>avanti</b> 
+            besten Service für Ihre Kunden. Zu besten Konditionen für Sie.
+          </p>
+          <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-primary-custom text-white">Demo buchen →</a>
+        </div>
+        <div class="col-lg-3">
+          <img src="Maribel.png" alt="Unser Team" class="hero-image">
+          <div class="testimonial-card" style="max-width: 100%; margin-top: 16px;">
+            <p class="mb-4">"Wir kümmern uns mit Herz und Verstand um Ihre Kunden: Sie sollen sich genauso gut wie von Ihnen betreut fühlen."</p>
+            <h4 class="mb-1" style="color:#43bede;">Maribel Pietzner</h4>
+            <p class="text-muted">Geschäftsführerin <b>avanti</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</section>
-<!-- Fifth Section -->
+  <!-- Services Grid Section -->
+   <!-- Pricing Section -->
 <section class="position-relative bg-white" id="serviceSection">
     <div class="custom-container pt-5">
 	  <div>
@@ -532,7 +601,7 @@ Wir können mehr, wir machen mehr.</p>
 
     <div class="row py-5 g-2 ">
       
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: chat-bubble-left-right -->
@@ -542,17 +611,17 @@ Wir können mehr, wir machen mehr.</p>
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Beantworten von Anfragen
           </h3>
-          <div class="pt-2"><p>Wir bei avanti übernehmen Anrufe und E-Mails für dich:</p>
+          <div class="pt-2"><p>Wir bei avanti übernehmen Anrufe und E-Mails für Sie:</p>
 <p>&nbsp;</p>
-<p>&#8211; exakt nach deinen Vorgaben</p>
+<p>&#8211; exakt nach Ihren Vorgaben</p>
 <p>&#8211; professionell und kostengünstig</p>
 <p>&nbsp;</p>
 <p>Von Sekretariatsservice bis Leadqualifizierung &#8211; unsere<br />
-Leistung passt sich deinem Bedarf an.</p>
+Leistung passt sich Ihrem Bedarf an.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: arrows-right-left -->
@@ -562,11 +631,11 @@ Leistung passt sich deinem Bedarf an.</p>
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Weiterleiten von Wichtigem
           </h3>
-          <div class="pt-2"><p>Wir leiten dringende oder geschäftskritische Anfragen sofort an dich weiter. So bleibst du informiert, ohne ständig erreichbar sein zu müssen.</p>
+          <div class="pt-2"><p>Wir leiten dringende oder geschäftskritische Anfragen sofort an Sie weiter. So bleiben Sie informiert, ohne ständig erreichbar sein zu müssen.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: clipboard-document-check -->
@@ -576,11 +645,11 @@ Leistung passt sich deinem Bedarf an.</p>
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Bestellannahme
           </h3>
-          <div class="pt-2"><p>Wir erfassen Bestellungen auch in deinem Buchungssystem. Auf Wunsch erstellen wir Gesprächsleitfäden, die die Conversion erhöhen.</p>
+          <div class="pt-2"><p>Wir erfassen Bestellungen auch in Ihrem Buchungssystem. Auf Wunsch erstellen wir Gesprächsleitfäden, die die Conversion erhöhen.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: phone-arrow-up-right -->
@@ -592,11 +661,11 @@ Leistung passt sich deinem Bedarf an.</p>
           </h3>
           <div class="pt-2"><p>Wir setzen da an, wo andere aufhören.</p>
 <p>avanti übernimmt Rückrufe und Nachfasskontakte, um zu<br />
-gewährleisten, dass kein Anliegen unberücksichtigt bleibt. Wir klären deine offenen Themen.</p>
+gewährleisten, dass kein Anliegen unberücksichtigt bleibt. Wir klären Ihre offenen Themen.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: calendar -->
@@ -606,13 +675,13 @@ gewährleisten, dass kein Anliegen unberücksichtigt bleibt. Wir klären deine o
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Termine vereinbaren
           </h3>
-          <div class="pt-2"><p>Die tägliche Pflege deines Kalenders frisst Zeit?</p>
-<p>Wir übernehmen die Terminvereinbarung und koordinieren deine Gesprächsanfragen.</p>
-<p>So kannst du dich voll und ganz auf dein Business konzentrieren.</p>
+          <div class="pt-2"><p>Die tägliche Pflege Ihres Kalenders frisst Zeit?</p>
+<p>Wir übernehmen die Terminvereinbarung und koordinieren Ihre Gesprächsanfragen.</p>
+<p>So können Sie sich voll und ganz auf Ihr Business konzentrieren.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: device-phone-mobile -->
@@ -622,12 +691,12 @@ gewährleisten, dass kein Anliegen unberücksichtigt bleibt. Wir klären deine o
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Outbound (Leadqualifizierung)
           </h3>
-          <div class="pt-2"><p>Wenn du Kunden hast, die kontaktiert werden müssen, übernehmen wir das geme. Wir qualifizieren Leads und machen Follow-ups.<br />
-Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich zu avanti.</p>
+          <div class="pt-2"><p>Wenn Sie Kunden haben, die kontaktiert werden müssen, übernehmen wir das gerne. Wir qualifizieren Leads und machen Follow-ups.<br />
+Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzlich zu avanti.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: document-text -->
@@ -637,11 +706,11 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
           </div>
           <h3 class="fw-bold  pt-3 d-inline-block">Schriftbearbeitung
           </h3>
-          <div class="pt-2"><p>Neben der Telefonannahme beantworten und bearbeiten wir auch E-Mails, Chats und Anfragen über weitere schriftliche Kommunikationskanäle. Du wirst nur dann eingebunden, wenn uns keine Vorgaben vorliegen &#8211; und das betrifft in der Regel schon nach kurzer Zeit weniger als 15% aller Fälle.</p>
+          <div class="pt-2"><p>Neben der Telefonannahme beantworten und bearbeiten wir auch E-Mails, Chats und Anfragen über weitere schriftliche Kommunikationskanäle. Sie werden nur dann eingebunden, wenn uns keine Vorgaben vorliegen &#8211; und das betrifft in der Regel schon nach kurzer Zeit weniger als 15% aller Fälle.</p>
 </div>
         </div>
       </div>
-        <div class="col-xxl-3 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
         <div class="showCardContainer bg-white p-4">
           <div class="cardIcon">
             <!-- Heroicon: computer-desktop -->
@@ -649,16 +718,14 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
             </svg>
           </div>
-          <h3 class="fw-bold  pt-3 d-inline-block">Backoffice- Tätigkeiten
+          <h3 class="fw-bold  pt-3 d-inline-block">Backoffice-Tätigkeiten
           </h3>
-          <div class="pt-2"><p>Datenbanken bereinigen, Nachforschungen anstellen, E-Mail-Eingänge sortieren, Systeme bedienen &#8211; sofern du uns dafür klare Regeln gibst, übernehmen wir auch diese Aufgaben und nehmen dir eine Menge Arbeit ab.</p>
+          <div class="pt-2"><p>Datenbanken bereinigen, Nachforschungen anstellen, E-Mail-Eingänge sortieren, Systeme bedienen &#8211; sofern Sie uns dafür klare Regeln geben, übernehmen wir auch diese Aufgaben und nehmen Ihnen eine Menge Arbeit ab.</p>
 </div>
         </div>
       </div>
     </div>
   </div>
-
-<div class="bg-main py-5 position-absolute bottom-0 w-100"></div>
 </section>
 <!-- Sixth Section -->
 <section>
@@ -746,7 +813,9 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
   </div>
 </section>
 	 
-		 		 <!-- Section 1 -->
+
+
+				 <!-- Section 1 -->
 <section class="bg-white py-5">
 	<div class="custom-container text-center">
     <h1 class="fw-bold mb-0">Wie funktioniert avanti? </h1>
@@ -773,502 +842,233 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
                 style="min-width: 0; min-height: 0; width: 3.5rem; height: 3.5rem;">
         </div>
     </div>
-		</div>
-	</div>
 </section>
 
   <!-- Section 2 -->
-<section class="bg-white py-4">
-		     <div class="custom-container py-5 bg-white">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-12">
-				<div class="pb-5">
+<section class="bg-white py-4" id="platform-section">
+     <div class="custom-container py-5 bg-white">
+        <div class="row align-items-center" id="platform-row">
+            <div class="col-lg-6 col-12" id="platform-text">
+                <div class="testimonial-card">
+                <div class="pb-5">
 					  <h1 class="fw-bold mb-0 animate fade-in">Die avanti-<br>
  Kundenservice-Plattform</br></h1>
 <span class="orangeU animate delay-100"></span>
-				</div>  
-             <p class="animate fade-in delay-200">Deine Kundinnen und Kunden sollen schnell, kompetent und freundlich betreut werden. Dafür setzen wir die avanti-Kundenservice-Plattform ein. Sie verteilt eingehende Anfragen (per Telefon, E-Mail, auf Wunsch auch per WhatsApp, SMS, Chat oder über ein Kontaktformular) an die geschulten Kundenberater.</p>
-<p>&nbsp;</p>
-<p class="animate fade-in delay-300">Die avanti-Kundenservice-Plattform unterstützt durch eine integrierte Wissensdatenbank, die deine Vorgaben enthält. Über Schnittstellen lassen sich deine Systeme anbinden. Kontakte werden in der Plattform dokumentiert, Tickets können erstellt werden. Kl wird dort eingesetzt, wo es wirklich hilft, deinen Service besser zu machen &#8211; im Bereich Analyse und bei der Unterstüztung der Kundenberater.</p>
+				                </div>  
+                <p class="animate fade-in delay-200">Ihre Kundinnen und Kunden sollen schnell, kompetent und freundlich betreut werden. Dafür setzen wir die avanti-Kundenservice-Plattform ein. Sie verteilt eingehende Anfragen (per Telefon, E-Mail, auf Wunsch auch per WhatsApp, SMS, Chat oder über ein Kontaktformular) an die geschulten Kundenberater.</p>
+                <p>&nbsp;</p>
+                <p class="animate fade-in delay-300">Die avanti-Kundenservice-Plattform unterstützt durch eine integrierte Wissensdatenbank, die Ihre Vorgaben enthält. Über Schnittstellen lassen sich Ihre Systeme anbinden. Kontakte werden in der Plattform dokumentiert, Tickets können erstellt werden. Kl wird dort eingesetzt, wo es wirklich hilft, Ihren Service besser zu machen &#8211; im Bereich Analyse und bei der Unterstützung der Kundenberater.</p>
+                </div>
             </div>
 
-            <div class="col-lg-6 col-12 text-center pt-lg-0 pt-3">
-                                    <img src="suite.png" alt="" class="img-fluid rounded-4 animate slide-in-right delay-200">
+            <div class="col-lg-6 col-12 text-center">
+                                    <img src="/App_img.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200 mb-3">
+                                    <img src="/app_img2.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200">
+
                             </div>
         </div>
     </div>
 </section>
 
-		 
-		 
-  <!-- Section 3 -->
-<section class="bg-white position-relative pt-5">
-		<div class="custom-container py-5">
-    			<div class="pb-5">
-				<h1 class="fw-bold mb-0 text-center animate fade-in">Wir sind für dich da</h1>
-<span class="orangeU mx-auto animate delay-100"></span>
-
-			</div>
-        
-
-    
-    <div class="row g-3">
-                                    <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Hausverwaltungen</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3 grid-card grid-card-2">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Handel</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3 grid-card grid-card-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Franchise-Betreiber</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3 grid-card grid-card-4">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Autohäuser</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Großhandel</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Lösungsanbieter</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">E-commerce und Drop-Shipping</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Kanzleien</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Praxen</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Hotellerie und Gastronomie</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Gemeinden</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Versicherungsvertreter</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Öffentlicher Dienst</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Start-ups</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Werkstätten</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Einrichtungshäuser</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Handwerksbetriebe</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Immobilienvermittlung</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Beratung</p>
-                        </div>
-                    </div>
-                </div>
-                                                <div class="col-6 col-xl-3 col-md-6">
-                    <div class="card h-120 p-3 shadow-card border-0 rounded-3">
-                        <div class="card-body text-center">
-                            <p class="" style="color: #082041;">Wohnungsbaugesellschaften</p>
-                        </div>
-                    </div>
-                </div>
-                    		<div class="col-12 py-md-5 d-md-inline-block d-none">
-				
-			</div>
-    </div>
-</div> 
-
-<script>
-  // Funktion zum Kürzen langer Texte auf mobilen Geräten
-  document.addEventListener('DOMContentLoaded', function() {
-    if (window.innerWidth <= 767) {
-      const cardTexts = document.querySelectorAll('.card-body p');
-      cardTexts.forEach(function(text) {
-        const content = text.textContent;
-        if (content.length > 15) {
-          text.setAttribute('title', content); // Original-Text als Tooltip
-          text.textContent = content.substring(0, 13) + '...';
-        }
-      });
-    }
-    
-    // Bei Orientierungswechsel Text neu formatieren
-    window.addEventListener('resize', function() {
-      const cardTexts = document.querySelectorAll('.card-body p');
-      if (window.innerWidth <= 767) {
-        cardTexts.forEach(function(text) {
-          const originalText = text.getAttribute('title') || text.textContent;
-          if (originalText.length > 15) {
-            text.textContent = originalText.substring(0, 13) + '...';
-          }
-        });
-      } else {
-        // Originaltexte wiederherstellen auf größeren Bildschirmen
-        cardTexts.forEach(function(text) {
-          const originalText = text.getAttribute('title');
-          if (originalText) {
-            text.textContent = originalText;
-          }
-        });
-      }
-    });
-  });
-</script>
-
-	 <!-- Section 4 -->
-<div class="container-fluid">
-  <div class="row site-clamp p-0">
-    <!-- Left -->
-    <div class="col-xxl-3 col-4 d-flex justify-content-end align-items-end">
-      <img id="anna" src="anna.png" alt="Anna - Datenschutz" class="staffImage z-2">
-    </div>
-    <div class="col-xxl-3 col-8 d-flex flex-column align-items-start justify-content-end position-relative" id="annaQuote">
-      <div class="rounded-3 p-xxl-3 p-lg-5 p-0 quoteBox bg-main d-flex align-items-center justify-content-center position-relative">
-        <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-        <p class="staffQuote fw-bold text-start text-white">Datenschutz ist kein einmal erreichter Zustand, sondern ein Prozess. Alle Audits sagen, wir sind gut; doch wir arbeiten täglich daran, noch besser zu werden.</p>
-      </div>
-    </div>
-    
-    <!-- Right (Mirrored) Desktop Version -->
-    <div class="col-xxl-3 col-8 d-none d-xxl-flex flex-column align-items-end justify-content-end position-relative" id="svenQuote">
-      <div class="rounded-3 p-xxl-3 p-lg-5 p-0 quoteBox bg-main d-flex align-items-center justify-content-center position-relative">
-        <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-        <p class="staffQuote fw-bold text-end text-white">Die Einsteuerung deines Services bei uns? Wir machen das - und zwar so gut und bequem für dich, dass du uns lieben wirst.</p>
-      </div>
-    </div>
-    <div class="col-xxl-3 col-4 d-none d-xxl-flex justify-content-start align-items-end">
-      <img id="sven-desktop" src="sven.png" alt="" class="staffImage z-2">
-    </div>
-  </div>
-</div>
-
-
-<div class="row site-clamp bg-neon py-3 p-0">
-  <!-- Left -->
-  <div class="col-xxl-3 d-xxl-flex justify-content-end d-none">
-    <p class="staffQuote text-white"></p>
-  </div>
-  <div class="col-xxl-3 col-12 py-3">
-    <h2 class="staffName text-xxl-start text-center w-100 fw-bold text-orange mb-0">Anna</h2>
-    <div>
-      <p class="staffTitle text-white text-xxl-start w-100 text-center">Leiterin Datenschutz</p>
-      <span class="orangeU mx-xxl-0 mx-auto"></span>
-    </div>
-  </div>
-
-  <!-- Right (Mirrored) - nur auf Desktop sichtbar -->
-  <div class="col-xxl-3 d-none d-xxl-block py-3">
-    <h2 class="staffName text-xxl-end text-center w-100 fw-bold text-orange mb-0">Sven</h2>
-    <div>
-      <p class="staffTitle text-white text-xxl-end w-100 text-center">Projekt- und Prozessmanagement</p>
-      <span class="orangeU mx-auto"></span>
-    </div>
-  </div>
-  <div class="col-xxl-3 d-xxl-flex justify-content-start d-none">
-    <p class="staffQuote text-white"></p>
-  </div>
-</div>
-
-
-
-      <!-- Mobile/Tablet Version für Sven -->
-      <div class="container-fluid pt-5 d-block d-xxl-none" id="sven-mobile-section">
-        <div class="row p-0">
-          <div class="col-xl-9 col-6 d-flex justify-content-end align-items-end position-relative z-2" id="svenStaff">
-            <div class="rounded-3 p-lg-5 p-0 quoteBox bg-main d-flex align-items-center justify-content-center position-relative">
-              <img class="quoteImg style-svg" src="quoteSVG.svg" alt="">
-              <p class="staffQuote fw-bold text-start text-white">Die Einsteuerung deines Services bei uns? Wir machen das - und zwar so gut und bequem für dich, dass du uns lieben wirst.</p>
-            </div>
-          </div>
-          <div class="col-xl-3 col-6 d-flex align-items-end justify-content-start">
-            <img id="sven-mobile" src="sven.png" alt="Sven - Projekt- und Prozessmanagement" class="staffImage" style="width: 250px; max-width: none;">
-          </div>
-        </div>
-        
-        <!-- Blauer Balken mit Namen und Position (wie in der Vorlage) -->
-        <div class="row bg-neon py-3 p-0">
-            <div class="col-xl-6 d-xl-flex justify-content-end d-none"><p class="staffQuote text-white"></p></div>
-            <div class="col-xl-6 col-12 py-3">
-            <h2 class="staffName text-xl-start text-center w-100 fw-bold text-orange">Sven</h2>
-            <div>
-              <p class="staffTitle text-white text-xl-start w-100 text-center">Projekt- und Prozessmanagement</p>
-              <span class="orangeU mx-xl-0 mx-auto"></span>
-            </div>
-            </div>
-        </div>
+		  
+  	 
+<section class="section-padding industries-section">
+  <div class="container ">
+    <div class="row mb-4">
+      <div class="col-12 mb-4 text-center">
+        <div class="industries-header">
+          <div class="eyebrow text-white fw-semibold">Unsere Branchen</div>
+          <h2 class="industries-title industries-title--only text-white">avanti unterstützt kleinere und mittlere <span class="line-break">Unternehmen</span></h2>
         </div>
       </div>
-
+    </div>
+    <div class="row industries-grid">
+      <!-- Column 1 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">home_work</span>
+          <span class="ind-label">Haus & Immobilien‑Verwaltungen</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">storefront</span>
+          <span class="ind-label">Handel & Großhandel</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">balance</span>
+          <span class="ind-label">Kanzleien</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">apartment</span>
+          <span class="ind-label">Gemeinden & Öffentlicher Dienst</span>
+        </div>
+      </div>
+      <!-- Column 2 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">shopping_bag</span>
+          <span class="ind-label">E‑Commerce</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">rocket_launch</span>
+          <span class="ind-label">Pflegedienste</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">restaurant</span>
+          <span class="ind-label">Hotellerie & Gastronomie</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">weekend</span>
+          <span class="ind-label">Einrichtungshäuser</span>
+        </div>
+      </div>
+      <!-- Column 3 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">directions_car</span>
+          <span class="ind-label">Autohäuser</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">medical_services</span>
+          <span class="ind-label">Praxen</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">gavel</span>
+          <span class="ind-label">Handwerksbetriebe</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">tablet_mac</span>
+          <span class="ind-label">Versicherungsvertreter</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
-
 
 
  <!-- Section 10  -->
 <section class="pt-5 bg-white position-relative" id="contactSection">
     <div class="custom-container">
-        <div class="pb-4">
-            <h2 class="mb-0 fw-bold">Der Weg zu deiner Lösung</h2>
-            <span class="orangeU"></span>
-        </div>
+     
 
         <div class="row">
-            <!-- Steps Section -->
+            <!-- Left content (mockup copy) -->
             <div class="col-lg-6 col-12 bg-white lastSection">
-                <div class="d-flex flex-column">
-                                                                        <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-164.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Anfrage abschicken</p>
-                            </div>
-                                                            <div class="border-start border-2 border-warning" 
-                                     style="height: 10svh; margin-left: 35px; max-height:90px;">
-                                </div>
-                                                                                                                            <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-165.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Angebot erhalten</p>
-                            </div>
-                                                            <div class="border-start border-2 border-warning" 
-                                     style="height: 10svh; margin-left: 35px; max-height:90px;">
-                                </div>
-                                                                                                                            <div class="d-flex align-items-center my-3" style="height: 15svh; max-height:130px;">
-                                <div class="me-3 box">
-                                    <img src="Group-167.png" 
-                                         alt="Step Icon" 
-                                         class="img-fluid icon" 
-                                         width="54">
-                                </div>
-                                <p class="mb-0">Den besten Kundenservice beauftragen und darüber staunen, wie viel Entlastung die Zusammenarbeit mit avanti bringt</p>
-                            </div>
-                                                                                        </div>
+              <div class="consult-left p-4 p-md-5">
+                <div class="eyebrow fw-semibold mb-2 industries-title--only">avanti kennenlernen</div>
+                <h2 class="fw-bold mb-3 industries-title--only">Jetzt zum Erstgespräch anmelden</h2>
+                <p class="mb-4">Der Service von avanti ist vielfältig. Lassen Sie uns in einem Gespräch klären, was wir für Sie tun können. Sie werden staunen, wie viel Ihnen die Zusammenarbeit bringt (und wie wenig es kostet).</p>
+                <a class="consult-phone" href="tel:+49(0)30/814892-121">+49 (0)30 / 814 892-121</a>
+              </div>
             </div>
 
             <!-- Contact Form -->
             <div class="col-lg-6 col-12 lastSection">
-                <div class="p-5 mt-5 rounded-3 shadow bg-white position-relative z-2">
-              <div class="px-5 d-flex flex-column justify-content-around h-100">
-    			
-<div id="contact-form-container">
-  <!-- Supabase-Integration -->
-  <form id="contact-form" class="contact-form">
-    <!-- Name (Pflichtfeld) -->
-    <p>
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Name" type="text" name="name" required />
-      </span><br />
-      
-      <!-- Firma (optional) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Firma" type="text" name="company" />
-      </span><br />
-      
-      <!-- E-Mail (Pflichtfeld) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="E-Mail-Adresse" type="email" name="email" required />
-      </span><br />
-      
-      <!-- Telefon (Pflichtfeld) -->
-      <span class="form-control-wrap">
-        <input size="40" maxlength="400" class="form-control contact-form-input" placeholder="Telefon-Nummer" type="tel" name="phone" required />
-      </span><br />
-      
-      <!-- Service-Auswahl -->
-      <span class="form-control-wrap">
-        <select class="option-service mb-2 form-control" name="service" required>
-          <option value="">Bitte wählen Sie einen Service aus</option>
-          <option value="Service mit Büro-Öffnungszeiten">Service mit Büro-Öffnungszeiten</option>
-          <option value="Service mit erweiterten Öffnungszeiten">Service mit erweiterten Öffnungszeiten</option>
-          <option value="Mit durchgehender Erreichbarkeit">Mit durchgehender Erreichbarkeit</option>
-        </select>
-      </span>
-    </p>
-    
-    <!-- Datenschutz (Pflichtfeld) -->
-    <p>
-      <span class="form-control-wrap">
-        <span class="form-checkbox marketing-box mt-4">
-          <span class="checkbox-item">
-            <label>
-              <input type="checkbox" name="privacy_policy" value="accepted" required />
-              <span class="checkbox-label">Ich habe die Datenschutzerklärung zur Kenntnis genommen und stimme zu, dass meine Angaben und Daten zur Beantwortung meiner Anfrage elektronisch erhoben und gespeichert werden.</span>
-            </label>
-          </span>
-        </span>
-      </span>
-    </p>
-    
-    <!-- Marketing-Zustimmung (optional) -->
-    <p>
-      <span class="form-control-wrap">
-        <span class="form-checkbox marketing-box mt-5">
-          <span class="checkbox-item">
-            <label>
-              <input type="checkbox" name="marketing_agreement" value="accepted" />
-              <span class="checkbox-label">Ich stimme zu, dass ja-dialog Holding GmbH meine angegebenen Kontaktdaten nutzt, um mich über Neuigkeiten, Angebote und Veranstaltungen (z. B. per Newsletter oder E-Mail) zu informieren. Diese Einwilligung kann ich jederzeit mit Wirkung für die Zukunft widerrufen.</span>
-            </label>
-          </span>
-        </span>
-      </span><br />
-      
-      <!-- Submit-Button -->
-      <input class="mt-5 contact-form-button text-blue" type="submit" value="Abschicken" />
-    </p>
-    
-    <!-- Rückmeldungsbereich -->
-    <div id="form-result" class="response-output" aria-hidden="true"></div>
-  </form>
-</div>
-					</div>
+                <div class="p-0 mt-5 rounded-4 shadow position-relative z-2 consult-card">
+                  <div class="p-4 p-md-5 d-flex flex-column h-100">
+                    <h5 class="text-white fw-semibold mb-3">Ja, ich interessiere mich für ein Erstgespräch.</h5>
+                    <div id="contact-form-container">
+                      <!-- Supabase-Integration -->
+                      <form id="contact-form" class="contact-form-modern" novalidate>
+                        <!-- Name -->
+                        <div class="input-with-icon mb-3 icon-name">
+                          <span class="icon" aria-hidden="true">
+                            <!-- user icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Z" stroke="currentColor" stroke-width="1.5"/><path d="M21 22a9 9 0 1 0-18 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="text" name="name" class="form-control modern" placeholder="Vor und Nachname" required />
+                        </div>
+                        <!-- Company -->
+                        <div class="input-with-icon mb-3 icon-company">
+                          <span class="icon" aria-hidden="true">
+                            <!-- building icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M6 21V3h8v18M14 7h4v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="text" name="company" class="form-control modern" placeholder="Unternehmen (optional)" />
+                        </div>
+                        <!-- Position select (optional) -->
+                        <div class="input-with-icon mb-3 icon-position">
+                          <span class="icon" aria-hidden="true">
+                            <!-- briefcase icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h18" stroke="currentColor" stroke-width="1.5"/></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <select name="position" class="form-select modern">
+                            <option value="" selected>Position (optional)</option>
+                            <option>Inhaber:in</option>
+                            <option>Geschäftsführung</option>
+                            <option>Leitung Vertrieb</option>
+                            <option>Leitung Kundenservice</option>
+                            <option>Andere</option>
+                          </select>
+                        </div>
+                        <!-- Phone (optional) -->
+                        <div class="input-with-icon mb-3 icon-phone">
+                          <span class="icon" aria-hidden="true">
+                            <!-- phone icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 16.92v2a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 1.08 5.2 2 2 0 0 1 3.06 3h2a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L6.1 10.9a16 16 0 0 0 6 6l1.46-1.06a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 21 16.92Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <input type="tel" name="phone" class="form-control modern" placeholder="Telefon (optional)" />
+                        </div>
+                        <!-- Email -->
+                        <div class="input-with-icon mb-3 icon-email">
+                          <span class="icon" aria-hidden="true">
+                            <!-- mail icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                          </span>
+                          <input type="email" name="email" class="form-control modern" placeholder="E‑Mail" required />
+                        </div>
+
+                        <!-- Datenschutz -->
+                        <div class="form-check text-white small mb-3">
+                          <input class="form-check-input" type="checkbox" id="privacyPolicy" name="privacy_policy" value="accepted" required>
+                          <label class="form-check-label" for="privacyPolicy">
+                            Ich akzeptiere die <a href="datenschutz.html" class="link-light text-decoration-underline">Datenschutzerklärung</a>
+                          </label>
+                        </div>
+
+                        <!-- Optional marketing consent (hidden, keeps JS compatible) -->
+                        <input type="checkbox" name="marketing_agreement" value="accepted" style="display:none" aria-hidden="true" />
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-cta w-100">Erstgespräch anfragen →</button>
+
+                        <div class="privacy-note mt-3">Wir behandeln Ihre Daten vertraulich.</div>
+
+                        <!-- Rückmeldungsbereich -->
+                        <div id="form-result" class="response-output mt-3" aria-hidden="true"></div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-            </div>
 
             <div class="col-12 py-md-5 d-md-inline-block d-none"></div>
         </div>
     </div>
 
-    <!-- Abstandshalter -->
-    <div class="container-fluid my-5 my-lg-10 mb-md-5 mb-10 pb-5 pb-md-10"></div>
-    <div class="d-block d-md-none" style="height: 80px;"></div>
+    <!-- Abstandshalter (fully reduced) -->
+   
     
-    <!-- Staff Section - Dr. Christoph -->
-    <div class="container-fluid">
-        <div class="row p-0">
-            <!-- Staff Image -->
-            <div class="col-6 d-flex justify-content-end align-items-end">
-                <img id="aaron" src="Christoph-freistehend.png" 
-                     alt="" 
-                     class="staffImage z-2">
-            </div>
-
-            <!-- Quote Section -->
-            <div class="col-6 d-flex flex-column align-items-start justify-content-end position-relative">
-                <div class="rounded-3 p-lg-5 p-0 quoteBox bg-main d-flex align-items-center justify-content-center position-relative">
-                    <img class="quoteImg style-svg" src="quoteSVG.svg" alt="Quote Icon">
-                    <p class="staffQuote fw-bold text-start text-white">Kein anderes Angebot auf dem Markt erreicht unsere avanti-Qualität, Zuverlässigkeit und Effizienz.</p>
+    <!-- Staff Section - Dr. Christoph (testimonial layout) -->
+    <div class="container-fluid mt-5 pt-5">
+        <div class="row site-clamp align-items-center p-0 my-4 christoph-section">
+            <div class="col-lg-6 col-12 d-flex justify-content-center">
+                <div class="christoph-image-wrap">
+                  <img id="aaron" src="Aaron-freistehend.png" alt="Aaron Schmidt" class="staffImage img-fluid">
                 </div>
             </div>
-        </div>
-
-        <!-- Staff Information Section -->
-        <div class="row bg-neon py-3 p-0">
-            <div class="col-lg-6 d-md-flex justify-content-end d-none"></div>
-            <div class="col-lg-6 col-12 py-3">
-                <div class="ps-lg-4">
-                    <h2 class="staffName text-lg-start text-center w-100 text-orange fw-bold">
-                        Christoph                    </h2>
-                    <div>
-                        <p class="staffTitle text-white text-lg-start w-100 text-center">
-                            Geschäftsführer Business Development                        </p>
-                        <span class="orangeU mx-lg-0 mx-auto"></span>
-                    </div>
+            <div class="col-lg-6 col-12">
+                <div class="testimonial-card">
+                    <p class="mb-4 staffQuote">Kein anderes Angebot auf dem Markt erreicht unsere avanti-Qualität, Zuverlässigkeit und Effizienz.</p>
+                    <h4 class="mb-1">Aaron Schmidt</h4>
+                    <p class="text-muted">Head of Business Development</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <section class="py-4">
-<div class="custom-container">
-	<div class="row">
-		 <div class="col-md-3 col-6 d-flex align-items-center justify-content-center">
-                    <img class="object-fit-contain w-100 p-2" loading="lazy" src="Group-275.png" alt="">
-                  </div><div class="col-md-3 col-6 d-flex align-items-center justify-content-center">
-                    <img class="object-fit-contain w-100 p-2" loading="lazy" src="Ebene-1.png" alt="">
-                  </div><div class="col-md-3 col-6 d-flex align-items-center justify-content-center">
-                    <img class="object-fit-contain w-100 p-2" loading="lazy" src="Logo_unterzeichnet.png" alt="">
-                  </div><div class="col-md-3 col-6 d-flex align-items-center justify-content-center">
-                    <img class="object-fit-contain p-4 wirIHK" loading="lazy" src="WhatsApp-Image-2025-03-10-at-15.15.27-1.svg" alt="" >
-                  </div>	</div>
-</div>		 
+ 
 </section>
 
 <footer class="site-footer">
@@ -1292,14 +1092,16 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
 
         <div class="d-flex flex-row gap-4 flex-wrap test-footer-col">
             <div>
-                <img src="DeuZert_Siegel_2015_4c-1-scaled.jpg" alt="Step Icon" class="footer-image">
-                               <img src="white01.svg" alt="Step Icon" class="footer-image"> 
+              <img src="/assets/DIIND_BusinessInnovator_Siegel_avanti.cx GmbH-gq3naED5.png" alt="Business Innovator Siegel" height="100" style="max-height: 100px; width: auto;">
+          
+              <img src="Group-275.png" alt="Business Innovator Seal" class="footer-image"> 
+              
             </div>
             <div class="footer-col-1">
                 <h3 class="footer-title mb-0">Kontakt</h3>
 				<span class="orangeU"></span>
-                <p class="py-3">ja-dialog Holding GmbH Singerstraße 109<BR>10179 Berlin</p>
-                <a class="text-white d-block py-3" href="tel:+49 (0)30 / 814 892-121">+49 (0)30 / 814 892-121</a>
+                <p class="py-3">avanti.cx GmbH Singerstraße 109<BR>10179 Berlin</p>
+                <a class="text-white d-block py-3" href="tel:+49 (0)30 / 814 892-121"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px; vertical-align: middle;"><path d="M21 16.92v2a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 1.08 5.2 2 2 0 0 1 3.06 3h2a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L6.1 10.9a16 16 0 0 0 6 6l1.46-1.06a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 21 16.92Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>+49 (0)30 / 814 892-121</a>
                 <a class="text-white d-block" href="mailto:info@avanti.cx">info@avanti.cx</a>
             </div>
             <div class="footer-col-2 d-flex flex-column gap-1">
@@ -1313,7 +1115,7 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
 
 <div class="footer-bottom">
     <div class="blue-line">
-        <p class="footer-text py-3">&copy; 2025 avanti &#8211; Ihr Service-Partner für zufriedene Kunden. All Rights Reserved.</p>
+        <p class="footer-text py-3 bg-main">&copy; 2025 avanti &#8211; Ihr Service-Partner für zufriedene Kunden. All Rights Reserved.</p>
     </div>
 </div>
 
@@ -1325,7 +1127,10 @@ Für die Neukundenakquise unterbreiten wir dir ein separates Angebot zusätzlich
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/avanti\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
 
-<script type="module" src="/contact-form.js"></script>
+<!-- Supabase CDN und Kontaktformular -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="contact-form.js"></script>
 
 <!-- Video Player Script -->
 <script>
@@ -1436,16 +1241,151 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Animation Fallback Script -->
 <script src="animation-fallback.js"></script>
 <!-- Vercel Fix Script -->
-<script src="vercel-fix.js"></script>
-<!-- Mobile Menü Script -->
-<script src="mobile-menu.js"></script>
+  <script src="vercel-fix.js"></script>
+  <!-- Mobile Menü Script -->
+  <script src="mobile-menu.js"></script>
+  <!-- Smooth scroll for in-page anchors (handles fixed header) -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90; // match scroll-margin-top
+      function scrollToId(id){
+        var el = document.getElementById(id);
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      document.addEventListener('click', function(e){
+        var link = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        var id = href.slice(1);
+        if (!id) return;
+        if (document.getElementById(id)) {
+          e.preventDefault();
+          scrollToId(id);
+        }
+      });
+    })();
+  </script>
+  <!-- Explicit handler for hero CTA to avoid any interference -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90;
+      function go(){
+        var el = document.getElementById('contactSection');
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      var btn = document.getElementById('hero-cta');
+      if (btn) {
+        btn.addEventListener('click', function(e){ e.preventDefault(); go(); });
+      } else {
+        document.addEventListener('DOMContentLoaded', function(){
+          var b = document.getElementById('hero-cta');
+          if (b) b.addEventListener('click', function(e){ e.preventDefault(); go(); });
+        });
+      }
+    })();
+  </script>
+  <script>
+// Funktion zum dynamischen Laden von Google Analytics, wenn Analyse-Cookies erlaubt sind
+function loadGoogleAnalytics() {
+  if (window.gtagScriptLoaded) return;
+  window.gtagScriptLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MF60X7GK81';
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-MF60X7GK81');
+}
+
+function areAnalyticsCookiesAllowed() {
+  return localStorage.getItem('analytics-cookies') === 'true';
+}
+
+// Beim Seitenaufruf prüfen
+if (areAnalyticsCookiesAllowed()) {
+  loadGoogleAnalytics();
+}
+
+// Event-Listener für Cookie-Banner-Buttons
+window.addEventListener('DOMContentLoaded', function() {
+  var acceptAllBtn = document.getElementById('accept-all-cookies');
+  var saveSettingsBtn = document.getElementById('save-cookie-settings');
+  var analyticsCheckbox = document.getElementById('analytics-cookies');
+  var essentialOnlyBtn = document.getElementById('essential-only-cookies');
+
+  if (acceptAllBtn) {
+    acceptAllBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'true');
+      loadGoogleAnalytics();
+    });
+  }
+  if (saveSettingsBtn && analyticsCheckbox) {
+    saveSettingsBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', analyticsCheckbox.checked ? 'true' : 'false');
+      if (analyticsCheckbox.checked) {
+        loadGoogleAnalytics();
+      }
+    });
+  }
+  if (essentialOnlyBtn) {
+    essentialOnlyBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'false');
+    });
+  }
+});
+</script>
+
+ <!-- Strapi hero loader -->
+ <script>
+ (async () => {
+   const endpoints = ['/api/hero', '/api/homepage', '/api/about'];
+   const getFirst = async () => {
+     for (const p of endpoints) {
+       try {
+         const r = await fetch(p);
+         if (r.ok) return r.json();
+         console.warn(`[Strapi] ${p} HTTP`, r.status);
+       } catch (e) {
+         console.warn(`[Strapi] ${p} error`, e);
+       }
+     }
+     return null;
+   };
+
+   try {
+     const data = await getFirst();
+     const entry = data?.data?.attributes;
+     if (!entry) return;
+
+     const titleEl = document.getElementById('hero-title');
+     const subtitleEl = document.getElementById('hero-subtitle');
+     const ctaEl = document.getElementById('hero-cta');
+     const imgEl = document.getElementById('hero-image');
+
+     const title = entry.title || entry.heading || entry.headline;
+     const subtitle = entry.subtitle || entry.subheading || entry.tagline;
+     const cta = entry.ctaText || entry.cta || entry.buttonText;
+     const imgUrl = entry?.image?.data?.attributes?.url || entry?.heroImage?.data?.attributes?.url;
+
+     if (titleEl && title) titleEl.textContent = title;
+     if (subtitleEl && subtitle) subtitleEl.textContent = subtitle;
+     if (ctaEl && cta) ctaEl.textContent = cta;
+     if (imgEl && imgUrl) imgEl.src = imgUrl;
+   } catch (e) {
+     console.error('[Strapi] Failed to load hero:', e);
+   }
+ })();
+ </script>
+ 
+ 
 </body>
 
 </html>
-	 
-	 
-	 
-
-
-<!-- IONOS Performance | https://www.ionos.com
-Generated @ 20.05.2025 04:50:22 -->
