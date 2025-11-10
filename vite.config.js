@@ -1,11 +1,10 @@
-import { defineConfig } from 'vite';
-import path from 'path';
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: './', // 👈 THIS is the important line
-  root: path.resolve(__dirname),
+  base: '', // 👈 NOTE: empty string, not './'
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
-  },
-});
+    assetsDir: 'assets',
+    emptyOutDir: true
+  }
+})
