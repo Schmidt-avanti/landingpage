@@ -3,8 +3,12 @@ paths:
   uploads: uploads
   static: ''
 editor:
-  default_path:
+  default_path: index.html
+  site_files:
+    editable:
+      - "*.html"
 timezone: Europe/Belgrade
+
 markdown:
   engine: commonmark
   options:
