@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '', // 👈 NOTE: empty string, not './'
+  base: './',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    emptyOutDir: true
-  }
+    emptyOutDir: true,
+  },
 })
