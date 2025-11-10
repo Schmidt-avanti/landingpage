@@ -2,6 +2,8 @@ source: /
 paths:
   uploads: uploads
   static: ''
+editor:
+  default_path:
 timezone: Europe/Belgrade
 markdown:
   engine: commonmark
