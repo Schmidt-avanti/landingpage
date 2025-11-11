@@ -7,4 +7,10 @@ editor:
   site_files:
     editable:
       - "*.html"
+collections_config:
+  pages:
+    path: /
+    output: true
+    editable: true
+    icon: "file"
 timezone: Europe/Belgrade
