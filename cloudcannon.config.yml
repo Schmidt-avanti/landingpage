@@ -1,7 +1,3 @@
-source: /
-paths:
-  uploads: uploads
-  static: ''
 editor:
   default_path: index.html
   site_files:
@@ -13,5 +9,3 @@ collections_config:
     output: true
     editable: true
     icon: "file"
-timezone: Europe/Belgrade
-
