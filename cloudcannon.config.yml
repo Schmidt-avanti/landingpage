@@ -1,4 +1,3 @@
-_read_only: true
 source: /
 paths:
   uploads: uploads
@@ -32,9 +31,17 @@ collections_config:
     disable_add: false
     disable_add_folder: false
     disable_file_actions: false
+  dist_vorlagen:
+    path: dist/Vorlagen
+    icon: draw_collage
+    disable_url: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
 editor:
   default_path: index.html
   site_files:
     editable:
       - '*.html'
 timezone: Europe/Belgrade
+_read_only: true
