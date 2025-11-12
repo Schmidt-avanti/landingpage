@@ -4,7 +4,11 @@ output: dist
 collections_config:
   pages:
     path: /
-    output: true
+    output: false
+    editable: true
+    _enabled_editors:
+      - visual
+      - content
 
 editor:
   default_path: index.html
