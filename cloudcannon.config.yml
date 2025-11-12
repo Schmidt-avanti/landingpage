@@ -1,4 +1,16 @@
+timezone: Europe/Belgrade
+
+paths:
+  uploads: uploads
+  static: ''
+
 collections_config:
   pages:
     path: ''
+    glob: 
+      - '*.html'
     icon: wysiwyg
+    disable_url: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
