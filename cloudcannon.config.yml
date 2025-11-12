@@ -2,46 +2,14 @@ source: /
 paths:
   uploads: uploads
   static: ''
-collections_config:
-  pages:
-    path: ''
-    icon: wysiwyg
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-  public_vorlagen:
-    path: public/Vorlagen
-    icon: full_coverage
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-  public:
-    path: public
-    icon: public
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-  dist:
-    path: dist
-    icon: list
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-  dist_vorlagen:
-    path: dist/Vorlagen
-    icon: draw_collage
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
+  output: dist
 editor:
   default_path: index.html
   site_files:
     editable:
-      - '*.html'
-timezone: Europe/Belgrade
-_read_only: true
+      - "*.html"
+  visual_editors:
+    default: true
+build:
+  output_path: dist
+  command: npm run build
