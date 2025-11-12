@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>avanti - Professioneller Kundenservice</title>
+  <link rel="icon" type="image/png" href="./public/Picture-1.png" />
+  <link rel='stylesheet' id='bootstrap-style-css' href='Vorlagen/assets/bootstrap.min.css' type='text/css' media='all' />
+  <link rel='stylesheet' id='main-style-css' href='Vorlagen/style.css' type='text/css' media='all' />
+  <style>
+    /* Enable smooth scrolling for in-page anchors */
+    html { scroll-behavior: smooth; }
+    /* */
+    /* Offset target position to account for fixed navbar height */
+    #contactSection { scroll-margin-top: 90px; }
+
+    /* avanti-inspired clean design */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+    }
+    
+    .hero-section {
+      padding: 100px 0 80px;
+      background-color: rgb(23, 43, 82) !important;
+      background-image: none !important;
+      color: rgb(255, 255, 255) !important;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    .hero-section h1,
+    .hero-section h2,
+    .hero-section p,
+    .hero-section .section-title,
+    .hero-section .section-subtitle {
+      color: rgb(255, 255, 255) !important;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      position: relative; /* ensure it creates a stacking context */
+      z-index: 2; /* above ::before overlay */
+    }
+    /* Ensure overlay does not intercept clicks */
+    .hero-section::before { pointer-events: none !important; }
+    
+    .hero-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .maribel-image {
+      max-width: 50%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    /* Make testimonial card in CEO section match image size */
+    .section-padding .testimonial-card {
+      background: #f8f9fa;
+      border-left: 4px solid #e67e22;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      height: auto;
+      max-width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    /* Reverted: no custom equal-height or image overrides for suite section */
+    
+    .section-padding {
+      padding: 80px 0;
+    }
+    
+    .btn-primary-custom {
+      background-color: rgb(23, 43, 82);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary-custom:hover {
+      background-color: rgba(23, 43, 82, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(23, 43, 82, 0.3);
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .testimonial-card {
+      background: #f8f9fa;
+      border-left: 4px solid #e67e22;
+      padding: 25px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgb(23, 43, 82);
+      margin-bottom: 20px;
+    }
+    
+    .section-subtitle {
+      /* font-size: 1.2rem; */
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+    
+    .contact-section {
+      background-color: rgb(23, 43, 82);
+      color: white;
+    }
+    
+    .form-control-custom {
+      border: none;
+      border-bottom: 2px solid #e67e22;
+      border-radius: 0;
+      background: transparent;
+      color: white;
+      padding: 10px 0;
+    }
+    
+    .form-control-custom::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .form-control-custom:focus {
+      background: transparent;
+      border-color: #e67e22;
+      box-shadow: none;
+      color: white;
+    }
+    
+    /* Icon sizing fixes */
+    .hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      max-width: 36px;
+      max-height: 36px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .cardIcon {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    
+    .cardIcon .hero-icon {
+      width: 48px !important;
+      height: 48px !important;
+      max-width: 48px;
+      max-height: 48px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .iconContainer {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .iconContainer .hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      max-width: 36px;
+      max-height: 36px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    svg.hero-icon {
+      width: 36px !important;
+      height: 36px !important;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    /* Moving client logo marquee */
+    .logo-marquee {
+      background-color: rgb(23, 43, 82);
+      padding: 70px 0;
+      overflow: hidden;
+    }
+    .logo-marquee .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      width: max-content; /* allow content to be wider than container */
+      animation: marquee-scroll 30s linear infinite;
+    }
+    .logo-marquee img {
+      height: 40px;
+      width: auto;
+      opacity: 0.9;
+      filter: brightness(0) invert(1);
+    }
+    @media (min-width: 992px) {
+      .logo-marquee img { height: 56px; }
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    /* Testimonials grid with overlay text */
+    .testimonial-grid .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0f2350; /* fallback while image loads */
+    }
+    .testimonial-grid .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .testimonial-grid .card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.65) 100%);
+      pointer-events: none;
+    }
+    .testimonial-grid .card .overlay-content {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      color: #fff;
+    }
+    /* Default focal point for first testimonial image across all sizes */
+    .testimonial-grid .card img.face-down { object-position: center 30%; }
+    /* Per-image focal point helper (set only within media queries to avoid desktop impact) */
+    .testimonial-quote {
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 10px 0;
+      font-size: 1.125rem;
+      color: white;
+    }
+    .testimonial-author { margin: 0; opacity: 0.95;
+    color: white; }
+    .testimonial-company { margin: 0; opacity: 0.85;
+    color: white; }
+    /* Responsive testimonial card height: slightly taller across sizes */
+    .testimonial-card-aspect { height: clamp(320px, 26vw, 600px); }
+    /* Testimonials section theming */
+    #testimonials { background-color: rgb(23, 43, 82); }
+    #testimonials .section-title,
+    #testimonials .section-subtitle { color: #fff; }
+    @media (min-width: 992px) {
+      .testimonial-quote { font-size: 1.25rem; }
+    }
+    @media (min-width: 1200px) {
+      /* Keep clamp behavior; no fixed height here */
+    }
+    /* Slightly larger vertical spacing for the testimonials section */
+    #testimonials.section-padding { padding-top: 56px; padding-bottom: 64px; }
+    /* Mobile tweaks to better center faces in testimonial images */
+    @media (max-width: 991.98px) {
+      .testimonial-grid .card img {
+        /* Default mobile focal point */
+        object-position: center 35%;
+      }
+      /* Use class-based targeting only (no structural selectors) */
+      .testimonial-grid .card img.face-down { object-position: center 25%; }
+    }
+    @media (max-width: 575.98px) {
+      /* Slightly taller cards on very small screens to avoid cutting heads */
+      .testimonial-card-aspect { height: 320px; }
+      /* Class-based targeting only on xs */
+      .testimonial-grid .card img.face-down { object-position: center 22%; }
+    }
+    /* Tablet breakpoint: make testimonial cards taller as well */
+    @media (min-width: 576px) and (max-width: 991.98px) {
+      .testimonial-card-aspect { height: 360px; }
+    }
+  </style>
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script type="module" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- Material Symbols (Google Icons) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" />
+  <!-- Poppins for section titles -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel='stylesheet' id='cookie-banner-css' href='cookie-banner.css' type='text/css' media='all' />
+  <script type="text/javascript" src="https://avanti.cx/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+  <link rel="https://api.w.org/" href="https://avanti.cx/wp-json/" />
+  <link rel="canonical" href="https://avanti.cx/" />
+  <link rel='shortlink' href='https://avanti.cx/' />
+  <link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F" />
+  <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://avanti.cx/wp-json/oembed/1.0/embed?url=https%3A%2F%2Favanti.cx%2F&#038;format=xml" />
+  <meta name="generator" content="Site Kit by Google 1.152.1" />			<style>.cmplz-hidden {
+					display: none !important;
+				}</style><meta name="google-site-verification" content="Rz_M68c5XUnxR1eRv0BbaPt5SlRGUl81H8o5ssXPWBc" /><meta name="bmi-version" content="1.4.8" /><link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://avanti.cx/wp-content/uploads/2025/04/cropped-Group-278-1-192x192.png" sizes="192x192" />
+  <!-- Force orange icons in the services section(s) -->
+  <style>
+    /* Applies to both the grid (#services) and the cards block (#serviceSection) */
+    #serviceSection .hero-icon,
+    #serviceSection .hero-icon *,
+    #services .hero-icon,
+    #services .hero-icon * {
+      color: #FF8E3C !important; /* for stroke=currentColor */
+      stroke: #FF8E3C !important; /* ensure stroke is orange even if set inline */
+      fill: none !important;      /* keep heroicons outlined */
+    }
+  
+    /* Big testimonial card */
+    .big-quote-card {
+      background: #34D1FF; /* bright blue */
+      color: #172B52;      /* navy text */
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+    .big-quote-icon {
+      color: rgba(255,255,255,0.8);
+      font-size: 28px;
+      line-height: 1;
+    }
+    .big-quote-text {
+      font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+    }
+    .big-quote-author { margin-top: 1.5rem; }
+  
+    /* DRID-style compact list look for the eight service lines */
+    #serviceSection .showCardContainer {
+      box-shadow: none !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      padding: 16px 8px !important; /* more compact */
+      display: grid !important;
+      grid-template-columns: 56px 1fr;
+      grid-template-areas:
+        "icon title"
+        "icon desc";
+      column-gap: 16px;
+      align-items: start;
+      height: auto !important; /* shrink to content */
+      min-width: 0 !important;
+    }
+    #serviceSection .showCardContainer:hover { background: transparent !important; box-shadow: none !important; }
+    #serviceSection .showCardContainer .cardIcon { margin: 0; display: flex; align-items: flex-start; justify-content: center; grid-area: icon; }
+    #serviceSection .showCardContainer .hero-icon { width: 36px !important; height: 36px !important; }
+    #serviceSection .showCardContainer h3 { margin: 0 0 6px 0; font-size: 1.08rem; font-weight: 700; line-height: 1.25; height: auto !important; grid-area: title; min-width: 0; white-space: normal; word-break: keep-all; overflow-wrap: normal; }
+    #serviceSection .showCardContainer .pt-2 { padding-top: 0.2rem !important; grid-area: desc; min-width: 0; }
+    #serviceSection .showCardContainer .pt-2 br { display: none; }
+    #serviceSection .showCardContainer .pt-2 p { display: inline; margin: 0; color: #082041; font-size: 0.98rem; line-height: 1.45; white-space: normal; word-break: keep-all; overflow-wrap: normal; }
+    #serviceSection .showCardContainer .pt-2 p + p::before { content: " "; }
+    #serviceSection .col-xxl-6 > .showCardContainer { width: 100% !important; }
+    /* light container look like mockup */
+    #serviceSection .row.py-5 { 
+      background: transparent; 
+      border: none; 
+      border-radius: 0; 
+      padding: 24px !important;
+      margin-bottom: 16px; /* create separation from next section */
+    }
+    /* keep grid at two columns on wide screens as already set in markup */
+    /* Leistungen section theme */
+    #serviceSection { background-color: #172b52 !important; color: #ffffff; }
+    #serviceSection h2,
+    #serviceSection h3,
+    #serviceSection p,
+    #serviceSection li,
+    #serviceSection .section-subtitle,
+    #serviceSection .text-muted { color: #ffffff !important; }
+    /* Override earlier card text color for compact list items */
+    #serviceSection .showCardContainer .pt-2 p { color: #ffffff !important; }
+    #serviceSection .showCardContainer h3 { color: #ffffff !important; }
+    /* Tooltip for navbar brand icon */
+    .navbar-brand.tooltip-info { position: relative; display: inline-flex; align-items: center; }
+    .navbar-brand.tooltip-info::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      background: #43bede; /* turquoise */
+      color: #172B52;      /* navy text for contrast */
+      padding: 12px 14px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      width: min(480px, 92vw);
+      white-space: pre-line; /* allow newlines */
+      line-height: 1.35;
+      font-size: 0.95rem;
+      font-weight: 600;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+    }
+    .navbar-brand.tooltip-info:hover::after,
+    .navbar-brand.tooltip-info:focus::after { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgb(23, 43, 82);">
+    <div class="container">
+      <a class="navbar-brand tooltip-info d-flex align-items-center" href="#" data-tooltip="𝐚𝐯𝐚𝐧𝐭𝐢 𝐞𝐫𝐡ä𝐥𝐭 𝐝𝐞𝐧 𝐏𝐫𝐞𝐢𝐬 „𝐵𝑢𝑠𝑖𝑛𝑒𝑠𝑠 𝐼𝑛𝑛𝑜𝑣𝑎𝑡𝑜𝑟 2025“ 🏆​&#10;&#10;Das diind – Deutsches Innovationsinstitut hat uns als Business Innovator 2025 geehrt. ​&#10;&#10;Mit unserer hybriden avanti-Lösung revolutionieren wir den Kundenservice für kleine und mittlere Unternehmen.&#10;&#10;Warum? Weil wir Kundendienst neu denken!&#10;&#10;Denn avanti verbindet:&#10;👉kluge Prozesse&#10;👉persönlichen Service – digital und durch KI unterstützt&#10;👉jeden Tag besser durch das avanti-Schwungrad&#10;👉effizient und nah am Menschen.">
+        <img src="./public/Group-172.svg" alt="avanti logo" style="max-height: 30px; width: auto; margin-right: 15px;" /><img src="./public/DIIND_BusinessInnovator_Siegel_avanti.cx GmbH.png" alt="Business Innovator Siegel" height="100" style="max-height: 40px; width: auto;" />
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link text-white" href="#about">Über uns</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#services">Leistungen</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="preise.html">Preise</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="#contactSection">Kontakt</a></li>
+          <li class="nav-item">
+            <a class="btn text-white ms-2" href="tel:+49(0)30/814892-121" style="background-color: #e67e22; border-radius: 25px; padding: 8px 20px; font-weight: 600;">
+              +49 (0)30 / 814 892-121
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="hero-content">
+            <h1 class="section-title" data-cms-bind="title">Für kleinere und mittlere Unternehmen</h1>
+
+            <h2 id="hero-subtitle" class="section-subtitle" data-cms-bind="subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
+
+            <p class="lead mb-4">
+               <b>avanti</b> übernimmt alle Routineaufgaben bei Ihrer telefonischen und schriftlichen Kundenbetreuung. 
+              Menschlich, effizient, professionell. So können Sie sich auf das Wesentliche konzentrieren: die Entwicklung Ihres Geschäfts.
+            </p>
+            <a id="hero-cta" href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch anfragen</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img id="hero-image" src="./public/CNMTX_avanti_JANtronic_EditV1-27_compressed.jpg" alt="Kundenservice Team" class="hero-image" />
+        </div>
+      </div>
+    </div>
+  
+</section>
+
+
+  <!-- Moving Client Logos Banner -->
+  <section class="logo-marquee" aria-label="Kundenlogos">
+    <div class="container-fluid px-4">
+      <!-- Duplicate logo sets back-to-back for seamless loop -->
+      <div class="marquee-track">
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus" />
+        <img src="Logo_enviaM.png" alt="enviaM" />
+        <img src="Group-116.svg" alt="roadsurfer" />
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET" />
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods" />
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring" />
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE" />
+        <!-- duplicate set -->
+        <img src="Logo_Lagerhaus-Franchise-System.png" alt="Unser Lagerhaus" />
+        <img src="Logo_enviaM.png" alt="enviaM" />
+        <img src="Group-116.svg" alt="roadsurfer" />
+        <img src="Logo_DNS-NET_Orange_Blau-removebg-preview.png" alt="DNS:NET" />
+        <img src="gb-foods-gmbh-logo-w.png" alt="GB Foods" />
+        <img src="2560px-Einrichtungspartnerring_VME_logo.png" alt="Einrichtungspartner Ring" />
+        <img src="1ince-logo-web_edicion_arte.png" alt="1NCE" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section (moved here) -->
+  <section id="testimonials" class="section-padding testimonials-alt">
+    <div class="container-fluid px-3 px-lg-5">
+      <div class="row">
+        <div class="col-12 text-center mb-2">
+          <h2 class="section-subtitle">Was <b>avanti</b>-Auftraggeber über uns sagen</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="row g-4 testimonial-grid">
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="./public/CNMTX_avanti_JANtronic_EditV1-28.jpg" alt="Jan Pucko, JANtronic GmbH" class="face-down" />
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Mit avanti gewinnen wir zuverlässig qualifizierte Leads.“</p>
+                  <p class="testimonial-author">Jan Pucko,</p>
+                  <p class="testimonial-company">JANtronic GmbH</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="./public/CNMTX_avanti_NuernbergImmobilien_EditV2-18.jpg" alt="Heiko Nürnberg, Nürnberg Immobilien GmbH" />
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„avanti hat es uns ermöglicht, dass wir jetzt viel mehr Mieteranfragen direkt am Telefon lösen.“</p>
+                  <p class="testimonial-author">Heiko Nürnberg,</p>
+                  <p class="testimonial-company">Nürnberg Immobilien GmbH</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4">
+              <div class="card testimonial-card-aspect shadow">
+                <img src="./public/CNMTX_avanti_GlasereiZeidler_EditV1-29.jpg" alt="Eberhard Zeidler, ZEIDLER GLAS + FENSTER GmbH" />
+                <div class="overlay"></div>
+                <div class="overlay-content">
+                  <p class="testimonial-quote">„Dank avanti haben wir mehr Zeit für unsere Kunden und bieten dabei konstant erstklassigen Service.“</p>
+                  <p class="testimonial-author">Eberhard Zeidler,</p>
+                  <p class="testimonial-company">ZEIDLER GLAS + FENSTER GmbH</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section-padding">
+    <div class="container">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-lg-6">
+          <h2 class="section-title">Unsere Leistungen</h2>
+          <h3 class="section-subtitle" style="color:#082041;">Mehr Service für Ihre Kunden, mehr Zeit für Sie</h3>
+          <p class="mb-4">
+            Wir nehmen Anrufe und E-Mails Ihrer Kunden entgegen und kümmern uns um Ihr Backoffice. 
+            Wichtige Anfragen leiten wir sofort weiter, alles andere bearbeiten wir nach Ihren Vorgaben. 
+            Dadurch sind Sie optimal erreichbar und haben mehr Zeit für alles, was Sie nicht delegieren wollen.
+          </p>
+          <p class="mb-4">
+            Mit der Kombination aus persönlicher Betreuung und KI-gestützter Technologie bietet  <b>avanti</b> 
+            besten Service für Ihre Kunden. Zu besten Konditionen für Sie.
+          </p>
+          <a href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-primary-custom text-white">Demo buchen →</a>
+        </div>
+        <div class="col-lg-3">
+          <img src="Maribel.png" alt="Unser Team" class="hero-image" />
+          <div class="testimonial-card" style="max-width: 100%; margin-top: 16px;">
+            <p class="mb-4">"Wir kümmern uns mit Herz und Verstand um Ihre Kunden: Sie sollen sich genauso gut wie von Ihnen betreut fühlen."</p>
+            <h4 class="mb-1" style="color:#43bede;">Maribel Pietzner</h4>
+            <p class="text-muted">Geschäftsführerin <b>avanti</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid Section -->
+   <!-- Pricing Section -->
+<section class="position-relative bg-white" id="serviceSection">
+    <div class="custom-container pt-5">
+	  <div>
+		  <h2 class="fw-bold text-center mb-0 animate">Leistungen
+</h2>
+		<span class="orangeU mx-auto animate delay-100"></span>
+	  </div>
+    
+
+    <div class="row py-5 g-2 ">
+      
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: chat-bubble-left-right -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Beantworten von Anfragen
+          </h3>
+          <div class="pt-2"><p>Wir bei avanti übernehmen Anrufe und E-Mails für Sie:</p>
+<p>&nbsp;</p>
+<p>&#8211; exakt nach Ihren Vorgaben</p>
+<p>&#8211; professionell und kostengünstig</p>
+<p>&nbsp;</p>
+<p>Von Sekretariatsservice bis Leadqualifizierung &#8211; unsere<br />
+Leistung passt sich Ihrem Bedarf an.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: arrows-right-left -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Weiterleiten von Wichtigem
+          </h3>
+          <div class="pt-2"><p>Wir leiten dringende oder geschäftskritische Anfragen sofort an Sie weiter. So bleiben Sie informiert, ohne ständig erreichbar sein zu müssen.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: clipboard-document-check -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Bestellannahme
+          </h3>
+          <div class="pt-2"><p>Wir erfassen Bestellungen auch in Ihrem Buchungssystem. Auf Wunsch erstellen wir Gesprächsleitfäden, die die Conversion erhöhen.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: phone-arrow-up-right -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Rückrufe und Nachfasskontakte
+          </h3>
+          <div class="pt-2"><p>Wir setzen da an, wo andere aufhören.</p>
+<p>avanti übernimmt Rückrufe und Nachfasskontakte, um zu<br />
+gewährleisten, dass kein Anliegen unberücksichtigt bleibt. Wir klären Ihre offenen Themen.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: calendar -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 9v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Termine vereinbaren
+          </h3>
+          <div class="pt-2"><p>Die tägliche Pflege Ihres Kalenders frisst Zeit?</p>
+<p>Wir übernehmen die Terminvereinbarung und koordinieren Ihre Gesprächsanfragen.</p>
+<p>So können Sie sich voll und ganz auf Ihr Business konzentrieren.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: device-phone-mobile -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Outbound (Leadqualifizierung)
+          </h3>
+          <div class="pt-2"><p>Wenn Sie Kunden haben, die kontaktiert werden müssen, übernehmen wir das gerne. Wir qualifizieren Leads und machen Follow-ups.<br />
+Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzlich zu avanti.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: document-text -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Schriftbearbeitung
+          </h3>
+          <div class="pt-2"><p>Neben der Telefonannahme beantworten und bearbeiten wir auch E-Mails, Chats und Anfragen über weitere schriftliche Kommunikationskanäle. Sie werden nur dann eingebunden, wenn uns keine Vorgaben vorliegen &#8211; und das betrifft in der Regel schon nach kurzer Zeit weniger als 15% aller Fälle.</p>
+</div>
+        </div>
+      </div>
+        <div class="col-xxl-6 col-lg-6 position-relative z-2 col-md-6 col-12 p-0 mt-3 ">
+        <div class="showCardContainer bg-white p-4">
+          <div class="cardIcon">
+            <!-- Heroicon: computer-desktop -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hero-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+            </svg>
+          </div>
+          <h3 class="fw-bold  pt-3 d-inline-block">Backoffice-Tätigkeiten
+          </h3>
+          <div class="pt-2"><p>Datenbanken bereinigen, Nachforschungen anstellen, E-Mail-Eingänge sortieren, Systeme bedienen &#8211; sofern Sie uns dafür klare Regeln geben, übernehmen wir auch diese Aufgaben und nehmen Ihnen eine Menge Arbeit ab.</p>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Sixth Section -->
+<section>
+  <div class="bg-main py-5">
+        <div class="custom-container">
+      <div class="text-center mb-4">
+        <h2 class="text-white fw-bold mb-0 animate">Weitere Serviceleistungen</h2>
+        <span class="orangeU mx-auto animate delay-100"></span>
+      </div>
+      <div class="row py-5">
+        <div class="col-lg-3 p-0"></div>
+        <div class="col-lg-6 p-0">
+          <div class="row p-0">
+            <div class="col-lg-3 col-sm-6 pt-lg-0 pt-3">
+                      <div class="iconContainer d-flex flex-column align-items-center animate zoom-in delay-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                        <p class="text-white text-center pt-3">24h-Notfall-Hotline</p>
+                      </div>
+                    </div><div class="col-lg-3 col-sm-6 pt-lg-0 pt-3">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                          <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
+                          <polyline points="7.5 19.79 7.5 14.6 3 12" />
+                          <polyline points="21 12 16.5 14.6 16.5 19.79" />
+                          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                          <line x1="12" y1="22.08" x2="12" y2="12" />
+                        </svg>
+                        <p class="text-white text-center pt-3">Helpdesk</p>
+                      </div>
+                    </div><div class="col-lg-3 col-sm-6 pt-lg-0 pt-3">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M8 10h.01" />
+                          <path d="M12 10h.01" />
+                          <path d="M16 10h.01" />
+                          <path d="M21 12c0 4.418-4.03 8-9 8a9.08 9.08 0 0 1-2.1-.24L4 22l1.5-5.8C3.93 14.6 3 13.37 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <p class="text-white text-center pt-3">Beschwerde-Line</p>
+                      </div>
+                    </div><div class="col-lg-3 col-sm-6 pt-lg-0 pt-3">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                          <line x1="8" y1="21" x2="16" y2="21" />
+                          <line x1="12" y1="17" x2="12" y2="21" />
+                        </svg>
+                        <p class="text-white text-center pt-3">Vordienstleister koordinieren</p>
+                      </div>
+                    </div>          </div>
+          <div class="row px-lg-5">
+            <div class="col-lg-4 col-sm-6 pt-4">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+                        </svg>
+                        <p class="text-white pt-3">Welcome Calls</p>
+                      </div>
+                    </div><div class="col-lg-4 col-sm-6 pt-4">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                          <polyline points="14 2 14 8 20 8" />
+                          <line x1="16" y1="13" x2="8" y2="13" />
+                          <line x1="16" y1="17" x2="8" y2="17" />
+                          <polyline points="10 9 9 9 8 9" />
+                        </svg>
+                        <p class="text-white pt-3">Softe Mahnung</p>
+                      </div>
+                    </div><div class="col-lg-4 col-12 pt-4">
+                      <div class="iconContainer d-flex flex-column align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="hero-icon" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#43bede" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p class="text-white pt-3">Rückrufe</p>
+                      </div>
+                    </div>          </div>
+        </div>
+        <div class="col-lg-3 p-0"></div>
+      </div>
+    </div>
+  </div>
+</section>
+	 
+
+
+				 <!-- Section 1 -->
+<section class="bg-white py-5">
+	<div class="custom-container text-center">
+    <h1 class="fw-bold mb-0">Wie funktioniert avanti? </h1>
+		<div class="pb-4">
+			<p class="mb-0">Für mehr Information Video ansehen</p>
+<span class="orangeU mx-auto"></span>
+		</div>
+    
+	<div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8">
+        <div class="ratio ratio-16x9 position-relative videoContainer">
+            <video class="otherVideo" src="avanti-explainer-video.mp4" type="video/mp4" poster="Dr.-Christoph-Baumga.png" preload="none">
+            </video>
+            <img type="button" src="cover-button.svg" alt="Video abspielen" class="playBtn position-absolute top-50 start-50 translate-middle w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 transition-transform hover:scale-110" style="min-width: 0; min-height: 0; width: 3.5rem; height: 3.5rem;" />
+        </div>
+    </div>
+</div></div></section>
+
+  <!-- Section 2 -->
+<section class="bg-white py-4" id="platform-section">
+     <div class="custom-container py-5 bg-white">
+        <div class="row align-items-center" id="platform-row">
+            <div class="col-lg-6 col-12" id="platform-text">
+                <div class="testimonial-card">
+                <div class="pb-5">
+					  <h1 class="fw-bold mb-0 animate fade-in">Die avanti-<br />
+ Kundenservice-Plattform<br /></h1>
+<span class="orangeU animate delay-100"></span>
+				                </div>  
+                <p class="animate fade-in delay-200">Ihre Kundinnen und Kunden sollen schnell, kompetent und freundlich betreut werden. Dafür setzen wir die avanti-Kundenservice-Plattform ein. Sie verteilt eingehende Anfragen (per Telefon, E-Mail, auf Wunsch auch per WhatsApp, SMS, Chat oder über ein Kontaktformular) an die geschulten Kundenberater.</p>
+                <p>&nbsp;</p>
+                <p class="animate fade-in delay-300">Die avanti-Kundenservice-Plattform unterstützt durch eine integrierte Wissensdatenbank, die Ihre Vorgaben enthält. Über Schnittstellen lassen sich Ihre Systeme anbinden. Kontakte werden in der Plattform dokumentiert, Tickets können erstellt werden. Kl wird dort eingesetzt, wo es wirklich hilft, Ihren Service besser zu machen &#8211; im Bereich Analyse und bei der Unterstützung der Kundenberater.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12 text-center">
+                                    <img src="./public/App_img.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200 mb-3" />
+                                    <img src="./public/app_img2.png" alt="" id="platform-image" class="img-fluid rounded-4 animate slide-in-right delay-200" />
+
+                            </div>
+        </div>
+    </div>
+</section>
+
+		  
+  	 
+<section class="section-padding industries-section">
+  <div class="container ">
+    <div class="row mb-4">
+      <div class="col-12 mb-4 text-center">
+        <div class="industries-header">
+          <div class="eyebrow text-white fw-semibold">Unsere Branchen</div>
+          <h2 class="industries-title industries-title--only text-white">avanti unterstützt kleinere und mittlere <span class="line-break">Unternehmen</span></h2>
+        </div>
+      </div>
+    </div>
+    <div class="row industries-grid">
+      <!-- Column 1 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">home_work</span>
+          <span class="ind-label">Haus & Immobilien‑Verwaltungen</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">storefront</span>
+          <span class="ind-label">Handel & Großhandel</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">balance</span>
+          <span class="ind-label">Kanzleien</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">apartment</span>
+          <span class="ind-label">Gemeinden & Öffentlicher Dienst</span>
+        </div>
+      </div>
+      <!-- Column 2 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">shopping_bag</span>
+          <span class="ind-label">E‑Commerce</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">rocket_launch</span>
+          <span class="ind-label">Pflegedienste</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">restaurant</span>
+          <span class="ind-label">Hotellerie & Gastronomie</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">weekend</span>
+          <span class="ind-label">Einrichtungshäuser</span>
+        </div>
+      </div>
+      <!-- Column 3 -->
+      <div class="col-12 col-lg-4">
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">directions_car</span>
+          <span class="ind-label">Autohäuser</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">medical_services</span>
+          <span class="ind-label">Praxen</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">gavel</span>
+          <span class="ind-label">Handwerksbetriebe</span>
+        </div>
+        <div class="d-flex align-items-start gap-3 mb-4 mb-lg-0">
+          <span class="material-symbols-outlined ind-icon" aria-hidden="true">tablet_mac</span>
+          <span class="ind-label">Versicherungsvertreter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+ <!-- Section 10  -->
+<section class="pt-5 bg-white position-relative" id="contactSection">
+    <div class="custom-container">
+     
+
+        <div class="row">
+            <!-- Left content (mockup copy) -->
+            <div class="col-lg-6 col-12 bg-white lastSection">
+              <div class="consult-left p-4 p-md-5">
+                <div class="eyebrow fw-semibold mb-2 industries-title--only">avanti kennenlernen</div>
+                <h2 class="fw-bold mb-3 industries-title--only">Jetzt zum Erstgespräch anmelden</h2>
+                <p class="mb-4">Der Service von avanti ist vielfältig. Lassen Sie uns in einem Gespräch klären, was wir für Sie tun können. Sie werden staunen, wie viel Ihnen die Zusammenarbeit bringt (und wie wenig es kostet).</p>
+                <a class="consult-phone" href="tel:+49(0)30/814892-121">+49 (0)30 / 814 892-121</a>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-lg-6 col-12 lastSection">
+                <div class="p-0 mt-5 rounded-4 shadow position-relative z-2 consult-card">
+                  <div class="p-4 p-md-5 d-flex flex-column h-100">
+                    <h5 class="text-white fw-semibold mb-3">Ja, ich interessiere mich für ein Erstgespräch.</h5>
+                    <div id="contact-form-container">
+                      <!-- Supabase-Integration -->
+                      <form id="contact-form" class="contact-form-modern" novalidate>
+                        <!-- Name -->
+                        <div class="input-with-icon mb-3 icon-name">
+                          <span class="icon" aria-hidden="true">
+                            <!-- user icon -->
+                            <svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5 2.239 5 5 5Z" stroke="currentColor" stroke-width="1.5" /><path d="M21 22a9 9 0 1 0-18 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+                          </span>
+                          <input type="text" name="name" class="form-control modern" placeholder="Vor und Nachname" required />
+                        </div>
+                        <!-- Company -->
+                        <div class="input-with-icon mb-3 icon-company">
+                          <span class="icon" aria-hidden="true">
+                            <!-- building icon -->
+                            <svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M6 21V3h8v18M14 7h4v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+                          </span>
+                          <input type="text" name="company" class="form-control modern" placeholder="Unternehmen (optional)" />
+                        </div>
+                        <!-- Position select (optional) -->
+                        <div class="input-with-icon mb-3 icon-position">
+                          <span class="icon" aria-hidden="true">
+                            <!-- briefcase icon -->
+                            <svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.5" /><rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5" /><path d="M3 12h18" stroke="currentColor" stroke-width="1.5" /></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <select name="position" class="form-select modern">
+                            <option value="" selected>Position (optional)</option>
+                            <option>Inhaber:in</option>
+                            <option>Geschäftsführung</option>
+                            <option>Leitung Vertrieb</option>
+                            <option>Leitung Kundenservice</option>
+                            <option>Andere</option>
+                          </select>
+                        </div>
+                        <!-- Phone (optional) -->
+                        <div class="input-with-icon mb-3 icon-phone">
+                          <span class="icon" aria-hidden="true">
+                            <!-- phone icon -->
+                            <svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 16.92v2a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 1.08 5.2 2 2 0 0 1 3.06 3h2a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L6.1 10.9a16 16 0 0 0 6 6l1.46-1.06a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 21 16.92Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                          </span>
+                          <span class="optional">(optional)</span>
+                          <input type="tel" name="phone" class="form-control modern" placeholder="Telefon (optional)" />
+                        </div>
+                        <!-- Email -->
+                        <div class="input-with-icon mb-3 icon-email">
+                          <span class="icon" aria-hidden="true">
+                            <!-- mail icon -->
+                            <svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5" /><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
+                          </span>
+                          <input type="email" name="email" class="form-control modern" placeholder="E‑Mail" required />
+                        </div>
+
+                        <!-- Datenschutz -->
+                        <div class="form-check text-white small mb-3">
+                          <input class="form-check-input" type="checkbox" id="privacyPolicy" name="privacy_policy" value="accepted" required />
+                          <label class="form-check-label" for="privacyPolicy">
+                            Ich akzeptiere die <a href="datenschutz.html" class="link-light text-decoration-underline">Datenschutzerklärung</a>
+                          </label>
+                        </div>
+
+                        <!-- Optional marketing consent (hidden, keeps JS compatible) -->
+                        <input type="checkbox" name="marketing_agreement" value="accepted" style="display:none" aria-hidden="true" />
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-cta w-100">Erstgespräch anfragen →</button>
+
+                        <div class="privacy-note mt-3">Wir behandeln Ihre Daten vertraulich.</div>
+
+                        <!-- Rückmeldungsbereich -->
+                        <div id="form-result" class="response-output mt-3" aria-hidden="true"></div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+            <div class="col-12 py-md-5 d-md-inline-block d-none"></div>
+        </div>
+    </div>
+
+    <!-- Abstandshalter (fully reduced) -->
+   
+    
+    <!-- Staff Section - Dr. Christoph (testimonial layout) -->
+    <div class="container-fluid mt-5 pt-5">
+        <div class="row site-clamp align-items-center p-0 my-4 christoph-section">
+            <div class="col-lg-6 col-12 d-flex justify-content-center">
+                <div class="christoph-image-wrap">
+                  <img id="aaron" src="Aaron-freistehend.png" alt="Aaron Schmidt" class="staffImage img-fluid" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="testimonial-card">
+                    <p class="mb-4 staffQuote">Kein anderes Angebot auf dem Markt erreicht unsere avanti-Qualität, Zuverlässigkeit und Effizienz.</p>
+                    <h4 class="mb-1">Aaron Schmidt</h4>
+                    <p class="text-muted">Head of Business Development</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></section>
+<section class="py-4">
+ 
+</section>
+
+<footer class="site-footer">
+    <div class="custom-container d-flex justify-content-between test-footer">
+        <div>
+            <img class="footerLogo" src="Group-172.svg" alt="" />
+            <div class="d-flex mt-4 gap-4 socail-media-logos">
+                <a href="https://www.facebook.com/share/1EaS9DqqDt/?mibextid=wwXIfr" target="_blank">
+                    <img src="Path-117.svg" alt="" />
+                </a>
+
+                <a href="https://www.instagram.com/avanti.cx?igsh=OTR2aWo5ZGVvMm1i" target="_blank">
+                    <img src="Group-23.svg" alt="" />
+                </a>
+
+                <a href="https://de.linkedin.com/company/avanti-cx" target="_blank">
+                    <img src="Group-22.svg" alt="" />
+                </a>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row gap-4 flex-wrap test-footer-col">
+            <div>
+              <img src="./public/DIIND_BusinessInnovator_Siegel_avanti.cx GmbH.png" alt="Business Innovator Siegel" height="100" style="max-height: 100px; width: auto;" />
+          
+              <img src="Group-275.png" alt="Business Innovator Seal" class="footer-image" /> 
+              
+            </div>
+            <div class="footer-col-1">
+                <h3 class="footer-title mb-0">Kontakt</h3>
+				<span class="orangeU"></span>
+                <p class="py-3">avanti.cx GmbH Singerstraße 109<br />10179 Berlin</p>
+                <a class="text-white d-block py-3" href="tel:+49 (0)30 / 814 892-121"><svg width="18" height="18" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; margin-right: 8px; vertical-align: middle;"><path d="M21 16.92v2a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 1.08 5.2 2 2 0 0 1 3.06 3h2a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.61a2 2 0 0 1-.45 2.11L6.1 10.9a16 16 0 0 0 6 6l1.46-1.06a2 2 0 0 1 2.11-.45c.84.27 1.71.45 2.61.57A2 2 0 0 1 21 16.92Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>+49 (0)30 / 814 892-121</a>
+                <a class="text-white d-block" href="mailto:info@avanti.cx">info@avanti.cx</a>
+            </div>
+            <div class="footer-col-2 d-flex flex-column gap-1">
+                <h3 class="footer-title mb-0 ">Rechtliches</h3>
+				<span class="orangeU"></span>
+                <a class="py-3" href="impressum.html">Impressum</a>
+				<a href="datenschutz.html">Datenschutz</a>
+            </div>
+        </div>
+    </div>
+
+<div class="footer-bottom">
+    <div class="blue-line">
+        <p class="footer-text py-3 bg-main">&copy; 2025 avanti &#8211; Ihr Service-Partner für zufriedene Kunden. All Rights Reserved.</p>
+    </div>
+</div>
+
+
+</footer>
+
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/avanti\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+
+<!-- Supabase CDN und Kontaktformular -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script type="module" src="/contact-form.js"></script>
+
+<!-- Video Player Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const playBtn = document.querySelector('.playBtn');
+  const video = document.querySelector('.otherVideo');
+  
+  if (playBtn && video) {
+    playBtn.addEventListener('click', function() {
+      video.controls = true; // Zeigt die Video-Steuerelemente an
+      video.play();
+      playBtn.style.display = 'none'; // Blendet den Play-Button aus
+    });
+    
+    // Setzt den Video-Status zurück, wenn das Video endet
+    video.addEventListener('ended', function() {
+      playBtn.style.display = 'block'; // Zeigt den Play-Button wieder an
+      video.controls = false; // Blendet die Steuerelemente aus
+    });
+  }
+});
+</script>
+
+<!-- Sticky Header Script -->
+<script type="module" src="/sticky-header.js"></script>
+
+<!-- CountUp Animation Script (Vereinfachte Implementation) -->
+<script type="module" src="/simple-countup.js"></script>
+
+<!-- Animations Scripts -->
+<script type="module" src="/animations.js"></script>
+<script type="module" src="/service-animations.js"></script>
+<script type="module" src="/grid-animations.js"></script>
+
+<!-- Cookie Banner -->
+<div id="cookie-banner">
+    <div class="cookie-content">
+        <div class="cookie-text">
+            <p style="color: white !important;">Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die Nutzung unserer Website stimmen Sie unserer <a href="datenschutz.html" style="color: #FF8E3C;">Datenschutzerklärung</a> zu.</p>
+        </div>
+        <div class="cookie-buttons">
+            <button id="accept-all-cookies" class="cookie-btn cookie-btn-accept-all">Alle akzeptieren</button>
+            <button id="essential-only-cookies" class="cookie-btn cookie-btn-essential">Nur essenzielle</button>
+            <button id="cookie-settings" class="cookie-btn cookie-btn-settings">Einstellungen</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie Settings Modal -->
+<div id="cookie-settings-modal">
+    <div class="cookie-settings-content">
+        <div class="cookie-settings-header">
+            <div class="cookie-settings-title">Cookie-Einstellungen</div>
+            <button id="close-settings-modal" class="cookie-settings-close">&times;</button>
+        </div>
+        
+        <div class="cookie-settings-options">
+            <!-- Essenzielle Cookies -->
+            <div class="cookie-settings-option">
+                <div class="cookie-option-header">
+                    <div class="cookie-option-title">Essenzielle Cookies</div>
+                    <label class="toggle-switch essential-switch">
+                        <input type="checkbox" checked disabled />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-option-description">
+                    Diese Cookies sind für die Funktionalität unserer Website erforderlich und können nicht deaktiviert werden.
+                </div>
+            </div>
+            
+            <!-- Analyse-Cookies -->
+            <div class="cookie-settings-option">
+                <div class="cookie-option-header">
+                    <div class="cookie-option-title">Analyse-Cookies</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="analytics-cookies" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-option-description">
+                    Diese Cookies ermöglichen es uns, die Nutzung unserer Website zu analysieren, um die Leistung und Benutzerfreundlichkeit zu verbessern.
+                </div>
+            </div>
+            
+            <!-- Marketing-Cookies -->
+            <div class="cookie-settings-option">
+                <div class="cookie-option-header">
+                    <div class="cookie-option-title">Marketing-Cookies</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="marketing-cookies" />
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="cookie-option-description">
+                    Diese Cookies werden verwendet, um Werbung für Sie relevanter zu gestalten und die Effektivität unserer Marketingkampagnen zu messen.
+                </div>
+            </div>
+        </div>
+        
+        <div class="cookie-settings-buttons">
+            <button id="save-cookie-settings" class="cookie-settings-save">Einstellungen speichern</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="/cookie-banner.js"></script>
+<!-- Animation Fallback Script -->
+<script type="module" src="/animation-fallback.js"></script>
+<!-- Vercel Fix Script -->
+  <script type="module" src="/vercel-fix.js"></script>
+  <!-- Mobile Menü Script -->
+  <script type="module" src="/mobile-menu.js"></script>
+  <!-- Smooth scroll for in-page anchors (handles fixed header) -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90; // match scroll-margin-top
+      function scrollToId(id){
+        var el = document.getElementById(id);
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      document.addEventListener('click', function(e){
+        var link = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (!href || href === '#') return;
+        var id = href.slice(1);
+        if (!id) return;
+        if (document.getElementById(id)) {
+          e.preventDefault();
+          scrollToId(id);
+        }
+      });
+    })();
+  </script>
+  <!-- Explicit handler for hero CTA to avoid any interference -->
+  <script>
+    (function(){
+      var HEADER_OFFSET = 90;
+      function go(){
+        var el = document.getElementById('contactSection');
+        if (!el) return;
+        var y = el.getBoundingClientRect().top + window.pageYOffset - HEADER_OFFSET;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+      var btn = document.getElementById('hero-cta');
+      if (btn) {
+        btn.addEventListener('click', function(e){ e.preventDefault(); go(); });
+      } else {
+        document.addEventListener('DOMContentLoaded', function(){
+          var b = document.getElementById('hero-cta');
+          if (b) b.addEventListener('click', function(e){ e.preventDefault(); go(); });
+        });
+      }
+    })();
+  </script>
+  <script>
+// Funktion zum dynamischen Laden von Google Analytics, wenn Analyse-Cookies erlaubt sind
+function loadGoogleAnalytics() {
+  if (window.gtagScriptLoaded) return;
+  window.gtagScriptLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MF60X7GK81';
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-MF60X7GK81');
+}
+
+function areAnalyticsCookiesAllowed() {
+  return localStorage.getItem('analytics-cookies') === 'true';
+}
+
+// Beim Seitenaufruf prüfen
+if (areAnalyticsCookiesAllowed()) {
+  loadGoogleAnalytics();
+}
+
+// Event-Listener für Cookie-Banner-Buttons
+window.addEventListener('DOMContentLoaded', function() {
+  var acceptAllBtn = document.getElementById('accept-all-cookies');
+  var saveSettingsBtn = document.getElementById('save-cookie-settings');
+  var analyticsCheckbox = document.getElementById('analytics-cookies');
+  var essentialOnlyBtn = document.getElementById('essential-only-cookies');
+
+  if (acceptAllBtn) {
+    acceptAllBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'true');
+      loadGoogleAnalytics();
+    });
+  }
+  if (saveSettingsBtn && analyticsCheckbox) {
+    saveSettingsBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', analyticsCheckbox.checked ? 'true' : 'false');
+      if (analyticsCheckbox.checked) {
+        loadGoogleAnalytics();
+      }
+    });
+  }
+  if (essentialOnlyBtn) {
+    essentialOnlyBtn.addEventListener('click', function() {
+      localStorage.setItem('analytics-cookies', 'false');
+    });
+  }
+});
+</script>
+
+ <!-- Strapi hero loader -->
+ <script>
+ (async () => {
+   const endpoints = ['/api/hero', '/api/homepage', '/api/about'];
+   const getFirst = async () => {
+     for (const p of endpoints) {
+       try {
+         const r = await fetch(p);
+         if (r.ok) return r.json();
+         console.warn(`[Strapi] ${p} HTTP`, r.status);
+       } catch (e) {
+         console.warn(`[Strapi] ${p} error`, e);
+       }
+     }
+     return null;
+   };
+
+   try {
+     const data = await getFirst();
+     const entry = data?.data?.attributes;
+     if (!entry) return;
+
+     const titleEl = document.getElementById('hero-title');
+     const subtitleEl = document.getElementById('hero-subtitle');
+     const ctaEl = document.getElementById('hero-cta');
+     const imgEl = document.getElementById('hero-image');
+
+     const title = entry.title || entry.heading || entry.headline;
+     const subtitle = entry.subtitle || entry.subheading || entry.tagline;
+     const cta = entry.ctaText || entry.cta || entry.buttonText;
+     const imgUrl = entry?.image?.data?.attributes?.url || entry?.heroImage?.data?.attributes?.url;
+
+     if (titleEl && title) titleEl.textContent = title;
+     if (subtitleEl && subtitle) subtitleEl.textContent = subtitle;
+     if (ctaEl && cta) ctaEl.textContent = cta;
+     if (imgEl && imgUrl) imgEl.src = imgUrl;
+   } catch (e) {
+     console.error('[Strapi] Failed to load hero:', e);
+   }
+ })();
+ </script>
+ 
+ 
+</body>
+
+</html>
