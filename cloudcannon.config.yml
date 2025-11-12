@@ -1,18 +1,4 @@
-source: /
-paths:
-  uploads: uploads
-  static: ''
 collections_config:
   pages:
     path: ''
     icon: wysiwyg
-    disable_url: false
-    disable_add: false
-    disable_add_folder: false
-    disable_file_actions: false
-editor:
-  default_path: index.html
-  site_files:
-    editable:
-      - '*.html'
-timezone: Etc/UTC
