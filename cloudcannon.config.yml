@@ -2,7 +2,6 @@ source: /
 paths:
   uploads: uploads
   static: ''
-  output: dist
 collections_config:
   pages:
     path: ''
@@ -16,9 +15,4 @@ editor:
   site_files:
     editable:
       - '*.html'
-  visual_editors:
-    default: true
 timezone: Etc/UTC
-build:
-  output_path: dist
-  command: npm run build
