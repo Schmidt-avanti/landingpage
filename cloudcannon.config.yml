@@ -1,23 +1,14 @@
-source: /
-output: dist
-
-collections_config:
-  pages:
-    path: /
-    output: false
-    editable: true
-    _enabled_editors:
-      - visual
-      - content
-
-editor:
-  default_path: index.html
-  site_files:
-    editable:
-      - "*.html"
-
 paths:
   uploads: uploads
   static: ''
 
-timezone: Europe/Belgrade
+collections_config:
+  pages:
+    path: ''
+    glob: 
+      - '*.html'
+    icon: wysiwyg
+    disable_url: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
