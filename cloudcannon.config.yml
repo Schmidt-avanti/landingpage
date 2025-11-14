@@ -1,17 +1,25 @@
-source: ""
-
+paths:
+  uploads: uploads
+  static: ''
+collections_config:
+  pages:
+    path: ''
+    glob:
+      - '*.html'
+    icon: wysiwyg
+    disable_url: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  dist:
+    path: dist
+    icon: list
+    disable_url: false
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+timezone: Etc/UTC
 build:
   install: npm install
   command: npm run build
   output: dist
-
-paths:
-  uploads: uploads
-  static: ""
-
-collections_config:
-  pages:
-    path: ""
-    glob:
-      - "*.html"
-    icon: wysiwyg
