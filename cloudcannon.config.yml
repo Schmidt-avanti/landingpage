@@ -1,3 +1,13 @@
+# Tell CloudCannon the real project root
+source: src
+
+# Build settings
+build:
+  install: npm install
+  command: npm run build
+  output: dist
+
+# Editor settings (your existing config)
 paths:
   uploads: uploads
   static: ''
@@ -5,7 +15,7 @@ paths:
 collections_config:
   pages:
     path: ''
-    glob: 
+    glob:
       - '*.html'
     icon: wysiwyg
     disable_url: false
