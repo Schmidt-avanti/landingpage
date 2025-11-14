@@ -315,6 +315,7 @@
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+  <script type="module" src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
   <!-- Material Symbols (Google Icons) -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap">
   <!-- Poppins for section titles -->
@@ -431,7 +432,7 @@
     .navbar-brand.tooltip-info:hover::after,
     .navbar-brand.tooltip-info:focus::after { opacity: 1; transform: translateY(0); }
   </style>
-  <script type="module" crossorigin src="./assets/main-B5Qt9EMX.js"></script>
+  <script type="module" crossorigin src="./assets/main-DaKOjhqt.js"></script>
 </head>
 <body>
   <!-- Navigation Header -->
@@ -467,21 +468,14 @@
       <div class="row align-items-center">
         <div class="col-lg-6">
           <div class="hero-content">
-            <!--cloudcannon:editable name="hero-title"-->
-            <h1 id="hero-title" class="section-title">Für kleinere und mittlere Unternehmen</h1>
-            <!--/cloudcannon:editable-->
+            <h1 class="section-title" data-cms-bind="title">Für kleinere und mittlere Unternehmen</h1>
 
-            <!--cloudcannon:editable name="hero-subtitle"-->
-            <h2 id="hero-subtitle" class="section-subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
-            <!--/cloudcannon:editable-->
+            <h2 id="hero-subtitle" class="section-subtitle" data-cms-bind="subtitle">Wir entlasten Sie bei Ihrem Kundenservice</h2>
 
-            <!--cloudcannon:editable name="hero-lead"-->
             <p class="lead mb-4">
                <b>avanti</b> übernimmt alle Routineaufgaben bei Ihrer telefonischen und schriftlichen Kundenbetreuung. 
               Menschlich, effizient, professionell. So können Sie sich auf das Wesentliche konzentrieren: die Entwicklung Ihres Geschäfts.
-                </p>
-            <!--/cloudcannon:editable-->
-
+            </p>
             <a id="hero-cta" href="javascript:void(0);" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/aa-schmidt-ja-dialog/30min'});return false;" class="btn btn-lg text-white" style="background-color: #e67e22; border-radius: 25px; padding: 12px 30px; font-weight: 600;">Erstgespräch anfragen</a>
           </div>
         </div>
@@ -1139,7 +1133,6 @@ Für die Neukundenakquise unterbreiten wir Ihnen ein separates Angebot zusätzli
 
 <!-- Supabase CDN und Kontaktformular -->
 <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script type="module" src="./supabase-config.js"></script>
 <script type="module" src="./contact-form.js"></script>
 
 <!-- Video Player Script -->
