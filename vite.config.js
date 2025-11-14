@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  root: '.',   // ← REQUIRED FIX
   base: './',
   build: {
-      minify: false,
+    minify: false,
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
