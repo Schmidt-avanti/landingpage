@@ -10,7 +10,10 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: 'index.html'
+        main: 'index.html',
+        preise: 'preise.html',
+        datenschutz: 'datenschutz.html',
+        impressum: 'impressum.html'
       }
     }
   }
