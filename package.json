@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node build.mjs",   
+    "build": "vite build",   
     "preview": "vite preview"
   },
   "dependencies": {
-    "vite": "4.5.14"
+    "vite": "^5.4.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
