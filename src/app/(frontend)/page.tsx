@@ -5,6 +5,7 @@ import React from 'react'
 import { fileURLToPath } from 'url'
 
 import config from '@/payload.config'
+import { RenderBlocks } from '@/components/RenderBlocks'
 import './styles.css'
 
 export default async function HomePage() {
@@ -13,47 +14,37 @@ export default async function HomePage() {
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
 
+  const result = await payload.find({
+    collection: 'pages',
+    where: {
+      slug: {
+        equals: 'home',
+      },
+    },
+  })
+  const page = result.docs?.[0] || null
+
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
 
   return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
+    <div className="home p-0 m-0 w-full min-h-screen">
+      {page ? (
+        <RenderBlocks layout={page.layout} />
+      ) : (
+        <div className="container mx-auto py-20 text-center">
+            <h1 className="text-4xl font-bold mb-8">Welcome to Avanti</h1>
+            <p className="mb-8">Please create a page with slug "home" in the admin panel.</p>
+            <div className="links flex gap-4 justify-center">
+                <a
+                    className="admin px-6 py-3 bg-brand-darkblue text-white rounded-lg hover:bg-opacity-90"
+                    href={payloadConfig.routes.admin}
+                    target="_blank"
+                >
+                    Go to Admin Panel
+                </a>
+            </div>
         </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
+      )}
     </div>
   )
 }
