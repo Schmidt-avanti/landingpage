@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import type { Page } from '@/payload-types'
 import { Media } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
 import RichText from '@/components/RichText'
+import { createPortal } from 'react-dom'
 
 type ContentSideBySideType = Extract<Page['layout'][number], { blockType: 'contentSideBySide' }>
 
@@ -48,6 +49,28 @@ export const ContentSideBySideComponent: React.FC<
 
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const previousBodyOverflowRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+    if (typeof document === 'undefined') return
+
+    if (isLightboxOpen) {
+      previousBodyOverflowRef.current = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      return
+    }
+
+    if (previousBodyOverflowRef.current != null) {
+      document.body.style.overflow = previousBodyOverflowRef.current
+      previousBodyOverflowRef.current = null
+    }
+  }, [isLightboxOpen, mounted])
 
   // Auto-advance slides if more than one
   useEffect(() => {
@@ -205,80 +228,96 @@ export const ContentSideBySideComponent: React.FC<
       </section>
 
       {/* Lightbox Modal */}
-      {isLightboxOpen && slides.length > 1 && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out animate-fadeIn"
-          onClick={() => setIsLightboxOpen(false)}
-        >
-          {/* Navigation Buttons */}
-          <button
-            className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-50 p-4 text-white hover:text-brand-turquoise transition-colors cursor-pointer bg-white/10 rounded-full hover:bg-white/20 backdrop-blur-sm"
-            onClick={(e) => {
-              e.stopPropagation()
-              setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-            }}
-          >
-            <svg
-              className="w-8 h-8 lg:w-12 lg:h-12"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      {mounted && isLightboxOpen && slides.length > 1
+        ? createPortal(
+            <div
+              className="fixed inset-0 z-[9999] bg-black/95 h-[100svh] flex items-center justify-center p-4 cursor-zoom-out animate-fadeIn"
+              onClick={() => setIsLightboxOpen(false)}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-
-          <button
-            className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-50 p-4 text-white hover:text-brand-turquoise transition-colors cursor-pointer bg-white/10 rounded-full hover:bg-white/20 backdrop-blur-sm"
-            onClick={(e) => {
-              e.stopPropagation()
-              setCurrentSlide((prev) => (prev + 1) % slides.length)
-            }}
-          >
-            <svg
-              className="w-8 h-8 lg:w-12 lg:h-12"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <div className="relative w-full max-w-7xl max-h-[90vh] aspect-video">
-            <Image
-              src={slides[currentSlide]?.url || ''}
-              alt="Fullscreen view"
-              fill
-              sizes="90vw"
-              className="object-contain"
-            />
-          </div>
-
-          <div className="absolute top-8 right-8 z-50">
-            <button className="text-white hover:text-brand-orange transition-colors cursor-pointer bg-white/10 p-2 rounded-full hover:bg-white/20 backdrop-blur-sm">
-              <svg
-                className="w-8 h-8 lg:w-10 lg:h-10"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              {/* Navigation Buttons */}
+              <button
+                className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-50 p-4 text-white hover:text-brand-turquoise transition-colors cursor-pointer bg-white/10 rounded-full hover:bg-white/20 backdrop-blur-sm"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
+                <svg
+                  className="w-8 h-8 lg:w-12 lg:h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+
+              <button
+                className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-50 p-4 text-white hover:text-brand-turquoise transition-colors cursor-pointer bg-white/10 rounded-full hover:bg-white/20 backdrop-blur-sm"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setCurrentSlide((prev) => (prev + 1) % slides.length)
+                }}
+              >
+                <svg
+                  className="w-8 h-8 lg:w-12 lg:h-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+
+              <div className="relative w-full max-w-7xl h-[80svh] md:h-[90svh] max-h-[90svh]">
+                <Image
+                  src={slides[currentSlide]?.url || ''}
+                  alt="Fullscreen view"
+                  fill
+                  sizes="90vw"
+                  className="object-contain"
                 />
-              </svg>
-            </button>
-          </div>
-        </div>
-      )}
+              </div>
+
+              <div className="absolute top-8 right-8 z-50">
+                <button
+                  className="text-white hover:text-brand-orange transition-colors cursor-pointer bg-white/10 p-2 rounded-full hover:bg-white/20 backdrop-blur-sm"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsLightboxOpen(false)
+                  }}
+                  aria-label="Close"
+                  type="button"
+                >
+                  <svg
+                    className="w-8 h-8 lg:w-10 lg:h-10"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   )
 }

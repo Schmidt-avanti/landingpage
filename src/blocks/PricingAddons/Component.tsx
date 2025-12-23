@@ -67,7 +67,9 @@ export const PricingAddonsComponent: React.FC<PricingAddonsProps> = ({
                     Option
                   </th>
                   <th
-                    className={`text-left py-4 px-4 font-semibold ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
+                    className={`hidden md:table-cell text-left py-4 px-4 font-semibold ${
+                      isDark ? 'text-gray-400' : 'text-gray-500'
+                    }`}
                   >
                     Beschreibung
                   </th>
@@ -103,7 +105,11 @@ export const PricingAddonsComponent: React.FC<PricingAddonsProps> = ({
                         </span>
                       )}
                     </td>
-                    <td className={`py-4 px-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <td
+                      className={`hidden md:table-cell py-4 px-4 ${
+                        isDark ? 'text-gray-300' : 'text-gray-600'
+                      }`}
+                    >
                       {addon.description || '–'}
                     </td>
                     <td

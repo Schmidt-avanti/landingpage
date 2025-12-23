@@ -69,21 +69,21 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({
 
   return (
     <section
-      className={`py-24 overflow-hidden text-center transition-colors duration-300 ${containerClasses}`}
+      className={`py-14 md:py-20 overflow-hidden text-center transition-colors duration-300 ${containerClasses}`}
     >
       <div className="container mx-auto px-4">
         {/* Tagline */}
         {tagline && (
-          <p className={`text-sm uppercase tracking-widest mb-4 ${taglineClasses}`}>{tagline}</p>
+          <p className={`text-sm uppercase tracking-widest mb-3 ${taglineClasses}`}>{tagline}</p>
         )}
 
         {/* Headline */}
-        <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-poppins mb-16 max-w-3xl mx-auto leading-tight">
+        <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-poppins mb-10 md:mb-14 max-w-3xl mx-auto leading-tight">
           {headline}
         </h2>
 
         {/* Industries Grid - 3 columns on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 md:gap-x-10 gap-y-6 md:gap-y-10 max-w-4xl mx-auto">
           {Array.isArray(industries) &&
             industries.map((industry, index) => {
               if (!industry || typeof industry !== 'object') return null
@@ -99,7 +99,7 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({
               return (
                 <div
                   key={industry.id || index}
-                  className="flex items-center gap-3 group cursor-default text-left"
+                  className="flex items-center gap-3 group cursor-default text-left min-w-0"
                 >
                   {/* Icon */}
                   {IconComponent ? (
@@ -123,7 +123,9 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({
                   )}
 
                   {/* Title */}
-                  <span className={`text-sm md:text-base transition-colors ${textClasses}`}>
+                  <span
+                    className={`text-sm md:text-base leading-snug break-words flex-1 min-w-0 transition-colors ${textClasses}`}
+                  >
                     {industry.title}
                   </span>
                 </div>

@@ -75,8 +75,15 @@ export const Hero: React.FC<HeroProps> = ({
   const containerRef = useRef<HTMLDivElement>(null)
   const hasScrolledRef = useRef(false)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(true)
+  const [mounted, setMounted] = useState(false)
+  const [breakpointReady, setBreakpointReady] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const autoAdvanceIdRef = useRef<number | null>(null)
+  const pointerIdRef = useRef<number | null>(null)
+  const swipeStartXRef = useRef<number | null>(null)
+  const swipeLastXRef = useRef<number | null>(null)
   const cardCount = Math.min(bentoCards?.length || 0, 3)
 
   // Build CTA href based on link type
@@ -101,10 +108,48 @@ export const Hero: React.FC<HeroProps> = ({
     return () => mediaQuery.removeListener(update)
   }, [])
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const mediaQuery = window.matchMedia('(min-width: 1024px)')
+
+    const update = () => {
+      setIsDesktop(Boolean(mediaQuery.matches))
+    }
+
+    update()
+    setBreakpointReady(true)
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', update)
+      return () => mediaQuery.removeEventListener('change', update)
+    }
+
+    mediaQuery.addListener(update)
+    return () => mediaQuery.removeListener(update)
+  }, [])
+
   useLayoutEffect(() => {
-    if (!containerRef.current || reduceMotion) return
+    if (!mounted) return
+    if (!breakpointReady) return
+    if (!containerRef.current || reduceMotion || !isDesktop) return
 
     const ctx = gsap.context(() => {
+      gsap.set(
+        [
+          '[data-hero="badge"]',
+          '[data-hero="headline"]',
+          '[data-hero="subheadline"]',
+          '[data-hero="cta"]',
+          '[data-hero="dots"]',
+        ],
+        { opacity: 0, y: 16 },
+      )
+      gsap.set('[data-hero-card]', { opacity: 0 })
+
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
       tl.to(
@@ -136,11 +181,14 @@ export const Hero: React.FC<HeroProps> = ({
     }, containerRef)
 
     return () => ctx.revert()
-  }, [reduceMotion])
+  }, [reduceMotion, isDesktop, mounted, breakpointReady])
 
   useLayoutEffect(() => {
+    if (!mounted) return
+    if (!breakpointReady) return
     if (!containerRef.current) return
     if (!reduceMotion) return
+    if (!isDesktop) return
 
     const ctx = gsap.context(() => {
       gsap.set(
@@ -158,10 +206,12 @@ export const Hero: React.FC<HeroProps> = ({
     }, containerRef)
 
     return () => ctx.revert()
-  }, [reduceMotion])
+  }, [reduceMotion, isDesktop, mounted, breakpointReady])
 
   useEffect(() => {
-    if (!containerRef.current || cardCount === 0 || reduceMotion) return
+    if (!mounted) return
+    if (!breakpointReady) return
+    if (!containerRef.current || cardCount === 0 || reduceMotion || !isDesktop) return
 
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
@@ -190,7 +240,54 @@ export const Hero: React.FC<HeroProps> = ({
     }, containerRef)
 
     return () => ctx.revert()
-  }, [cardCount, reduceMotion])
+  }, [cardCount, reduceMotion, isDesktop, mounted, breakpointReady])
+
+  useEffect(() => {
+    if (!mounted) return
+    if (isDesktop) return
+    if (cardCount <= 1) return
+
+    if (autoAdvanceIdRef.current) window.clearInterval(autoAdvanceIdRef.current)
+    autoAdvanceIdRef.current = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % cardCount)
+    }, 3000)
+
+    return () => {
+      if (autoAdvanceIdRef.current) window.clearInterval(autoAdvanceIdRef.current)
+      autoAdvanceIdRef.current = null
+    }
+  }, [cardCount, isDesktop, mounted])
+
+  useEffect(() => {
+    if (!mounted) return
+    if (isDesktop) return
+    hasScrolledRef.current = false
+    setHasScrolled(false)
+    setActiveIndex(0)
+  }, [isDesktop, mounted])
+
+  const stopAutoAdvance = () => {
+    if (autoAdvanceIdRef.current) window.clearInterval(autoAdvanceIdRef.current)
+    autoAdvanceIdRef.current = null
+  }
+
+  const startAutoAdvance = () => {
+    if (isDesktop) return
+    if (cardCount <= 1) return
+
+    stopAutoAdvance()
+    autoAdvanceIdRef.current = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % cardCount)
+    }, 3000)
+  }
+
+  const goToIndex = (nextIndex: number) => {
+    if (cardCount <= 0) return
+    const normalized = ((nextIndex % cardCount) + cardCount) % cardCount
+    setActiveIndex(normalized)
+
+    if (!isDesktop && cardCount > 1) startAutoAdvance()
+  }
 
   const currentPositions = cardPositions[activeIndex] || cardPositions[0]
   const currentBadgePos = floatingBadgePositions[activeIndex] || floatingBadgePositions[0]
@@ -205,14 +302,14 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-turquoise/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-orange/10 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-4 pt-36 pb-24 lg:py-32 relative z-10 min-h-[100svh] flex items-start lg:h-screen lg:items-center">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center w-full">
+      <div className="container mx-auto px-4 pt-24 pb-16 md:pt-28 md:pb-20 lg:py-32 relative z-10 min-h-[100svh] flex items-start lg:h-screen lg:items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center w-full">
           {/* LEFT: Text */}
-          <div className="text-white space-y-6">
+          <div className="text-white space-y-5 md:space-y-6">
             {badgeText && (
               <div
                 data-hero="badge"
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 text-sm font-medium text-brand-turquoise opacity-0 translate-y-4 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 text-sm font-medium text-brand-turquoise"
               >
                 <ShieldCheck size={16} />
                 <span>{badgeText}</span>
@@ -221,7 +318,7 @@ export const Hero: React.FC<HeroProps> = ({
 
             <h1
               data-hero="headline"
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight opacity-0 translate-y-4 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight"
             >
               {headline}
             </h1>
@@ -229,7 +326,7 @@ export const Hero: React.FC<HeroProps> = ({
             {subheadline && (
               <p
                 data-hero="subheadline"
-                className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg opacity-0 translate-y-4 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+                className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg"
               >
                 {subheadline}
               </p>
@@ -240,7 +337,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <a
                   data-hero="cta"
                   href={ctaHref}
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-brand-orange rounded-xl hover:bg-brand-orange/90 hover:scale-105 shadow-lg shadow-brand-orange/20 opacity-0 translate-y-4 motion-reduce:opacity-100 motion-reduce:translate-y-0"
+                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-brand-orange rounded-xl hover:bg-brand-orange/90 hover:scale-105 shadow-lg shadow-brand-orange/20"
                 >
                   {ctaText}
                   <svg
@@ -259,15 +356,15 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
             )}
 
-            {/* Scroll Progress Dots */}
-            <div
-              data-hero="dots"
-              className="pt-8 opacity-0 translate-y-4 motion-reduce:opacity-100 motion-reduce:translate-y-0"
-            >
+            {/* Scroll / Story Dots */}
+            <div data-hero="dots" className="pt-8">
               <div className="flex gap-1.5">
                 {bentoCards?.slice(0, 3).map((_, i) => (
-                  <div
+                  <button
                     key={i}
+                    type="button"
+                    onClick={() => goToIndex(i)}
+                    aria-label={`Hero Story ${i + 1}`}
                     className={`h-2 rounded-full transition-all duration-500 ${
                       i === activeIndex ? 'bg-brand-turquoise w-8' : 'bg-white/30 w-2'
                     }`}
@@ -278,80 +375,232 @@ export const Hero: React.FC<HeroProps> = ({
           </div>
 
           {/* RIGHT: Cards + Floating Badge */}
-          <div className="relative h-[450px] lg:h-[550px]">
+          <div
+            className="relative h-[320px] sm:h-[380px] md:h-[450px] lg:h-[550px]"
+            style={{ touchAction: 'pan-y' }}
+            onPointerDown={(e) => {
+              if (isDesktop || cardCount <= 1) return
+              if (e.pointerType && e.pointerType !== 'touch' && e.pointerType !== 'mouse') return
+              if (typeof (e.currentTarget as any).setPointerCapture === 'function') {
+                try {
+                  ;(e.currentTarget as any).setPointerCapture(e.pointerId)
+                } catch {
+                  // ignore
+                }
+              }
+
+              pointerIdRef.current = e.pointerId
+              swipeStartXRef.current = e.clientX
+              swipeLastXRef.current = e.clientX
+
+              stopAutoAdvance()
+            }}
+            onPointerMove={(e) => {
+              if (isDesktop || cardCount <= 1) return
+              if (swipeStartXRef.current == null) return
+              if (pointerIdRef.current != null && e.pointerId !== pointerIdRef.current) return
+              swipeLastXRef.current = e.clientX
+            }}
+            onPointerUp={() => {
+              if (isDesktop || cardCount <= 1) return
+              const startX = swipeStartXRef.current
+              const endX = swipeLastXRef.current
+              swipeStartXRef.current = null
+              swipeLastXRef.current = null
+              pointerIdRef.current = null
+
+              if (startX == null || endX == null) return
+              const delta = endX - startX
+              const threshold = 30
+
+              if (Math.abs(delta) < threshold) return
+              if (delta < 0) {
+                goToIndex(activeIndex + 1)
+              } else {
+                goToIndex(activeIndex - 1)
+              }
+
+              startAutoAdvance()
+            }}
+            onPointerCancel={() => {
+              swipeStartXRef.current = null
+              swipeLastXRef.current = null
+              pointerIdRef.current = null
+              startAutoAdvance()
+            }}
+            onTouchStart={(e) => {
+              if (isDesktop || cardCount <= 1) return
+              const x = e.touches[0]?.clientX
+              if (typeof x !== 'number') return
+              swipeStartXRef.current = x
+              swipeLastXRef.current = x
+              stopAutoAdvance()
+            }}
+            onTouchMove={(e) => {
+              if (isDesktop || cardCount <= 1) return
+              if (swipeStartXRef.current == null) return
+              const x = e.touches[0]?.clientX
+              if (typeof x !== 'number') return
+              swipeLastXRef.current = x
+            }}
+            onTouchEnd={() => {
+              if (isDesktop || cardCount <= 1) return
+              const startX = swipeStartXRef.current
+              const endX = swipeLastXRef.current
+              swipeStartXRef.current = null
+              swipeLastXRef.current = null
+
+              if (startX == null || endX == null) return
+              const delta = endX - startX
+              const threshold = 30
+
+              if (Math.abs(delta) < threshold) {
+                startAutoAdvance()
+                return
+              }
+
+              if (delta < 0) {
+                goToIndex(activeIndex + 1)
+              } else {
+                goToIndex(activeIndex - 1)
+              }
+
+              startAutoAdvance()
+            }}
+          >
             {/* Cards */}
-            {bentoCards?.slice(0, 3).map((card, index) => {
-              const pos = currentPositions[index]
-              if (!pos) return null
+            {isDesktop
+              ? bentoCards?.slice(0, 3).map((card, index) => {
+                  const pos = currentPositions[index]
+                  if (!pos) return null
 
-              const imageUrl =
-                typeof card.image === 'object' && card.image?.url ? card.image.url : null
-              const imageAlt =
-                typeof card.image === 'object' && card.image?.alt ? card.image.alt : 'Card'
-              const statBgUrl =
-                typeof card.statBackgroundImage === 'object' && card.statBackgroundImage?.url
-                  ? card.statBackgroundImage.url
-                  : null
+                  const imageUrl =
+                    typeof card.image === 'object' && card.image?.url ? card.image.url : null
+                  const imageAlt =
+                    typeof card.image === 'object' && card.image?.alt ? card.image.alt : 'Card'
+                  const statBgUrl =
+                    typeof card.statBackgroundImage === 'object' && card.statBackgroundImage?.url
+                      ? card.statBackgroundImage.url
+                      : null
 
-              return (
-                <div
-                  data-hero-card
-                  key={card.id || index}
-                  className="absolute rounded-2xl overflow-hidden border-2 border-white/20 bg-white/5 backdrop-blur-sm shadow-2xl transition-all duration-700 ease-out opacity-0 motion-reduce:opacity-100"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                    width: pos.width,
-                    height: pos.height,
-                    zIndex: pos.zIndex,
-                    transform: `rotate(${pos.rotate}deg)`,
-                  }}
-                >
-                  {/* Image */}
-                  {imageUrl && card.cardType !== 'stat' && (
-                    <Image
-                      src={imageUrl}
-                      alt={imageAlt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 40vw"
-                      priority={index === 0}
-                    />
-                  )}
-
-                  {/* Stat Card */}
-                  {card.cardType === 'stat' && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      {statBgUrl && (
+                  return (
+                    <div
+                      data-hero-card
+                      key={card.id || index}
+                      className="absolute rounded-2xl overflow-hidden border-2 border-white/20 bg-white/5 backdrop-blur-sm shadow-2xl transition-all duration-700 ease-out"
+                      style={{
+                        top: pos.top,
+                        left: pos.left,
+                        width: pos.width,
+                        height: pos.height,
+                        zIndex: pos.zIndex,
+                        transform: `rotate(${pos.rotate}deg)`,
+                      }}
+                    >
+                      {/* Image */}
+                      {imageUrl && card.cardType !== 'stat' && (
                         <Image
-                          src={statBgUrl}
-                          alt="Background"
+                          src={imageUrl}
+                          alt={imageAlt}
                           fill
-                          className="object-cover opacity-40"
+                          className="object-cover"
                           sizes="(max-width: 768px) 100vw, 40vw"
+                          priority={index === 0}
                         />
                       )}
-                      <div className="absolute inset-0 bg-brand-darkblue/70" />
-                      <div className="relative z-10 text-center">
-                        <TrendingUp className="h-10 w-10 text-brand-orange mb-3 mx-auto" />
-                        <div className="text-4xl md:text-5xl font-extrabold text-white">
-                          {card.statValue}
+
+                      {/* Stat Card */}
+                      {card.cardType === 'stat' && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          {statBgUrl && (
+                            <Image
+                              src={statBgUrl}
+                              alt="Background"
+                              fill
+                              className="object-cover opacity-40"
+                              sizes="(max-width: 768px) 100vw, 40vw"
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-brand-darkblue/70" />
+                          <div className="relative z-10 text-center">
+                            <TrendingUp className="h-10 w-10 text-brand-orange mb-3 mx-auto" />
+                            <div className="text-4xl md:text-5xl font-extrabold text-white">
+                              {card.statValue}
+                            </div>
+                            <div className="text-base text-gray-300 mt-1">{card.statLabel}</div>
+                          </div>
                         </div>
-                        <div className="text-base text-gray-300 mt-1">{card.statLabel}</div>
-                      </div>
+                      )}
+
+                      {/* Gradient */}
+                      {card.cardType !== 'stat' && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-darkblue/40 via-transparent to-transparent pointer-events-none" />
+                      )}
                     </div>
-                  )}
+                  )
+                })
+              : (() => {
+                  const card = bentoCards?.slice(0, 3)[activeIndex]
+                  if (!card) return null
 
-                  {/* Gradient */}
-                  {card.cardType !== 'stat' && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-darkblue/40 via-transparent to-transparent pointer-events-none" />
-                  )}
-                </div>
-              )
-            })}
+                  const imageUrl =
+                    typeof card.image === 'object' && card.image?.url ? card.image.url : null
+                  const imageAlt =
+                    typeof card.image === 'object' && card.image?.alt ? card.image.alt : 'Card'
+                  const statBgUrl =
+                    typeof card.statBackgroundImage === 'object' && card.statBackgroundImage?.url
+                      ? card.statBackgroundImage.url
+                      : null
 
-            {/* FLOATING TITLE BADGE - Only visible after scrolling starts */}
-            {hasScrolled && activeCard?.cardTitle && (
+                  return (
+                    <div
+                      data-hero-card
+                      key={card.id || activeIndex}
+                      className="absolute inset-0 rounded-2xl overflow-hidden border-2 border-white/20 bg-white/5 backdrop-blur-sm shadow-2xl"
+                      style={{ zIndex: 30 }}
+                    >
+                      {imageUrl && card.cardType !== 'stat' && (
+                        <Image
+                          src={imageUrl}
+                          alt={imageAlt}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 40vw"
+                          priority
+                        />
+                      )}
+
+                      {card.cardType === 'stat' && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                          {statBgUrl && (
+                            <Image
+                              src={statBgUrl}
+                              alt="Background"
+                              fill
+                              className="object-cover opacity-40"
+                              sizes="(max-width: 768px) 100vw, 40vw"
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-brand-darkblue/70" />
+                          <div className="relative z-10 text-center">
+                            <TrendingUp className="h-10 w-10 text-brand-orange mb-3 mx-auto" />
+                            <div className="text-4xl font-extrabold text-white">
+                              {card.statValue}
+                            </div>
+                            <div className="text-base text-gray-300 mt-1">{card.statLabel}</div>
+                          </div>
+                        </div>
+                      )}
+
+                      {card.cardType !== 'stat' && (
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-darkblue/40 via-transparent to-transparent pointer-events-none" />
+                      )}
+                    </div>
+                  )
+                })()}
+
+            {/* Desktop floating title badge */}
+            {isDesktop && hasScrolled && activeCard?.cardTitle && (
               <div
                 key={`badge-${activeIndex}`}
                 className="absolute z-50 pointer-events-none animate-slideInFade"
@@ -365,6 +614,15 @@ export const Hero: React.FC<HeroProps> = ({
                   <span className="text-sm md:text-lg lg:text-xl font-bold text-white">
                     {activeCard.cardTitle}
                   </span>
+                </div>
+              </div>
+            )}
+
+            {/* Mobile story caption */}
+            {!isDesktop && activeCard?.cardTitle && (
+              <div className="absolute z-40 left-3 right-3 bottom-3">
+                <div className="bg-brand-darkblue/95 backdrop-blur-md border-2 border-brand-orange rounded-xl px-4 py-3 shadow-2xl shadow-brand-orange/30">
+                  <span className="text-sm font-bold text-white">{activeCard.cardTitle}</span>
                 </div>
               </div>
             )}

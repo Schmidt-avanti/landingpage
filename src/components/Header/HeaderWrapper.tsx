@@ -12,7 +12,8 @@ export const HeaderWrapper: React.FC<HeaderWrapperProps> = ({ children }) => {
   useEffect(() => {
     const handleScroll = () => {
       // Trigger floating header style after some scrolling
-      const heroThreshold = window.innerHeight * 2.5
+      const isMobile = window.matchMedia('(max-width: 767px)').matches
+      const heroThreshold = isMobile ? 8 : window.innerHeight * 2.5
       setIsScrolled(window.scrollY > heroThreshold)
     }
 
