@@ -4,6 +4,8 @@ import React from 'react'
 import { getPayloadClient } from '@/payloadClient'
 import { RenderBlocks } from '@/components/RenderBlocks'
 
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: Promise<{ slug: string }>
 }
@@ -36,21 +38,7 @@ export default async function DynamicPage({ params }: Props) {
 
 // Generate static params for known pages
 export async function generateStaticParams() {
-  const payload = await getPayloadClient()
-
-  const pages = await payload.find({
-    collection: 'pages',
-    limit: 100,
-    where: {
-      slug: {
-        not_equals: 'home',
-      },
-    },
-  })
-
-  return pages.docs.map((page) => ({
-    slug: page.slug,
-  }))
+  return []
 }
 
 // Generate metadata for SEO
