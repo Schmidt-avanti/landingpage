@@ -78,7 +78,7 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
-      max: Number(process.env.PG_POOL_MAX ?? (process.env.VERCEL ? 1 : 5)),
+      max: Number(process.env.PG_POOL_MAX ?? (process.env.VERCEL ? 3 : 5)),
       idleTimeoutMillis: Number(process.env.PG_IDLE_TIMEOUT_MS ?? 30_000),
       connectionTimeoutMillis: Number(process.env.PG_CONN_TIMEOUT_MS ?? 30_000),
     },
