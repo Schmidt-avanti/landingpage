@@ -1,8 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+import { getPayloadClient } from '@/payloadClient'
 
 type BlogTeaserProps = {
   headline?: string | null
@@ -31,7 +30,7 @@ export const BlogTeaserComponent: React.FC<BlogTeaserProps> = async ({
   const isDark = theme === 'dark'
 
   // Fetch latest posts
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient()
   const posts = await payload.find({
     collection: 'posts',
     sort: '-publishedAt',

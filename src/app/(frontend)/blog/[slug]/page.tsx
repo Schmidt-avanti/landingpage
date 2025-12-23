@@ -1,9 +1,8 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import { getPayloadClient } from '@/payloadClient'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -14,7 +13,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient()
 
   const posts = await payload.find({
     collection: 'posts',
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogArticlePage({ params }: Props) {
   const { slug } = await params
-  const payload = await getPayload({ config: configPromise })
+  const payload = await getPayloadClient()
 
   const posts = await payload.find({
     collection: 'posts',
