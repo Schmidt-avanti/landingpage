@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import './styles.css'
 
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { ScrollToAnchor } from '@/components/ScrollToAnchor'
 
 export const metadata = {
   description: 'Professioneller Kundenservice für Ihr Unternehmen',
@@ -15,6 +16,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="de">
       <body className="flex flex-col min-h-screen" suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <ScrollToAnchor />
+        </Suspense>
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

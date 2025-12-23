@@ -4,7 +4,7 @@ export const Services: CollectionConfig = {
   slug: 'services',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'updatedAt'],
+    defaultColumns: ['title', 'type', 'updatedAt'],
   },
   access: {
     read: () => true,
@@ -26,17 +26,30 @@ export const Services: CollectionConfig = {
       name: 'icon',
       type: 'upload',
       relationTo: 'media',
-      label: 'Icon/Image',
+      label: 'Custom Icon Image (Optional)',
     },
     {
-      name: 'category',
+      name: 'selectedIcon',
+      type: 'text',
+      admin: {
+        components: {
+            Field: '@/components/IconPickerField#IconPickerField'
+        },
+      },
+    },
+
+    {
+      name: 'type',
       type: 'select',
+      label: 'Service Typ',
       options: [
-        { label: 'Communication', value: 'communication' },
-        { label: 'Backoffice', value: 'backoffice' },
-        { label: 'Sales', value: 'sales' },
+         { label: 'Hauptleistung (Grid)', value: 'main' },
+         { label: 'Zusatzleistung (Icon Liste)', value: 'additional' },
       ],
-      defaultValue: 'communication',
+      defaultValue: 'main',
+      admin: {
+        position: 'sidebar',
+      },
     },
   ],
 }

@@ -1,4 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -11,12 +13,19 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Services } from './collections/Services'
 import { Testimonials } from './collections/Testimonials'
+import { FormSubmissions } from './collections/FormSubmissions'
+import { Industries } from './collections/Industries'
+import { Authors } from './collections/Authors'
+import { Posts } from './collections/Posts'
 
 import { s3Storage } from '@payloadcms/storage-s3'
 import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const hasSMTP = Boolean(process.env.SMTP_HOST)
+const hasResend = Boolean(process.env.RESEND_API_KEY)
 
 export default buildConfig({
   admin: {
@@ -25,7 +34,41 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages, Services, Testimonials],
+  email: hasSMTP
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.SMTP_FROM_ADDRESS || 'no-reply@example.com',
+        defaultFromName: process.env.SMTP_FROM_NAME || 'Avanti',
+        transportOptions: {
+          host: process.env.SMTP_HOST,
+          port: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587,
+          secure: process.env.SMTP_SECURE === 'true',
+          auth:
+            process.env.SMTP_USER && process.env.SMTP_PASS
+              ? {
+                  user: process.env.SMTP_USER,
+                  pass: process.env.SMTP_PASS,
+                }
+              : undefined,
+        },
+      })
+    : hasResend
+      ? resendAdapter({
+          defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'no-reply@example.com',
+          defaultFromName: process.env.EMAIL_FROM_NAME || 'Avanti',
+          apiKey: process.env.RESEND_API_KEY || '',
+        })
+      : undefined,
+  collections: [
+    Users,
+    Media,
+    Pages,
+    Services,
+    Testimonials,
+    FormSubmissions,
+    Industries,
+    Authors,
+    Posts,
+  ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -35,7 +78,12 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      max: Number(process.env.PG_POOL_MAX ?? 5),
+      idleTimeoutMillis: Number(process.env.PG_IDLE_TIMEOUT_MS ?? 30_000),
+      connectionTimeoutMillis: Number(process.env.PG_CONN_TIMEOUT_MS ?? 30_000),
     },
+    push: false,
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   plugins: [
     s3Storage({

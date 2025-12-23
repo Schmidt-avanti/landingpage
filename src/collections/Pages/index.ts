@@ -6,6 +6,16 @@ import { LogoTicker } from '../../blocks/LogoTicker/config'
 import { ContentSideBySide } from '../../blocks/ContentSideBySide/config'
 import { VideoBlock } from '../../blocks/VideoBlock/config'
 import { ContactForm } from '../../blocks/ContactForm/config'
+import { AdditionalServicesBlock } from '../../blocks/AdditionalServices/config'
+import { IndustriesGridBlock } from '../../blocks/IndustriesGrid/config'
+import { PageHero } from '../../blocks/PageHero/config'
+import { Accordion } from '../../blocks/Accordion/config'
+import { RichTextContent } from '../../blocks/RichTextContent/config'
+import { TextBlock } from '../../blocks/TextBlock/config'
+import { PricingGrid } from '../../blocks/PricingGrid/config'
+import { PricingAddons } from '../../blocks/PricingAddons/config'
+import { BlogTeaser } from '../../blocks/BlogTeaser/config'
+import { BlogPosts } from '../../blocks/BlogPosts/config'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -36,12 +46,22 @@ export const Pages: CollectionConfig = {
       type: 'blocks',
       blocks: [
         Hero,
+        PageHero,
         ServiceGridBlock,
+        AdditionalServicesBlock,
+        IndustriesGridBlock,
         TestimonialsBlock,
         LogoTicker,
         ContentSideBySide,
         VideoBlock,
         ContactForm,
+        Accordion,
+        RichTextContent,
+        TextBlock,
+        PricingGrid,
+        PricingAddons,
+        BlogTeaser,
+        BlogPosts,
       ],
       required: true,
     },

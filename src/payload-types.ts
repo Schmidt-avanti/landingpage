@@ -72,6 +72,10 @@ export interface Config {
     pages: Page;
     services: Service;
     testimonials: Testimonial;
+    'form-submissions': FormSubmission;
+    industries: Industry;
+    authors: Author;
+    posts: Post;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +88,10 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    industries: IndustriesSelect<false> | IndustriesSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -180,25 +188,136 @@ export interface Page {
   layout: (
     | {
         headline: string;
+        /**
+         * z.B. "100% Bot-Free Guarantee"
+         */
+        badgeText?: string | null;
         subheadline?: string | null;
         ctaText?: string | null;
+        ctaLinkType?: ('page' | 'anchor') | null;
+        /**
+         * z.B. /kontakt oder /services
+         */
         ctaLink?: string | null;
-        backgroundImage?: (number | null) | Media;
+        ctaAnchor?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        /**
+         * Configure the cards that appear in the hero grid.
+         */
+        bentoCards?:
+          | {
+              cardType: 'image' | 'screenshot' | 'stat' | 'decorative';
+              cardSize?: ('small' | 'medium' | 'large') | null;
+              image?: (number | null) | Media;
+              statValue?: string | null;
+              statLabel?: string | null;
+              /**
+               * Optional decorative background for the stat card
+               */
+              statBackgroundImage?: (number | null) | Media;
+              /**
+               * Small label shown above the content
+               */
+              cardTitle?: string | null;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'hero';
       }
     | {
+        headline: string;
+        subheadline?: string | null;
+        /**
+         * Image displayed on the right side. If empty, text will be centered.
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pageHero';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        title: string;
+        introduction: string;
+        services: (number | Service)[];
         id?: string | null;
         blockName?: string | null;
         blockType: 'serviceGrid';
       }
     | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        headline: string;
+        services: (number | Service)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'additionalServices';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        tagline?: string | null;
+        headline: string;
+        industries: (number | Industry)[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'industriesGrid';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        title?: string | null;
+        subtitle?: string | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'testimonials';
       }
     | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        headline?: string | null;
         logos?:
           | {
               logo: number | Media;
@@ -207,12 +326,24 @@ export interface Page {
             }[]
           | null;
         speed?: ('slow' | 'normal' | 'fast') | null;
+        invertLogos?: boolean | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'logoTicker';
       }
     | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
         headline?: string | null;
+        subheadline?: string | null;
         content: {
           root: {
             type: string;
@@ -229,12 +360,27 @@ export interface Page {
           [k: string]: unknown;
         };
         image: number | Media;
+        /**
+         * Add more images here to create a slideshow. The Main Image will be the first slide.
+         */
+        additionalImages?:
+          | {
+              image: number | Media;
+              id?: string | null;
+            }[]
+          | null;
         imagePosition?: ('left' | 'right') | null;
         ctaText?: string | null;
-        ctaLink?: string | null;
+        ctaLinkType?: ('page' | 'anchor') | null;
         /**
-         * Optional: Fill this if this block is a quote/testimonial.
+         * e.g., /contact or /services
          */
+        ctaLink?: string | null;
+        ctaAnchor?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        /**
+         * The actual quote content to display in the card.
+         */
+        quoteText?: string | null;
         authorName?: string | null;
         authorRole?: string | null;
         id?: string | null;
@@ -242,9 +388,19 @@ export interface Page {
         blockType: 'contentSideBySide';
       }
     | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
         headline?: string | null;
         subheadline?: string | null;
-        videoUrl: string;
+        videoFile: number | Media;
         thumbnail?: (number | null) | Media;
         id?: string | null;
         blockName?: string | null;
@@ -252,14 +408,268 @@ export interface Page {
       }
     | {
         headline?: string | null;
+        subheadline?: string | null;
         introText?: string | null;
+        phoneNumber?: string | null;
+        cardHeadline?: string | null;
+        buttonText?: string | null;
+        privacyText?: string | null;
+        footerText?: string | null;
         /**
          * Where should contact form submissions be sent?
          */
         emailTo?: string | null;
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
         id?: string | null;
         blockName?: string | null;
         blockType: 'contactForm';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        items: {
+          title: string;
+          content: {
+            root: {
+              type: string;
+              children: {
+                type: any;
+                version: number;
+                [k: string]: unknown;
+              }[];
+              direction: ('ltr' | 'rtl') | null;
+              format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+              indent: number;
+              version: number;
+            };
+            [k: string]: unknown;
+          };
+          id?: string | null;
+        }[];
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'accordion';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'richTextContent';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        /**
+         * Wähle die passende Darstellungsform für den Text.
+         */
+        variant?: ('hint' | 'standard' | 'page') | null;
+        content: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'textBlock';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        headline?: string | null;
+        subheadline?: string | null;
+        onboardingEnabled?: boolean | null;
+        onboardingLabel?: string | null;
+        onboardingPrice?: string | null;
+        /**
+         * Die Service-Pakete (empfohlen: 3-4 Pakete)
+         */
+        packages?:
+          | {
+              name: string;
+              isRecommended?: boolean | null;
+              /**
+               * Mehrzeilige Eingabe möglich
+               */
+              openingHours: string;
+              /**
+               * z.B. "ab 199€/Monat" oder leer lassen
+               */
+              price?: string | null;
+              /**
+               * z.B. "zzgl. Minutenpreis"
+               */
+              priceNote?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        featuresHeadline?: string | null;
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        ctaText?: string | null;
+        ctaLinkType?: ('page' | 'anchor') | null;
+        /**
+         * z.B. /kontakt oder /services
+         */
+        ctaLink?: string | null;
+        ctaAnchor?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pricingGrid';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        headline?: string | null;
+        subheadline?: string | null;
+        addons?:
+          | {
+              name: string;
+              description?: string | null;
+              /**
+               * z.B. "500€" – leer lassen wenn nicht zutreffend
+               */
+              onetimePrice?: string | null;
+              /**
+               * z.B. "99€" – leer lassen wenn nicht zutreffend
+               */
+              monthlyPrice?: string | null;
+              /**
+               * z.B. "*in Verbindung mit Super 365"
+               */
+              note?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * z.B. "Alle Preise zzgl. gesetzlicher Mehrwertsteuer"
+         */
+        footnotes?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'pricingAddons';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        headline?: string | null;
+        subheadline?: string | null;
+        postsCount?: number | null;
+        ctaText?: string | null;
+        ctaLinkType?: ('page' | 'anchor') | null;
+        ctaLink?: string | null;
+        ctaAnchor?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'blogTeaser';
+      }
+    | {
+        /**
+         * Appearance settings for this block
+         */
+        settings?: {
+          theme?: ('light' | 'dark') | null;
+          /**
+           * Optional. Assign an anchor so navigation can link to this block.
+           */
+          anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        };
+        postsPerPage?: number | null;
+        columns?: ('2' | '3' | '4') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'blogPosts';
       }
   )[];
   updatedAt: string;
@@ -274,7 +684,52 @@ export interface Service {
   title: string;
   description: string;
   icon?: (number | null) | Media;
-  category?: ('communication' | 'backoffice' | 'sales') | null;
+  selectedIcon?: string | null;
+  type?: ('main' | 'additional') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries".
+ */
+export interface Industry {
+  id: number;
+  title: string;
+  /**
+   * Select a standard icon from the list
+   */
+  selectedIcon?:
+    | (
+        | 'Home'
+        | 'ShoppingCart'
+        | 'Car'
+        | 'Store'
+        | 'Heart'
+        | 'Stethoscope'
+        | 'Scale'
+        | 'Utensils'
+        | 'Hammer'
+        | 'Building2'
+        | 'Armchair'
+        | 'Shield'
+        | 'Hotel'
+        | 'Building'
+        | 'Factory'
+        | 'Package'
+        | 'Briefcase'
+        | 'GraduationCap'
+      )
+    | null;
+  /**
+   * Upload a custom icon image if you don't want to use a standard icon
+   */
+  icon?: (number | null) | Media;
+  description?: string | null;
+  /**
+   * Lower numbers appear first
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -290,6 +745,81 @@ export interface Testimonial {
   quote: string;
   avatar?: (number | null) | Media;
   rating?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission {
+  id: number;
+  name: string;
+  email: string;
+  message?: string | null;
+  source?: string | null;
+  company?: string | null;
+  position?: string | null;
+  phone?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  image?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * URL-freundlicher Name (z.B. "mein-erster-beitrag")
+   */
+  slug: string;
+  /**
+   * Wird in Übersichten und Teasern angezeigt
+   */
+  excerpt?: string | null;
+  featuredImage: number | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  author: number | Author;
+  publishedAt: string;
+  /**
+   * Geschätzte Lesezeit in Minuten
+   */
+  readingTime?: number | null;
+  /**
+   * Für Suchmaschinen (leer = Titel wird verwendet)
+   */
+  metaTitle?: string | null;
+  /**
+   * 1-2 vollständige Sätze für Suchmaschinen, z.B. "Erfahren Sie, wie KI Ihren Kundenservice verbessert." (leer = Kurzbeschreibung wird verwendet)
+   */
+  metaDescription?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -336,6 +866,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'testimonials';
         value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'form-submissions';
+        value: number | FormSubmission;
+      } | null)
+    | ({
+        relationTo: 'industries';
+        value: number | Industry;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -433,28 +979,104 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               headline?: T;
+              badgeText?: T;
               subheadline?: T;
               ctaText?: T;
+              ctaLinkType?: T;
               ctaLink?: T;
-              backgroundImage?: T;
+              ctaAnchor?: T;
+              bentoCards?:
+                | T
+                | {
+                    cardType?: T;
+                    cardSize?: T;
+                    image?: T;
+                    statValue?: T;
+                    statLabel?: T;
+                    statBackgroundImage?: T;
+                    cardTitle?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        pageHero?:
+          | T
+          | {
+              headline?: T;
+              subheadline?: T;
+              image?: T;
               id?: T;
               blockName?: T;
             };
         serviceGrid?:
           | T
           | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              title?: T;
+              introduction?: T;
+              services?: T;
+              id?: T;
+              blockName?: T;
+            };
+        additionalServices?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              headline?: T;
+              services?: T;
+              id?: T;
+              blockName?: T;
+            };
+        industriesGrid?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              tagline?: T;
+              headline?: T;
+              industries?: T;
               id?: T;
               blockName?: T;
             };
         testimonials?:
           | T
           | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              title?: T;
+              subtitle?: T;
               id?: T;
               blockName?: T;
             };
         logoTicker?:
           | T
           | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              headline?: T;
               logos?:
                 | T
                 | {
@@ -463,18 +1085,35 @@ export interface PagesSelect<T extends boolean = true> {
                     id?: T;
                   };
               speed?: T;
+              invertLogos?: T;
               id?: T;
               blockName?: T;
             };
         contentSideBySide?:
           | T
           | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
               headline?: T;
+              subheadline?: T;
               content?: T;
               image?: T;
+              additionalImages?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
               imagePosition?: T;
               ctaText?: T;
+              ctaLinkType?: T;
               ctaLink?: T;
+              ctaAnchor?: T;
+              quoteText?: T;
               authorName?: T;
               authorRole?: T;
               id?: T;
@@ -483,9 +1122,15 @@ export interface PagesSelect<T extends boolean = true> {
         videoBlock?:
           | T
           | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
               headline?: T;
               subheadline?: T;
-              videoUrl?: T;
+              videoFile?: T;
               thumbnail?: T;
               id?: T;
               blockName?: T;
@@ -494,8 +1139,167 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               headline?: T;
+              subheadline?: T;
               introText?: T;
+              phoneNumber?: T;
+              cardHeadline?: T;
+              buttonText?: T;
+              privacyText?: T;
+              footerText?: T;
               emailTo?: T;
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        accordion?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              items?:
+                | T
+                | {
+                    title?: T;
+                    content?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        richTextContent?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        textBlock?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              variant?: T;
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricingGrid?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              headline?: T;
+              subheadline?: T;
+              onboardingEnabled?: T;
+              onboardingLabel?: T;
+              onboardingPrice?: T;
+              packages?:
+                | T
+                | {
+                    name?: T;
+                    isRecommended?: T;
+                    openingHours?: T;
+                    price?: T;
+                    priceNote?: T;
+                    id?: T;
+                  };
+              featuresHeadline?: T;
+              features?:
+                | T
+                | {
+                    feature?: T;
+                    id?: T;
+                  };
+              ctaText?: T;
+              ctaLinkType?: T;
+              ctaLink?: T;
+              ctaAnchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        pricingAddons?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              headline?: T;
+              subheadline?: T;
+              addons?:
+                | T
+                | {
+                    name?: T;
+                    description?: T;
+                    onetimePrice?: T;
+                    monthlyPrice?: T;
+                    note?: T;
+                    id?: T;
+                  };
+              footnotes?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        blogTeaser?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              headline?: T;
+              subheadline?: T;
+              postsCount?: T;
+              ctaText?: T;
+              ctaLinkType?: T;
+              ctaLink?: T;
+              ctaAnchor?: T;
+              id?: T;
+              blockName?: T;
+            };
+        blogPosts?:
+          | T
+          | {
+              settings?:
+                | T
+                | {
+                    theme?: T;
+                    anchorId?: T;
+                  };
+              postsPerPage?: T;
+              columns?: T;
               id?: T;
               blockName?: T;
             };
@@ -511,7 +1315,8 @@ export interface ServicesSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   icon?: T;
-  category?: T;
+  selectedIcon?: T;
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -526,6 +1331,62 @@ export interface TestimonialsSelect<T extends boolean = true> {
   quote?: T;
   avatar?: T;
   rating?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions_select".
+ */
+export interface FormSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  message?: T;
+  source?: T;
+  company?: T;
+  position?: T;
+  phone?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industries_select".
+ */
+export interface IndustriesSelect<T extends boolean = true> {
+  title?: T;
+  selectedIcon?: T;
+  icon?: T;
+  description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  content?: T;
+  author?: T;
+  publishedAt?: T;
+  readingTime?: T;
+  metaTitle?: T;
+  metaDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -570,21 +1431,100 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Manage global site settings like logo, footer, and social links.
+ * Manage global site settings like logo, navigation, and footer.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
   id: number;
-  logo: number | Media;
   /**
-   * Upload the white version of the logo here.
+   * Used in header (dark) and footer (white) - styled automatically.
    */
-  footerLogo?: (number | null) | Media;
+  logo: number | Media;
+  awardEnabled?: boolean | null;
+  awardImage?: (number | null) | Media;
+  awardTitle?: string | null;
+  /**
+   * Supports bold, italic, lists, etc.
+   */
+  awardDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Drag & drop to reorder menu items.
+   */
+  navigation?:
+    | {
+        label: string;
+        linkType?: ('page' | 'anchor') | null;
+        /**
+         * e.g., /about or /services
+         */
+        pageLink?: string | null;
+        /**
+         * Select an anchor defined on a block
+         */
+        anchorLink?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaType?: ('link' | 'phone') | null;
+  ctaText?: string | null;
+  ctaLink?: string | null;
+  /**
+   * Format: +49 30 123456789
+   */
+  ctaPhone?: string | null;
   phoneNumber?: string | null;
   email?: string | null;
   footerText?: string | null;
+  /**
+   * z.B. https://instagram.com/avanti.cx
+   */
+  socialInstagram?: string | null;
+  /**
+   * z.B. https://linkedin.com/company/avanti
+   */
+  socialLinkedin?: string | null;
+  companyName?: string | null;
+  /**
+   * Mehrzeilige Adresse für den Footer
+   */
+  companyAddress?: string | null;
+  /**
+   * Füge PDF-Dokumente hinzu, die als Download verfügbar sein sollen
+   */
+  legalDocuments?:
+    | {
+        /**
+         * z.B. "Nutzungsbedingungen" oder "AGB"
+         */
+        label: string;
+        file: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Pfad zur Impressum-Seite, z.B. /impressum
+   */
+  imprintLink?: string | null;
+  /**
+   * Pfad zur Datenschutz-Seite, z.B. /datenschutz
+   */
+  privacyLink?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -594,10 +1534,39 @@ export interface SiteSetting {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   logo?: T;
-  footerLogo?: T;
+  awardEnabled?: T;
+  awardImage?: T;
+  awardTitle?: T;
+  awardDescription?: T;
+  navigation?:
+    | T
+    | {
+        label?: T;
+        linkType?: T;
+        pageLink?: T;
+        anchorLink?: T;
+        id?: T;
+      };
+  ctaType?: T;
+  ctaText?: T;
+  ctaLink?: T;
+  ctaPhone?: T;
   phoneNumber?: T;
   email?: T;
   footerText?: T;
+  socialInstagram?: T;
+  socialLinkedin?: T;
+  companyName?: T;
+  companyAddress?: T;
+  legalDocuments?:
+    | T
+    | {
+        label?: T;
+        file?: T;
+        id?: T;
+      };
+  imprintLink?: T;
+  privacyLink?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

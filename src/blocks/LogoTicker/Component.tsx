@@ -4,7 +4,15 @@ import Image from 'next/image'
 
 type LogoTickerType = Extract<Page['layout'][number], { blockType: 'logoTicker' }>
 
-export const LogoTickerComponent: React.FC<LogoTickerType> = ({ logos, speed }) => {
+export const LogoTickerComponent: React.FC<
+  LogoTickerType & { settings?: { theme?: 'light' | 'dark' } }
+> = ({ headline, logos, speed, invertLogos, settings }) => {
+  const theme = settings?.theme || 'dark'
+  const isDark = theme === 'dark'
+
+  const containerClasses = isDark ? 'bg-brand-darkblue text-white' : 'bg-white text-gray-900'
+  const headlineClasses = isDark ? 'text-gray-400' : 'text-gray-500'
+
   const speedClass = {
     slow: 'duration-[60s]',
     normal: 'duration-[30s]',
@@ -13,36 +21,59 @@ export const LogoTickerComponent: React.FC<LogoTickerType> = ({ logos, speed }) 
 
   if (!logos || logos.length === 0) return null
 
-  // Duplicate logos for seamless scrolling
-  const duplicatedLogos = [...logos, ...logos]
+  // Ensure we have enough logos to fill the screen width comfortably.
+  // We want the 'base set' to be long enough so that 2x base set definitely overflows.
+  let repeatedLogos = [...logos]
+  while (repeatedLogos.length < 10) {
+    repeatedLogos = [...repeatedLogos, ...logos]
+  }
+
+  // Now create the seamless loop by doubling that substantial base set
+  // This creates [BaseSet] [BaseSet]. Animation moves -50% (width of BaseSet).
+  // Because BaseSet is long, we won't run out of content.
+  const finalLogos = [...repeatedLogos, ...repeatedLogos]
 
   return (
-    <section className="py-12 bg-white overflow-hidden border-b border-gray-100">
+    <section className={`py-12 overflow-hidden border-b border-gray-100 ${containerClasses}`}>
       <div className="container mx-auto px-4 mb-8 text-center">
-         <p className="text-gray-500 font-medium text-sm uppercase tracking-widest">
-            Vertrauen von führenden Unternehmen
-         </p>
-      </div>
-      <div className="relative w-full flex overflow-hidden mask-image-linear-gradient">
-        <div className={`flex gap-16 items-center animate-scroll ${speedClass ? `animate-scroll-${speed}` : ''} whitespace-nowrap`}>
-          {duplicatedLogos.map((item, index) => {
-             const logo = item.logo as Media
-             if (!logo || typeof logo === 'string') return null
-             
-             return (
-               <div key={index} className="flex-shrink-0 w-32 h-16 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
-                 <Image 
-                    src={logo.url || ''} 
-                    alt={item.name || logo.alt || 'Client Logo'} 
-                    fill 
-                    className="object-contain"
-                 />
-               </div>
-             )
-          })}
-        </div>
+        <p className={`font-medium text-sm uppercase tracking-widest ${headlineClasses}`}>
+          {headline || 'Vertrauen von führenden Unternehmen'}
+        </p>
       </div>
 
+      {/* Wrapper to mask edges */}
+      <div className="relative w-full overflow-hidden mask-image-linear-gradient">
+        {/* Animated Container: Moves from 0% to -50% width */}
+        <div
+          className={`flex w-fit animate-scroll ${speedClass ? `animate-scroll-${speed}` : ''} hover:pause-animation`}
+        >
+          {/* We render the single massive list which contains [Set A] [Set A] visually */}
+          <div className="flex gap-16 items-center pr-16 whitespace-nowrap">
+            {finalLogos.map((item, index) => {
+              // Safe access to logo
+              const logo = typeof item.logo === 'object' ? (item.logo as Media) : null
+              const logoUrl = logo?.url
+
+              if (!logoUrl) return null
+
+              return (
+                <div
+                  key={`${index}-${logo.id}`}
+                  className="flex-shrink-0 w-32 h-16 relative hover:opacity-100 transition-opacity duration-300 opacity-70"
+                >
+                  <Image
+                    src={logoUrl}
+                    alt={item.name || logo.alt || 'Client Logo'}
+                    fill
+                    sizes="128px"
+                    className={`object-contain ${invertLogos ? 'invert' : 'grayscale hover:grayscale-0'}`}
+                  />
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </section>
   )
 }

@@ -1,22 +1,25 @@
 import type { Block } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 export const VideoBlock: Block = {
   slug: 'videoBlock',
   fields: [
+    blockSettings,
     {
       name: 'headline',
       type: 'text',
       label: 'Headline',
     },
     {
-        name: 'subheadline',
-        type: 'text',
-        label: 'Subheadline/Link Text',
+      name: 'subheadline',
+      type: 'text',
+      label: 'Subheadline/Link Text',
     },
     {
-      name: 'videoUrl',
-      type: 'text',
-      label: 'Video URL (YouTube/Vimeo/mp4)',
+      name: 'videoFile',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Video File',
       required: true,
     },
     {

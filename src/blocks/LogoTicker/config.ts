@@ -1,8 +1,16 @@
 import type { Block } from 'payload'
+import { blockSettings } from '@/fields/blockSettings'
 
 export const LogoTicker: Block = {
   slug: 'logoTicker',
   fields: [
+    blockSettings,
+    {
+      name: 'headline',
+      type: 'text',
+      label: 'Headline',
+      defaultValue: 'Vertrauen von führenden Unternehmen',
+    },
     {
       name: 'logos',
       type: 'array',
@@ -16,10 +24,10 @@ export const LogoTicker: Block = {
           required: true,
         },
         {
-            name: 'name',
-            type: 'text',
-            label: 'Client Name (Alt Text)',
-        }
+          name: 'name',
+          type: 'text',
+          label: 'Client Name (Alt Text)',
+        },
       ],
     },
     {
@@ -32,6 +40,12 @@ export const LogoTicker: Block = {
         { label: 'Normal', value: 'normal' },
         { label: 'Fast', value: 'fast' },
       ],
+    },
+    {
+      name: 'invertLogos',
+      type: 'checkbox',
+      label: 'Invert Logo Colors (for white logos on light background)',
+      defaultValue: false,
     },
   ],
 }
