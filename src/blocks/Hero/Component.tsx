@@ -205,7 +205,7 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-turquoise/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-orange/10 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-4 pt-32 pb-24 lg:py-32 relative z-10 h-screen flex items-center">
+      <div className="container mx-auto px-4 pt-36 pb-24 lg:py-32 relative z-10 min-h-[100svh] flex items-start lg:h-screen lg:items-center">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center w-full">
           {/* LEFT: Text */}
           <div className="text-white space-y-6">
