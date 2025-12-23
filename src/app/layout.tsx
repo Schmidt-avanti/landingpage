@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import './(frontend)/styles.css'
 
 export const metadata: Metadata = {
-  description: 'Professioneller Kundenservice für Ihr Unternehmen',
-  title: 'Avanti - Ihr Kundenservice Partner',
+  description: 'avanti | Professioneller Kundenservice auch für Ihr Unternehmen',
+  title: 'Mach doch mal avanti',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
