@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { RenderBlocks } from '@/components/RenderBlocks'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
