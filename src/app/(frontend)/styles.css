@@ -141,6 +141,80 @@ select {
   color: white; /* no !important so children can override with Tailwind text-* */
 }
 
+/* Platform Grid Background Pattern */
+.platform-grid {
+  background-image:
+    linear-gradient(rgba(67, 190, 222, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(67, 190, 222, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: -1px -1px;
+}
+
+/* Enhanced Background with Grid */
+.hero-platform-bg {
+  background-color: #172d52;
+  background-image: 
+    /* Gradient Overlay */
+    radial-gradient(circle at 20% 20%, rgba(67, 190, 222, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(253, 141, 61, 0.15) 0%, transparent 50%);
+  background-size:
+    100% 100%,
+    100% 100%;
+  background-position:
+    0 0,
+    0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Parallax Grid Pattern with 3D Tilt */
+.hero-platform-bg::before {
+  content: '';
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background-image:
+    linear-gradient(rgba(67, 190, 222, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(67, 190, 222, 0.08) 1px, transparent 1px);
+  background-size: 25px 25px;
+  background-position:
+    0 0,
+    0 0;
+  pointer-events: none;
+  will-change: transform;
+  z-index: 1;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg))
+    translate(var(--grid-x, 0px), var(--grid-y, 0px));
+  transition: transform 0.15s ease-out;
+}
+
+/* Subtle Mouse Glow Effect */
+.hero-platform-bg::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(67, 190, 222, 0.05) 0%,
+    rgba(253, 141, 61, 0.03) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero-platform-bg:hover::after {
+  opacity: 1;
+}
+
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,

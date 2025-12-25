@@ -19,6 +19,8 @@ import { RevealOnScroll } from '@/components/RevealOnScroll'
 
 import { AdditionalServices } from '@/blocks/AdditionalServices/Component'
 import { IndustriesGrid } from '@/blocks/IndustriesGrid/Component'
+import { FocusIndustriesGrid } from '@/blocks/FocusIndustriesGrid/Component'
+import { AdditionalIndustries } from '@/blocks/AdditionalIndustries/Component'
 
 const blockComponents: any = {
   hero: Hero,
@@ -26,6 +28,8 @@ const blockComponents: any = {
   serviceGrid: ServiceGrid,
   additionalServices: AdditionalServices,
   industriesGrid: IndustriesGrid,
+  focusIndustriesGrid: FocusIndustriesGrid,
+  additionalIndustries: AdditionalIndustries,
   testimonials: Testimonials,
   logoTicker: LogoTickerComponent,
   contentSideBySide: ContentSideBySideComponent,

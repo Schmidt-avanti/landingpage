@@ -73,6 +73,23 @@ export const Hero: Block = {
           siblingData?.ctaText && siblingData?.ctaLinkType === 'anchor',
       },
     },
+    {
+      name: 'secondaryCtaText',
+      type: 'text',
+      label: 'Secondary CTA Button Text',
+      admin: {
+        description: 'Optional secondary button (ghost style)',
+      },
+    },
+    {
+      name: 'secondaryCtaLink',
+      type: 'text',
+      label: 'Secondary CTA Link URL',
+      admin: {
+        condition: (data, siblingData) => siblingData?.secondaryCtaText,
+        description: 'z.B. /demo oder /features',
+      },
+    },
 
     // Bento Grid Cards
     {
@@ -151,6 +168,22 @@ export const Hero: Block = {
           label: 'Optional Card Title',
           admin: {
             description: 'Small label shown above the content',
+          },
+        },
+        {
+          name: 'cardHeadline',
+          type: 'text',
+          label: 'Dynamic Headline for this Card',
+          admin: {
+            description: 'Override the main headline when this card is active',
+          },
+        },
+        {
+          name: 'cardSubheadline',
+          type: 'textarea',
+          label: 'Dynamic Subheadline for this Card',
+          admin: {
+            description: 'Override the main subheadline when this card is active',
           },
         },
       ],

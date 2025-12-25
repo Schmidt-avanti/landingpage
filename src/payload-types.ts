@@ -201,6 +201,14 @@ export interface Page {
         ctaLink?: string | null;
         ctaAnchor?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
         /**
+         * Optional secondary button (ghost style)
+         */
+        secondaryCtaText?: string | null;
+        /**
+         * z.B. /demo oder /features
+         */
+        secondaryCtaLink?: string | null;
+        /**
          * Configure the cards that appear in the hero grid.
          */
         bentoCards?:
@@ -218,6 +226,14 @@ export interface Page {
                * Small label shown above the content
                */
               cardTitle?: string | null;
+              /**
+               * Override the main headline when this card is active
+               */
+              cardHeadline?: string | null;
+              /**
+               * Override the main subheadline when this card is active
+               */
+              cardSubheadline?: string | null;
               id?: string | null;
             }[]
           | null;
@@ -289,6 +305,8 @@ export interface Page {
         blockName?: string | null;
         blockType: 'industriesGrid';
       }
+    | FocusIndustriesGridBlock
+    | AdditionalIndustriesBlock
     | {
         /**
          * Appearance settings for this block
@@ -697,6 +715,14 @@ export interface Industry {
   id: number;
   title: string;
   /**
+   * URL-freundlicher Name (z.B. "immobilien", "e-commerce")
+   */
+  slug: string;
+  /**
+   * Focus-Branchen werden prominent auf der Homepage dargestellt
+   */
+  type: 'focus' | 'additional';
+  /**
    * Select a standard icon from the list
    */
   selectedIcon?:
@@ -719,19 +745,142 @@ export interface Industry {
         | 'Package'
         | 'Briefcase'
         | 'GraduationCap'
+        | 'PhoneCall'
+        | 'Wrench'
+        | 'UserCheck'
+        | 'TrendingUp'
+        | 'RefreshCw'
+        | 'CreditCard'
+        | 'Users'
+        | 'Gauge'
+        | 'Filter'
+        | 'ClipboardList'
+        | 'MessageSquare'
+        | 'Database'
+        | 'PhoneForwarded'
+        | 'Smile'
       )
     | null;
   /**
    * Upload a custom icon image if you don't want to use a standard icon
    */
   icon?: (number | null) | Media;
+  /**
+   * Kurze Beschreibung für Übersichtskarten (1-2 Sätze)
+   */
   description?: string | null;
   /**
    * Lower numbers appear first
    */
   order?: number | null;
+  /**
+   * Großes Bild für die Branchen-Detail-Seite
+   */
+  featuredImage?: (number | null) | Media;
+  /**
+   * Detaillierte Beschreibung der Branchenlösung
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Liste der Vorteile für diese Branche
+   */
+  benefits?:
+    | {
+        title: string;
+        description?: string | null;
+        icon?:
+          | (
+              | 'Check'
+              | 'Star'
+              | 'Zap'
+              | 'Shield'
+              | 'Phone'
+              | 'MessageSquare'
+              | 'Calendar'
+              | 'Clock'
+              | 'PhoneCall'
+              | 'Wrench'
+              | 'UserCheck'
+              | 'TrendingUp'
+              | 'RefreshCw'
+              | 'CreditCard'
+              | 'Gauge'
+              | 'Filter'
+              | 'ClipboardList'
+              | 'Database'
+              | 'PhoneForwarded'
+              | 'Smile'
+              | 'Users'
+              | 'Headset'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Überschreibt den Standard-Titel für Suchmaschinen
+   */
+  metaTitle?: string | null;
+  /**
+   * Beschreibung für Suchmaschinen (max. 160 Zeichen)
+   */
+  metaDescription?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FocusIndustriesGridBlock".
+ */
+export interface FocusIndustriesGridBlock {
+  /**
+   * Small text above the headline (optional)
+   */
+  tagline?: string | null;
+  headline?: string | null;
+  introduction?: string | null;
+  /**
+   * Select focus industries to display (only industries with type "focus" will be shown properly)
+   */
+  industries?: (number | Industry)[] | null;
+  settings?: {
+    theme?: ('dark' | 'light') | null;
+    showLink?: boolean | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'focusIndustriesGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdditionalIndustriesBlock".
+ */
+export interface AdditionalIndustriesBlock {
+  headline?: string | null;
+  /**
+   * Select additional industries to display in compact icon list
+   */
+  industries?: (number | Industry)[] | null;
+  settings?: {
+    theme?: ('dark' | 'light') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'additionalIndustries';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -985,6 +1134,8 @@ export interface PagesSelect<T extends boolean = true> {
               ctaLinkType?: T;
               ctaLink?: T;
               ctaAnchor?: T;
+              secondaryCtaText?: T;
+              secondaryCtaLink?: T;
               bentoCards?:
                 | T
                 | {
@@ -995,6 +1146,8 @@ export interface PagesSelect<T extends boolean = true> {
                     statLabel?: T;
                     statBackgroundImage?: T;
                     cardTitle?: T;
+                    cardHeadline?: T;
+                    cardSubheadline?: T;
                     id?: T;
                   };
               id?: T;
@@ -1053,6 +1206,8 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        focusIndustriesGrid?: T | FocusIndustriesGridBlockSelect<T>;
+        additionalIndustries?: T | AdditionalIndustriesBlockSelect<T>;
         testimonials?:
           | T
           | {
@@ -1309,6 +1464,39 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FocusIndustriesGridBlock_select".
+ */
+export interface FocusIndustriesGridBlockSelect<T extends boolean = true> {
+  tagline?: T;
+  headline?: T;
+  introduction?: T;
+  industries?: T;
+  settings?:
+    | T
+    | {
+        theme?: T;
+        showLink?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AdditionalIndustriesBlock_select".
+ */
+export interface AdditionalIndustriesBlockSelect<T extends boolean = true> {
+  headline?: T;
+  industries?: T;
+  settings?:
+    | T
+    | {
+        theme?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "services_select".
  */
 export interface ServicesSelect<T extends boolean = true> {
@@ -1355,10 +1543,24 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
  */
 export interface IndustriesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
+  type?: T;
   selectedIcon?: T;
   icon?: T;
   description?: T;
   order?: T;
+  featuredImage?: T;
+  content?: T;
+  benefits?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
   updatedAt?: T;
   createdAt?: T;
 }

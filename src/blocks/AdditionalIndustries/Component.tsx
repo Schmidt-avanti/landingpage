@@ -73,47 +73,45 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; strokeWidth?:
   Smile,
 }
 
-export type IndustriesGridProps = {
-  tagline?: string | null
+export type AdditionalIndustriesProps = {
   headline?: string
   industries?: (string | Industry)[] | null
   settings?: { theme?: 'light' | 'dark' }
 }
 
-export const IndustriesGrid: React.FC<IndustriesGridProps> = ({
-  tagline,
+export const AdditionalIndustries: React.FC<AdditionalIndustriesProps> = ({
   headline,
   industries,
   settings,
 }) => {
+  const title = headline || 'Weitere Branchen'
+
   const theme = settings?.theme || 'dark'
   const isDark = theme === 'dark'
 
   const containerClasses = isDark ? 'bg-brand-darkblue text-white' : 'bg-white text-gray-900'
-  const taglineClasses = isDark ? 'text-gray-400' : 'text-gray-500'
+  const underlineClass = 'bg-brand-orange'
   const textClasses = isDark
     ? 'text-gray-300 group-hover:text-white'
     : 'text-gray-600 group-hover:text-brand-darkblue'
+  const iconBgClasses = isDark ? 'bg-white/10' : 'bg-brand-darkblue/5 text-brand-darkblue'
+  const iconFallbackTextClasses = isDark ? 'text-white' : 'text-brand-darkblue'
 
   if (!industries || industries.length === 0) return null
 
   return (
     <section
-      className={`py-14 md:py-20 overflow-hidden text-center transition-colors duration-300 ${containerClasses}`}
+      className={`py-24 overflow-hidden text-center transition-colors duration-300 ${containerClasses}`}
     >
       <div className="container mx-auto px-4">
-        {/* Tagline */}
-        {tagline && (
-          <p className={`text-sm uppercase tracking-widest mb-3 ${taglineClasses}`}>{tagline}</p>
-        )}
-
-        {/* Headline */}
-        <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-poppins mb-10 md:mb-14 max-w-3xl mx-auto leading-tight">
-          {headline}
+        <h2 className="text-2xl md:text-4xl font-bold font-poppins mb-4 relative inline-block">
+          {title}
+          <span
+            className={`absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-12 h-1 rounded-full ${underlineClass}`}
+          ></span>
         </h2>
 
-        {/* Industries Grid - 3 columns on desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 md:gap-x-10 gap-y-6 md:gap-y-10 max-w-4xl mx-auto">
+        <div className="mt-16 flex flex-wrap justify-center gap-x-12 gap-y-16 md:gap-x-20 max-w-5xl mx-auto">
           {Array.isArray(industries) &&
             industries.map((industry, index) => {
               if (!industry || typeof industry !== 'object') return null
@@ -129,35 +127,35 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({
               return (
                 <div
                   key={industry.id || index}
-                  className="flex items-center gap-3 group cursor-default text-left min-w-0"
+                  className="flex flex-col items-center group cursor-default w-32 md:w-40"
                 >
-                  {/* Icon */}
+                  {/* Render Standard Icon or Custom Image or Fallback */}
                   {IconComponent ? (
-                    <div className="w-8 h-8 flex items-center justify-center text-brand-orange flex-shrink-0">
-                      <IconComponent size={24} strokeWidth={1.5} />
+                    <div className="w-16 h-16 md:w-20 md:h-20 mb-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 text-brand-orange">
+                      <IconComponent size={40} strokeWidth={1.5} />
                     </div>
                   ) : iconUrl ? (
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                    <div className="w-16 h-16 md:w-20 md:h-20 mb-4 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                       <Image
                         src={iconUrl}
                         alt={industry.title}
-                        width={24}
-                        height={24}
-                        className="object-contain"
+                        width={80}
+                        height={80}
+                        className="object-contain filter brightness-0 invert opacity-80 group-hover:opacity-100"
                       />
                     </div>
                   ) : (
-                    <div className="w-8 h-8 flex items-center justify-center bg-brand-orange/20 rounded text-brand-orange text-sm font-bold flex-shrink-0">
+                    <div
+                      className={`w-16 h-16 md:w-20 md:h-20 mb-4 rounded-full flex items-center justify-center text-2xl font-bold ${iconBgClasses} ${iconFallbackTextClasses}`}
+                    >
                       {industry.title.charAt(0)}
                     </div>
                   )}
-
-                  {/* Title */}
-                  <span
-                    className={`text-sm md:text-base leading-snug break-words flex-1 min-w-0 transition-colors ${textClasses}`}
+                  <h3
+                    className={`text-sm md:text-base font-medium transition-colors ${textClasses}`}
                   >
                     {industry.title}
-                  </span>
+                  </h3>
                 </div>
               )
             })}
