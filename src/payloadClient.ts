@@ -9,6 +9,11 @@ declare global {
 }
 
 export const getPayloadClient = async (): Promise<Payload> => {
+  // In development, clear the cache on each request to avoid stale state
+  if (process.env.NODE_ENV === 'development') {
+    return getPayload({ config: configPromise })
+  }
+
   if (!globalThis.__payloadClientPromise) {
     globalThis.__payloadClientPromise = getPayload({ config: configPromise })
   }

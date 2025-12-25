@@ -12,6 +12,9 @@ type AccordionItem = {
 }
 
 type AccordionProps = {
+  tagline?: string | null
+  headline?: string | null
+  introduction?: string | null
   items: AccordionItem[]
   blockSettings?: {
     theme?: 'light' | 'dark' | null
@@ -19,7 +22,13 @@ type AccordionProps = {
   } | null
 }
 
-export const AccordionComponent: React.FC<AccordionProps> = ({ items, blockSettings }) => {
+export const AccordionComponent: React.FC<AccordionProps> = ({
+  tagline,
+  headline,
+  introduction,
+  items,
+  blockSettings,
+}) => {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set())
   const theme = blockSettings?.theme || 'light'
   const isDark = theme === 'dark'
@@ -40,6 +49,39 @@ export const AccordionComponent: React.FC<AccordionProps> = ({ items, blockSetti
       className={`py-16 md:py-24 ${isDark ? 'bg-brand-darkblue' : 'bg-white'}`}
     >
       <div className="container mx-auto px-4 max-w-4xl">
+        {/* Header Section */}
+        {(tagline || headline || introduction) && (
+          <div className="text-center mb-12">
+            {tagline && (
+              <p
+                className={`text-sm uppercase tracking-widest mb-3 ${
+                  isDark ? 'text-brand-turquoise' : 'text-brand-orange'
+                }`}
+              >
+                {tagline}
+              </p>
+            )}
+            {headline && (
+              <h2
+                className={`text-3xl md:text-5xl font-bold font-poppins mb-4 ${
+                  isDark ? 'text-white' : 'text-brand-darkblue'
+                }`}
+              >
+                {headline}
+              </h2>
+            )}
+            {introduction && (
+              <p
+                className={`max-w-2xl mx-auto text-lg leading-relaxed ${
+                  isDark ? 'text-gray-300' : 'text-gray-600'
+                }`}
+              >
+                {introduction}
+              </p>
+            )}
+          </div>
+        )}
+
         <div className="space-y-4">
           {items.map((item, index) => {
             const isOpen = openItems.has(index)

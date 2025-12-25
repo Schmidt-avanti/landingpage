@@ -462,6 +462,18 @@ export interface Page {
            */
           anchorId?: ('contact-form' | 'services' | 'testimonials' | 'video' | 'industries' | 'suite') | null;
         };
+        /**
+         * Kleiner Text über der Headline (z.B. "HÄUFIGE FRAGEN")
+         */
+        tagline?: string | null;
+        /**
+         * Hauptüberschrift des FAQ-Bereichs
+         */
+        headline?: string | null;
+        /**
+         * Optionaler Text unter der Headline
+         */
+        introduction?: string | null;
         items: {
           title: string;
           content: {
@@ -688,6 +700,102 @@ export interface Page {
         id?: string | null;
         blockName?: string | null;
         blockType: 'blogPosts';
+      }
+    | {
+        /**
+         * Kleiner Text über der Headline
+         */
+        tagline?: string | null;
+        headline?: string | null;
+        /**
+         * Optionaler Text unter der Headline
+         */
+        introduction?: string | null;
+        steps?:
+          | {
+              title: string;
+              description?: string | null;
+              icon?:
+                | (
+                    | 'Calendar'
+                    | 'Settings'
+                    | 'ClipboardList'
+                    | 'Rocket'
+                    | 'RefreshCw'
+                    | 'CheckCircle'
+                    | 'Users'
+                    | 'Phone'
+                    | 'MessageSquare'
+                    | 'Mail'
+                    | 'Target'
+                    | 'TrendingUp'
+                  )
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        settings?: {
+          layout?: ('timeline' | 'cards') | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'processSteps';
+      }
+    | {
+        tagline?: string | null;
+        headline?: string | null;
+        introduction?: string | null;
+        phases?:
+          | {
+              title: string;
+              description?: string | null;
+              icon?: ('HelpCircle' | 'ClipboardCheck' | 'Mail' | 'PlusCircle' | 'RefreshCw' | 'TrendingUp') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'flywheelDiagram';
+      }
+    | {
+        tagline?: string | null;
+        headline?: string | null;
+        introduction?: string | null;
+        stats?:
+          | {
+              /**
+               * Der Zahlenwert (z.B. 94 für 94%)
+               */
+              value: number;
+              /**
+               * Text vor der Zahl (z.B. ">" für ">94%")
+               */
+              prefix?: string | null;
+              /**
+               * Text nach der Zahl (z.B. "%" oder "+")
+               */
+              suffix?: string | null;
+              /**
+               * Beschriftung (z.B. "Erst-Lösungsquote")
+               */
+              label: string;
+              /**
+               * Optionaler Kontext (z.B. "nach 6 Monaten")
+               */
+              description?: string | null;
+              icon?:
+                | ('CheckCircle' | 'TrendingUp' | 'Phone' | 'Clock' | 'Users' | 'Star' | 'Target' | 'MessageSquare')
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        settings?: {
+          layout?: ('grid' | 'row') | null;
+          animateOnScroll?: boolean | null;
+        };
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'statsShowcase';
       }
   )[];
   updatedAt: string;
@@ -1320,6 +1428,9 @@ export interface PagesSelect<T extends boolean = true> {
                     theme?: T;
                     anchorId?: T;
                   };
+              tagline?: T;
+              headline?: T;
+              introduction?: T;
               items?:
                 | T
                 | {
@@ -1455,6 +1566,71 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               postsPerPage?: T;
               columns?: T;
+              id?: T;
+              blockName?: T;
+            };
+        processSteps?:
+          | T
+          | {
+              tagline?: T;
+              headline?: T;
+              introduction?: T;
+              steps?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              settings?:
+                | T
+                | {
+                    layout?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        flywheelDiagram?:
+          | T
+          | {
+              tagline?: T;
+              headline?: T;
+              introduction?: T;
+              phases?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        statsShowcase?:
+          | T
+          | {
+              tagline?: T;
+              headline?: T;
+              introduction?: T;
+              stats?:
+                | T
+                | {
+                    value?: T;
+                    prefix?: T;
+                    suffix?: T;
+                    label?: T;
+                    description?: T;
+                    icon?: T;
+                    id?: T;
+                  };
+              settings?:
+                | T
+                | {
+                    layout?: T;
+                    animateOnScroll?: T;
+                  };
               id?: T;
               blockName?: T;
             };

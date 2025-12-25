@@ -10,6 +10,30 @@ export const Accordion: Block = {
   fields: [
     blockSettings,
     {
+      name: 'tagline',
+      type: 'text',
+      label: 'Tagline',
+      admin: {
+        description: 'Kleiner Text über der Headline (z.B. "HÄUFIGE FRAGEN")',
+      },
+    },
+    {
+      name: 'headline',
+      type: 'text',
+      label: 'Headline',
+      admin: {
+        description: 'Hauptüberschrift des FAQ-Bereichs',
+      },
+    },
+    {
+      name: 'introduction',
+      type: 'textarea',
+      label: 'Einleitung',
+      admin: {
+        description: 'Optionaler Text unter der Headline',
+      },
+    },
+    {
       name: 'items',
       type: 'array',
       label: 'Accordion Items',

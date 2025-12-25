@@ -21,6 +21,9 @@ import { AdditionalServices } from '@/blocks/AdditionalServices/Component'
 import { IndustriesGrid } from '@/blocks/IndustriesGrid/Component'
 import { FocusIndustriesGrid } from '@/blocks/FocusIndustriesGrid/Component'
 import { AdditionalIndustries } from '@/blocks/AdditionalIndustries/Component'
+import { ProcessSteps } from '@/blocks/ProcessSteps/Component'
+import { FlywheelDiagram } from '@/blocks/FlywheelDiagram/Component'
+import { StatsShowcase } from '@/blocks/StatsShowcase/Component'
 
 const blockComponents: any = {
   hero: Hero,
@@ -42,6 +45,9 @@ const blockComponents: any = {
   pricingAddons: PricingAddonsComponent,
   blogTeaser: BlogTeaserComponent,
   blogPosts: BlogPostsComponent,
+  processSteps: ProcessSteps,
+  flywheelDiagram: FlywheelDiagram,
+  statsShowcase: StatsShowcase,
 }
 
 export const RenderBlocks: React.FC<{ layout: Page['layout'] }> = ({ layout }) => {

@@ -18,6 +18,9 @@ import { PricingGrid } from '../../blocks/PricingGrid/config'
 import { PricingAddons } from '../../blocks/PricingAddons/config'
 import { BlogTeaser } from '../../blocks/BlogTeaser/config'
 import { BlogPosts } from '../../blocks/BlogPosts/config'
+import { ProcessSteps } from '../../blocks/ProcessSteps/config'
+import { FlywheelDiagram } from '../../blocks/FlywheelDiagram/config'
+import { StatsShowcase } from '../../blocks/StatsShowcase/config'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -66,6 +69,9 @@ export const Pages: CollectionConfig = {
         PricingAddons,
         BlogTeaser,
         BlogPosts,
+        ProcessSteps,
+        FlywheelDiagram,
+        StatsShowcase,
       ],
       required: true,
     },
