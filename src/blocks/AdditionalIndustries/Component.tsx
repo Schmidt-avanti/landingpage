@@ -127,7 +127,8 @@ export const AdditionalIndustries: React.FC<AdditionalIndustriesProps> = ({
               return (
                 <div
                   key={industry.id || index}
-                  className="flex flex-col items-center group cursor-default w-32 md:w-40"
+                  className="flex flex-col items-center group cursor-default w-32 md:w-40 animate-fade-in-up"
+                  style={{ animationDelay: `${index * 80}ms` }}
                 >
                   {/* Render Standard Icon or Custom Image or Fallback */}
                   {IconComponent ? (

@@ -157,7 +157,8 @@ export const FocusIndustriesGrid: React.FC<FocusIndustriesGridProps> = ({
               return (
                 <div
                   key={industry.id || index}
-                  className={`group p-8 rounded-2xl transition-all duration-300 flex flex-col items-start border ${cardClasses}`}
+                  className={`group p-8 rounded-2xl transition-all duration-300 flex flex-col items-start border animate-fade-in-up ${cardClasses}`}
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Icon */}
                   {IconComponent ? (
