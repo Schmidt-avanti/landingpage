@@ -55,6 +55,14 @@ export const Slider: React.FC<Props> = ({ testimonials, theme = 'dark' }) => {
     setCurrentTranslate(diff)
   }
 
+  const handleTouchMove = (_e: React.TouchEvent) => {
+    const touch = _e.touches[0]
+    if (!draggingRef.current) return
+    const currentX = touch.clientX
+    const diff = currentX - startX
+    setCurrentTranslate(diff)
+  }
+
   const handlePointerUp = (e: React.PointerEvent) => {
     if (!draggingRef.current) return
     setIsDragging(false)
