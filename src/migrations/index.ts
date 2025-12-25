@@ -11,6 +11,9 @@ import * as migration_20251223_155805_hero_cta_linktype from './20251223_155805_
 import * as migration_20251223_161556_blog_authors_posts from './20251223_161556_blog_authors_posts';
 import * as migration_20251223_162129_blog_teaser_block from './20251223_162129_blog_teaser_block';
 import * as migration_20251223_163410_blog_posts_block from './20251223_163410_blog_posts_block';
+import * as migration_20251225_103510 from './20251225_103510';
+import * as migration_20251225_131558_add_industries_focus_type from './20251225_131558_add_industries_focus_type';
+import * as migration_20251225_134727_add_new_industry_icons from './20251225_134727_add_new_industry_icons';
 
 export const migrations = [
   {
@@ -76,6 +79,21 @@ export const migrations = [
   {
     up: migration_20251223_163410_blog_posts_block.up,
     down: migration_20251223_163410_blog_posts_block.down,
-    name: '20251223_163410_blog_posts_block'
+    name: '20251223_163410_blog_posts_block',
+  },
+  {
+    up: migration_20251225_103510.up,
+    down: migration_20251225_103510.down,
+    name: '20251225_103510',
+  },
+  {
+    up: migration_20251225_131558_add_industries_focus_type.up,
+    down: migration_20251225_131558_add_industries_focus_type.down,
+    name: '20251225_131558_add_industries_focus_type',
+  },
+  {
+    up: migration_20251225_134727_add_new_industry_icons.up,
+    down: migration_20251225_134727_add_new_industry_icons.down,
+    name: '20251225_134727_add_new_industry_icons'
   },
 ];

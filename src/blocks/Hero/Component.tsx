@@ -20,6 +20,8 @@ interface BentoCard {
   statLabel?: string | null
   statBackgroundImage?: Media | string | number | null
   cardTitle?: string | null
+  cardHeadline?: string | null
+  cardSubheadline?: string | null
 }
 
 interface HeroProps {
@@ -30,6 +32,8 @@ interface HeroProps {
   ctaLinkType?: 'page' | 'anchor' | null
   ctaLink?: string | null
   ctaAnchor?: string | null
+  secondaryCtaText?: string | null
+  secondaryCtaLink?: string | null
   bentoCards?: BentoCard[] | null
 }
 
@@ -70,6 +74,8 @@ export const Hero: React.FC<HeroProps> = ({
   ctaLinkType,
   ctaLink,
   ctaAnchor,
+  secondaryCtaText,
+  secondaryCtaLink,
   bentoCards,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -80,14 +86,27 @@ export const Hero: React.FC<HeroProps> = ({
   const [breakpointReady, setBreakpointReady] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [currentHeadline, setCurrentHeadline] = useState(headline)
+  const [currentSubheadline, setCurrentSubheadline] = useState(subheadline)
   const autoAdvanceIdRef = useRef<number | null>(null)
   const pointerIdRef = useRef<number | null>(null)
   const swipeStartXRef = useRef<number | null>(null)
   const swipeLastXRef = useRef<number | null>(null)
+  const gridElementRef = useRef<HTMLDivElement>(null)
   const cardCount = Math.min(bentoCards?.length || 0, 3)
 
   // Build CTA href based on link type
   const ctaHref = ctaLinkType === 'anchor' && ctaAnchor ? `/#${ctaAnchor}` : ctaLink || '/'
+
+  // Update dynamic text content when activeIndex changes
+  useEffect(() => {
+    const activeCard = bentoCards?.[activeIndex]
+    const newHeadline = activeCard?.cardHeadline || headline
+    const newSubheadline = activeCard?.cardSubheadline || subheadline
+
+    setCurrentHeadline(newHeadline)
+    setCurrentSubheadline(newSubheadline)
+  }, [activeIndex, bentoCards, headline, subheadline])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -132,6 +151,97 @@ export const Hero: React.FC<HeroProps> = ({
     return () => mediaQuery.removeListener(update)
   }, [])
 
+  // GSAP Text Animation when activeIndex changes
+  useLayoutEffect(() => {
+    if (!mounted || !breakpointReady || !containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
+
+      // Fade out current text
+      tl.to(['[data-hero="headline"]', '[data-hero="subheadline"]'], {
+        opacity: 0,
+        duration: 0.3,
+      })
+
+      // Update text content (happens instantly during fade)
+      tl.call(() => {
+        // Text is already updated by the useEffect above
+      })
+
+      // Fade in new text
+      tl.to(['[data-hero="headline"]', '[data-hero="subheadline"]'], {
+        opacity: 1,
+        duration: 0.3,
+      })
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [activeIndex, mounted, breakpointReady])
+
+  // Parallax Mouse Effect
+  useLayoutEffect(() => {
+    if (!mounted || !breakpointReady || !containerRef.current || !isDesktop || reduceMotion) return
+
+    const container = containerRef.current
+    const ctx = gsap.context(() => {
+      // Use the container itself (has hero-platform-bg class)
+      const gridElement = container as HTMLElement
+      if (!gridElement) return
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const rect = container.getBoundingClientRect()
+        const centerX = rect.left + rect.width / 2
+        const centerY = rect.top + rect.height / 2
+
+        // Calculate mouse position relative to center (-1 to 1)
+        const mouseX = (e.clientX - centerX) / (rect.width / 2)
+        const mouseY = (e.clientY - centerY) / (rect.height / 2)
+
+        // Parallax effect for grid (subtle, opposite direction)
+        const gridX = mouseX * -40 // Max 40px offset
+        const gridY = mouseY * -40 // Max 40px offset
+
+        // 3D tilt effect (rotation based on mouse position)
+        const rotateX = mouseY * -5 // Max 5 degrees rotation
+        const rotateY = mouseX * 5 // Max 5 degrees rotation
+
+        // Apply transform to the pseudo-element via CSS custom properties
+        gridElement.style.setProperty('--grid-x', `${gridX}px`)
+        gridElement.style.setProperty('--grid-y', `${gridY}px`)
+        gridElement.style.setProperty('--rotate-x', `${rotateX}deg`)
+        gridElement.style.setProperty('--rotate-y', `${rotateY}deg`)
+
+        // Mouse glow effect (follows mouse)
+        const glowX = ((e.clientX - rect.left) / rect.width) * 100
+        const glowY = ((e.clientY - rect.top) / rect.height) * 100
+        gridElement.style.setProperty('--mouse-x', `${glowX}%`)
+        gridElement.style.setProperty('--mouse-y', `${glowY}%`)
+      }
+
+      const handleMouseLeave = () => {
+        // Reset positions when mouse leaves
+        gridElement.style.setProperty('--grid-x', '0px')
+        gridElement.style.setProperty('--grid-y', '0px')
+        gridElement.style.setProperty('--rotate-x', '0deg')
+        gridElement.style.setProperty('--rotate-y', '0deg')
+        gridElement.style.setProperty('--mouse-x', '50%')
+        gridElement.style.setProperty('--mouse-y', '50%')
+      }
+
+      // Add event listeners
+      container.addEventListener('mousemove', handleMouseMove)
+      container.addEventListener('mouseleave', handleMouseLeave)
+
+      return () => {
+        container.removeEventListener('mousemove', handleMouseMove)
+        container.removeEventListener('mouseleave', handleMouseLeave)
+      }
+    }, container)
+
+    return () => ctx.revert()
+  }, [mounted, breakpointReady, isDesktop, reduceMotion])
+
   useLayoutEffect(() => {
     if (!mounted) return
     if (!breakpointReady) return
@@ -146,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({
           '[data-hero="cta"]',
           '[data-hero="dots"]',
         ],
-        { opacity: 0, y: 16 },
+        { opacity: 0 },
       )
       gsap.set('[data-hero-card]', { opacity: 0 })
 
@@ -162,7 +272,6 @@ export const Hero: React.FC<HeroProps> = ({
         ],
         {
           opacity: 1,
-          y: 0,
           duration: 0.7,
           stagger: 0.08,
         },
@@ -250,7 +359,7 @@ export const Hero: React.FC<HeroProps> = ({
     if (autoAdvanceIdRef.current) window.clearInterval(autoAdvanceIdRef.current)
     autoAdvanceIdRef.current = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % cardCount)
-    }, 3000)
+    }, 6000)
 
     return () => {
       if (autoAdvanceIdRef.current) window.clearInterval(autoAdvanceIdRef.current)
@@ -278,7 +387,7 @@ export const Hero: React.FC<HeroProps> = ({
     stopAutoAdvance()
     autoAdvanceIdRef.current = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % cardCount)
-    }, 3000)
+    }, 6000)
   }
 
   const goToIndex = (nextIndex: number) => {
@@ -296,87 +405,117 @@ export const Hero: React.FC<HeroProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full min-h-screen overflow-hidden bg-brand-darkblue"
+      className="relative w-full min-h-screen overflow-hidden hero-platform-bg"
     >
       {/* Background Glow */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-brand-turquoise/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-brand-orange/10 blur-[150px] rounded-full pointer-events-none" />
 
-      <div className="container mx-auto px-4 pt-24 pb-16 md:pt-28 md:pb-20 lg:py-32 relative z-10 min-h-[100svh] flex items-start lg:h-screen lg:items-center">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center w-full">
+      <div className="container mx-auto px-4 pt-16 pb-12 md:pt-28 md:pb-20 lg:py-32 relative z-10 min-h-[100svh] flex items-start lg:h-screen lg:items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 w-full">
           {/* LEFT: Text */}
-          <div className="text-white space-y-5 md:space-y-6">
+          <div className="text-white relative h-[420px] sm:h-[480px] lg:h-[600px]">
+            {/* Badge - Fixed at top */}
             {badgeText && (
-              <div
-                data-hero="badge"
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 text-sm font-medium text-brand-turquoise"
-              >
-                <ShieldCheck size={16} />
-                <span>{badgeText}</span>
-              </div>
-            )}
-
-            <h1
-              data-hero="headline"
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight"
-            >
-              {headline}
-            </h1>
-
-            {subheadline && (
-              <p
-                data-hero="subheadline"
-                className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg"
-              >
-                {subheadline}
-              </p>
-            )}
-
-            {ctaText && ctaHref && (
-              <div className="pt-4">
-                <a
-                  data-hero="cta"
-                  href={ctaHref}
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-brand-orange rounded-xl hover:bg-brand-orange/90 hover:scale-105 shadow-lg shadow-brand-orange/20"
+              <div className="absolute top-0 left-0">
+                <div
+                  data-hero="badge"
+                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-1.5 text-sm font-medium text-brand-turquoise"
                 >
-                  {ctaText}
-                  <svg
-                    className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </a>
+                  <ShieldCheck size={16} />
+                  <span>{badgeText}</span>
+                </div>
               </div>
             )}
 
-            {/* Scroll / Story Dots */}
-            <div data-hero="dots" className="pt-8">
-              <div className="flex gap-1.5">
-                {bentoCards?.slice(0, 3).map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => goToIndex(i)}
-                    aria-label={`Hero Story ${i + 1}`}
-                    className={`h-2 rounded-full transition-all duration-500 ${
-                      i === activeIndex ? 'bg-brand-turquoise w-8' : 'bg-white/30 w-2'
-                    }`}
-                  />
-                ))}
+            {/* Headline + Subheadline - Centered in middle area */}
+            <div className="absolute top-[50px] sm:top-[70px] lg:top-[80px] left-0 w-full bottom-[110px] sm:bottom-[150px] lg:bottom-[200px] flex flex-col justify-center">
+              <div className="space-y-4 sm:space-y-6">
+                <h1
+                  data-hero="headline"
+                  className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight"
+                >
+                  {currentHeadline}
+                </h1>
+
+                {currentSubheadline && (
+                  <p
+                    data-hero="subheadline"
+                    className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-lg"
+                  >
+                    {currentSubheadline}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* CTA + Dots - Fixed at bottom */}
+            <div className="absolute bottom-0 left-0 w-full space-y-4 sm:space-y-6">
+              {ctaText && ctaHref && (
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    data-hero="cta"
+                    href={ctaHref}
+                    className="group inline-flex items-center justify-center px-6 py-3 text-base sm:px-8 sm:py-4 sm:text-lg font-bold text-white transition-all duration-300 bg-brand-orange rounded-xl hover:bg-brand-orange/90 hover:scale-105 shadow-lg shadow-brand-orange/20"
+                  >
+                    {ctaText}
+                    <svg
+                      className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </a>
+
+                  {secondaryCtaText && secondaryCtaLink && (
+                    <a
+                      href={secondaryCtaLink}
+                      className="group hidden sm:inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-brand-orange transition-all duration-300 border-2 border-brand-orange rounded-xl hover:bg-brand-orange/10 hover:scale-105"
+                    >
+                      {secondaryCtaText}
+                      <svg
+                        className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              )}
+
+              <div data-hero="dots">
+                <div className="flex gap-1.5">
+                  {bentoCards?.slice(0, 3).map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => goToIndex(i)}
+                      aria-label={`Hero Story ${i + 1}`}
+                      className={`h-2 rounded-full transition-all duration-500 ${
+                        i === activeIndex ? 'bg-brand-turquoise w-8' : 'bg-white/30 w-2'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT: Cards + Floating Badge */}
           <div
-            className="relative h-[320px] sm:h-[380px] md:h-[450px] lg:h-[550px]"
+            className="relative h-[400px] sm:h-[420px] md:h-[480px] lg:h-[550px] lg:self-center"
             style={{ touchAction: 'pan-y' }}
             onPointerDown={(e) => {
               if (isDesktop || cardCount <= 1) return

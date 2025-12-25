@@ -8,6 +8,8 @@ import { VideoBlock } from '../../blocks/VideoBlock/config'
 import { ContactForm } from '../../blocks/ContactForm/config'
 import { AdditionalServicesBlock } from '../../blocks/AdditionalServices/config'
 import { IndustriesGridBlock } from '../../blocks/IndustriesGrid/config'
+import { FocusIndustriesGrid } from '../../blocks/FocusIndustriesGrid/config'
+import { AdditionalIndustries } from '../../blocks/AdditionalIndustries/config'
 import { PageHero } from '../../blocks/PageHero/config'
 import { Accordion } from '../../blocks/Accordion/config'
 import { RichTextContent } from '../../blocks/RichTextContent/config'
@@ -50,6 +52,8 @@ export const Pages: CollectionConfig = {
         ServiceGridBlock,
         AdditionalServicesBlock,
         IndustriesGridBlock,
+        FocusIndustriesGrid,
+        AdditionalIndustries,
         TestimonialsBlock,
         LogoTicker,
         ContentSideBySide,
