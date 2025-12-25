@@ -11,29 +11,34 @@ type Props = {
 }
 
 export default async function DynamicPage({ params }: Props) {
-  const { slug } = await params
-  const payload = await getPayloadClient()
+  try {
+    const { slug } = await params
+    const payload = await getPayloadClient()
 
-  const result = await payload.find({
-    collection: 'pages',
-    where: {
-      slug: {
-        equals: slug,
+    const result = await payload.find({
+      collection: 'pages',
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
+    })
 
-  const page = result.docs?.[0] || null
+    const page = result.docs?.[0] || null
 
-  if (!page) {
+    if (!page) {
+      notFound()
+    }
+
+    return (
+      <div className="dynamic-page w-full min-h-screen">
+        <RenderBlocks layout={page.layout} />
+      </div>
+    )
+  } catch (error) {
+    console.error('Error loading page:', error)
     notFound()
   }
-
-  return (
-    <div className="dynamic-page w-full min-h-screen">
-      <RenderBlocks layout={page.layout} />
-    </div>
-  )
 }
 
 // Generate static params for known pages
@@ -43,21 +48,27 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params
-  const payload = await getPayloadClient()
+  try {
+    const { slug } = await params
+    const payload = await getPayloadClient()
 
-  const result = await payload.find({
-    collection: 'pages',
-    where: {
-      slug: {
-        equals: slug,
+    const result = await payload.find({
+      collection: 'pages',
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
+    })
 
-  const page = result.docs?.[0]
+    const page = result.docs?.[0]
 
-  return {
-    title: page?.title || 'Page',
+    return {
+      title: page?.title || 'Page',
+    }
+  } catch {
+    return {
+      title: 'Page',
+    }
   }
 }

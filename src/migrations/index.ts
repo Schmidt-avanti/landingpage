@@ -14,6 +14,8 @@ import * as migration_20251223_163410_blog_posts_block from './20251223_163410_b
 import * as migration_20251225_103510 from './20251225_103510';
 import * as migration_20251225_131558_add_industries_focus_type from './20251225_131558_add_industries_focus_type';
 import * as migration_20251225_134727_add_new_industry_icons from './20251225_134727_add_new_industry_icons';
+import * as migration_20251225_152729 from './20251225_152729';
+import * as migration_20251225_162448 from './20251225_162448';
 
 export const migrations = [
   {
@@ -94,6 +96,16 @@ export const migrations = [
   {
     up: migration_20251225_134727_add_new_industry_icons.up,
     down: migration_20251225_134727_add_new_industry_icons.down,
-    name: '20251225_134727_add_new_industry_icons'
+    name: '20251225_134727_add_new_industry_icons',
+  },
+  {
+    up: migration_20251225_152729.up,
+    down: migration_20251225_152729.down,
+    name: '20251225_152729',
+  },
+  {
+    up: migration_20251225_162448.up,
+    down: migration_20251225_162448.down,
+    name: '20251225_162448'
   },
 ];

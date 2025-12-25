@@ -155,9 +155,10 @@ export const FocusIndustriesGrid: React.FC<FocusIndustriesGridProps> = ({
               const slug = industry.slug || ''
 
               return (
-                <div
+                <Link
                   key={industry.id || index}
-                  className={`group p-8 rounded-2xl transition-all duration-300 flex flex-col items-start border animate-fade-in-up ${cardClasses}`}
+                  href={slug ? `/branchenloesungen/${slug}` : '#'}
+                  className={`group p-8 rounded-2xl transition-all duration-300 flex flex-col items-start border animate-fade-in-up cursor-pointer ${cardClasses}`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Icon */}
@@ -193,15 +194,14 @@ export const FocusIndustriesGrid: React.FC<FocusIndustriesGridProps> = ({
                   )}
 
                   {showLink && slug && (
-                    <Link
-                      href={`/branchenloesungen/${slug}`}
+                    <span
                       className={`inline-flex items-center gap-2 font-medium transition-colors ${linkClasses}`}
                     >
                       Mehr erfahren
                       <ArrowRight size={16} />
-                    </Link>
+                    </span>
                   )}
-                </div>
+                </Link>
               )
             })}
 
