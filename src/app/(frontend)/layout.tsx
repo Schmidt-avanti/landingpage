@@ -3,6 +3,7 @@ import React, { Suspense } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ScrollToAnchor } from '@/components/ScrollToAnchor'
+import { PageLoader } from '@/components/PageLoader'
 import './styles.css'
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <>
+      <PageLoader />
       <Suspense fallback={null}>
         <ScrollToAnchor />
       </Suspense>
