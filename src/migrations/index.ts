@@ -16,6 +16,8 @@ import * as migration_20251225_131558_add_industries_focus_type from './20251225
 import * as migration_20251225_134727_add_new_industry_icons from './20251225_134727_add_new_industry_icons';
 import * as migration_20251225_152729 from './20251225_152729';
 import * as migration_20251225_162448 from './20251225_162448';
+import * as migration_20251226_142358 from './20251226_142358';
+import * as migration_20251226_142706 from './20251226_142706';
 
 export const migrations = [
   {
@@ -106,6 +108,16 @@ export const migrations = [
   {
     up: migration_20251225_162448.up,
     down: migration_20251225_162448.down,
-    name: '20251225_162448'
+    name: '20251225_162448',
+  },
+  {
+    up: migration_20251226_142358.up,
+    down: migration_20251226_142358.down,
+    name: '20251226_142358',
+  },
+  {
+    up: migration_20251226_142706.up,
+    down: migration_20251226_142706.down,
+    name: '20251226_142706'
   },
 ];

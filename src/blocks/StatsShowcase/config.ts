@@ -31,12 +31,51 @@ export const StatsShowcase: Block = {
       maxRows: 6,
       fields: [
         {
+          name: 'displayType',
+          type: 'select',
+          label: 'Anzeige-Typ',
+          defaultValue: 'value',
+          options: [
+            { label: 'Einzelwert (animierter Zähler)', value: 'value' },
+            { label: 'Zeitverlauf-Chart', value: 'chart' },
+          ],
+          admin: {
+            description: 'Wie soll die Statistik dargestellt werden?',
+          },
+        },
+        {
           name: 'value',
           type: 'number',
           required: true,
-          label: 'Wert',
+          label: 'Endwert',
           admin: {
             description: 'Der Zahlenwert (z.B. 94 für 94%)',
+          },
+        },
+        {
+          name: 'startValue',
+          type: 'number',
+          label: 'Startwert (nur für Chart)',
+          admin: {
+            description: 'Der Anfangswert für den Zeitverlauf (z.B. 65 für 65%)',
+          },
+        },
+        {
+          name: 'chartPeriods',
+          type: 'number',
+          label: 'Zeitperioden (nur für Chart)',
+          defaultValue: 6,
+          admin: {
+            description: 'Anzahl der Zeitpunkte auf der X-Achse (z.B. 6 für 6 Monate)',
+          },
+        },
+        {
+          name: 'chartPeriodLabel',
+          type: 'text',
+          label: 'Perioden-Label (nur für Chart)',
+          defaultValue: 'Monate',
+          admin: {
+            description: 'Beschriftung für die X-Achse (z.B. "Monate", "Wochen")',
           },
         },
         {

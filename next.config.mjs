@@ -10,7 +10,24 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
-  // Your Next.js config here
+  // Remove console.log in production builds
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Image optimization for Supabase storage
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'dxnbftpesdyoghuefmls.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+    // Automatically serve WebP/AVIF for better compression
+    formats: ['image/avif', 'image/webp'],
+    // Cache optimized images for 1 year
+    minimumCacheTTL: 31536000,
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

@@ -256,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({
           '[data-hero="cta"]',
           '[data-hero="dots"]',
         ],
-        { opacity: 0 },
+        { opacity: 0, y: 20 },
       )
       gsap.set('[data-hero-card]', { opacity: 0 })
 
@@ -272,6 +272,7 @@ export const Hero: React.FC<HeroProps> = ({
         ],
         {
           opacity: 1,
+          y: 0,
           duration: 0.7,
           stagger: 0.08,
         },
@@ -474,6 +475,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                   {secondaryCtaText && secondaryCtaLink && (
                     <a
+                      data-hero="cta"
                       href={secondaryCtaLink}
                       className="group hidden sm:inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-brand-orange transition-all duration-300 border-2 border-brand-orange rounded-xl hover:bg-brand-orange/10 hover:scale-105"
                     >
@@ -742,7 +744,7 @@ export const Hero: React.FC<HeroProps> = ({
             {isDesktop && hasScrolled && activeCard?.cardTitle && (
               <div
                 key={`badge-${activeIndex}`}
-                className="absolute z-50 pointer-events-none animate-slideInFade"
+                className="absolute z-50 pointer-events-none"
                 style={{
                   top: currentBadgePos.top,
                   left: currentBadgePos.left,
