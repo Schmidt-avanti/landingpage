@@ -253,6 +253,7 @@ function AnimatedLineChart({
           d={`${pathD} L ${points[points.length - 1].x} ${padding.top + chartHeight} L ${padding.left} ${padding.top + chartHeight} Z`}
           fill="url(#chartGradient)"
           opacity={animationProgress}
+          suppressHydrationWarning
         />
 
         {/* Main animated line */}
@@ -264,6 +265,7 @@ function AnimatedLineChart({
           strokeLinecap="round"
           strokeDasharray={pathLength}
           strokeDashoffset={animatedDashOffset}
+          suppressHydrationWarning
         />
 
         {/* Animated dot with value label */}
@@ -422,6 +424,9 @@ export const StatsShowcase: React.FC<StatsShowcaseProps> = ({
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    // Dynamic threshold: 20% on mobile (so it triggers even if tall), 80% on desktop (user preference)
+    const threshold = window.innerWidth < 1024 ? 0.2 : 0.8
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -429,7 +434,7 @@ export const StatsShowcase: React.FC<StatsShowcaseProps> = ({
           observer.disconnect()
         }
       },
-      { threshold: 0.8 },
+      { threshold },
     )
 
     if (containerRef.current) observer.observe(containerRef.current)
