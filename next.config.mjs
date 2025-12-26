@@ -10,6 +10,10 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // Remove console.log in production builds
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   // Image optimization for Supabase storage
   images: {
     remotePatterns: [

@@ -97,10 +97,8 @@ export const PricingGridComponent: React.FC<PricingGridProps> = ({
                   </div>
                 )}
 
-                {/* Card Content - Fixed height sections for consistency */}
-                <div
-                  className={`flex flex-col h-full ${pkg.isRecommended ? 'pt-10' : 'pt-6'} px-6 pb-6`}
-                >
+                {/* Card Content - All cards have same padding, badge space is consistent */}
+                <div className="flex flex-col h-full pt-10 px-6 pb-6">
                   {/* Package Name - Fixed height */}
                   <div className="min-h-[60px] flex items-center justify-center">
                     <h3

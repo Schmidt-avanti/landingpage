@@ -764,9 +764,25 @@ export interface Page {
         stats?:
           | {
               /**
+               * Wie soll die Statistik dargestellt werden?
+               */
+              displayType?: ('value' | 'chart') | null;
+              /**
                * Der Zahlenwert (z.B. 94 für 94%)
                */
               value: number;
+              /**
+               * Der Anfangswert für den Zeitverlauf (z.B. 65 für 65%)
+               */
+              startValue?: number | null;
+              /**
+               * Anzahl der Zeitpunkte auf der X-Achse (z.B. 6 für 6 Monate)
+               */
+              chartPeriods?: number | null;
+              /**
+               * Beschriftung für die X-Achse (z.B. "Monate", "Wochen")
+               */
+              chartPeriodLabel?: string | null;
               /**
                * Text vor der Zahl (z.B. ">" für ">94%")
                */
@@ -1617,7 +1633,11 @@ export interface PagesSelect<T extends boolean = true> {
               stats?:
                 | T
                 | {
+                    displayType?: T;
                     value?: T;
+                    startValue?: T;
+                    chartPeriods?: T;
+                    chartPeriodLabel?: T;
                     prefix?: T;
                     suffix?: T;
                     label?: T;

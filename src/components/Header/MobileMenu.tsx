@@ -51,7 +51,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
   }, [isOpen, mounted])
 
   const overlay = (
-    <div className="fixed inset-0 z-[9999] md:hidden">
+    <div className="fixed inset-0 z-[9999] lg:hidden">
       <div
         className="absolute inset-0 bg-brand-darkblue/80 backdrop-blur-sm"
         onClick={() => setIsOpen(false)}
@@ -116,7 +116,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({
       {/* Hamburger Button - Only on mobile */}
       <button
         onClick={() => setIsOpen(true)}
-        className="md:hidden p-2 text-brand-darkblue hover:text-brand-turquoise transition-colors"
+        className="lg:hidden p-2 text-brand-darkblue hover:text-brand-turquoise transition-colors"
         aria-label="Menu öffnen"
       >
         <Menu size={28} />

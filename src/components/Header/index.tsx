@@ -16,7 +16,8 @@ export const Header: React.FC = async () => {
     settings = null
   }
 
-  const logoUrl = typeof settings?.logo === 'object' && settings?.logo?.url ? settings.logo.url : null
+  const logoUrl =
+    typeof settings?.logo === 'object' && settings?.logo?.url ? settings.logo.url : null
   const navigation = settings?.navigation || []
   const ctaType = settings?.ctaType || 'link'
   const ctaText = settings?.ctaText || 'Kontakt'
@@ -77,8 +78,8 @@ export const Header: React.FC = async () => {
           )}
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-8 items-center">
+        {/* Desktop Navigation - only show on lg+ (1024px) */}
+        <nav className="hidden lg:flex gap-8 items-center">
           {navigation.map(
             (
               item: {

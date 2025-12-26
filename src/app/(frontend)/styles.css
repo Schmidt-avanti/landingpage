@@ -292,15 +292,40 @@ select {
   margin-bottom: 0;
 }
 
-.payload-richtext h1,
-.payload-richtext h2,
-.payload-richtext h3,
-.payload-richtext h4 {
-  color: inherit; /* Allow utilities to override */
+.payload-richtext h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.75em;
+  line-height: 1.2;
+  color: var(--color-brand-darkblue);
+}
+
+.payload-richtext h2 {
+  font-size: 2rem;
   font-weight: 700;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   line-height: 1.3;
+  color: var(--color-brand-darkblue);
+}
+
+.payload-richtext h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+  color: var(--color-brand-darkblue);
+}
+
+.payload-richtext h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+  color: var(--color-brand-darkblue);
 }
 
 .payload-richtext ul,
